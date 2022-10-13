@@ -1,0 +1,9 @@
+#clothes {
+    display: none;
+}
+#accesories {
+    display: none;
+}
+#shoes {
+    display: inline-block;
+}

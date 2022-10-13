@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <title>{% block title %}Login Here{% endblock %}</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href=" {% static '/css/login.css' %} " />
+  </head>
+  {% block content %}
+  <body>
+    <div id="app">
+    {% load crispy_forms_tags %} 
+    <form method="post" class="from-group">
+      {% csrf_token %} {{form|crispy}}
+      <p class="register">Don't have an account? Create one <a href="/register">here</a></p>
+      {% comment %}
+      <p>Forgot password? Click <a href="#">here</a></p>
+      {% endcomment %}
+      <button type="submit" class="btn btn-success">Login</button>
+    </form>
+    <script src="{% static '/js/login.js' %}">
+
+    </script>
+    {% endblock %}
+    
+  </body>
+</html>

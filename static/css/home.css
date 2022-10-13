@@ -1,0 +1,27 @@
+.image {
+    width: 40%;
+    
+}
+.product {
+    
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    
+}
+.container {
+    display: flex;
+    justify-content: center;
+    
+}
+.products {
+    padding-left: 5%;
+    padding-right: 5%;
+    display: grid;
+    grid-template-columns: repeat(5, 20%);
+    grid-gap: 20px;
+    
+    
+    
+    grid-row-gap: 20px;
+}

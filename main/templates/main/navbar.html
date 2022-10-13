@@ -1,0 +1,29 @@
+{% load static%}
+<head>
+  <link rel="stylesheet" href=" {% static '/css/navbar.css' %} " />
+</head>
+<div class="navbar">
+  <a href="/"> <h1>Blessed</h1></a>
+  <div class="nav">
+    <ul>
+      <li><a href="/">About us</a></li>
+      <li><a href="wanted.html">Wanted</a></li>
+      <li><a href="/myproducts/">My Products</a></li>
+      <li>
+        <a href="/logout/"
+          ><button class="logout" type="button">Log out</button></a
+        >
+      </li>
+    </ul>
+  </div>
+  <a href="/cart/"
+    ><img src=" {% static '/images/kosik.jpg' %} " class="basket"
+  /></a>
+</div>
+<div class="second-navbar">
+  <a href="#">Shoes</a>
+  <a href="#">Shoes</a>
+  <a href="#">Shoes</a>
+</div>
+<br />
+{% block content %} {% endblock %}

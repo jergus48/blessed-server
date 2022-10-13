@@ -1,0 +1,42 @@
+*,
+*:before,
+*:after {
+  
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url("../images/13.png");
+  overflow: hidden;
+}
+.from-group {
+    position: absolute;
+    left: 40%;
+    top: 45%;
+}
+.bubble {
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: .7;
+  transition: linear 2s, transform 0.2s;
+}
+
+.bubble:hover {
+    z-index: -1;
+  transform: scale(1.7);
+}
+
+.bubble--bust {
+    z-index: -1;
+  transform: scale(1.8);}
+  .from-group .register {
+    color: black;
+  }
+  .from-group .register:hover {
+    color: white;
+    cursor: default;
+  }

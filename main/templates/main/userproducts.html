@@ -1,0 +1,23 @@
+{% extends 'main/navbar.html' %}{% load static%} {% block content%}
+<head>
+  <link rel="stylesheet" href=" {% static '/css/userproducts.css' %} " />
+</head>
+
+{% csrf_token %}
+<h2>My Products</h2>
+<a href="/add/">
+  <button>Add products</button>
+</a>
+{% if user.products.count == 0 %}
+<p>nemas vlastne produkty</p>
+
+{% else %} {% for product in user.products.all %}
+<div class="product">
+  <img class="image" src="{{product.image.url}}" alt="image" />
+  <p>Name: {{product.name}}</p>
+  <p>Desciption: {{product.description}}</p>
+  <p>Size: {{product.size}}</p>
+  <p>Category: {{product.categories}}</p>
+  <p>Price: {{product.price}}$</p>
+</div>
+{% endfor %} {% endif %} {% endblock %}

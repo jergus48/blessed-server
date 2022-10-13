@@ -1,0 +1,19 @@
+{% extends 'main/navbar.html' %} {% load static %} {% block content %}
+
+<form method="post" action="">
+  {% csrf_token %}
+
+  <div class="product">
+    <img class="image" src="{{pd.image.url}}" alt="image" />
+    <p>Name: {{pd.name}}</p>
+    <p>Desciption: {{pd.description}}</p>
+    <p>Size: {{pd.size}}</p>
+    <p>category: {{pd.categories}}</p>
+    <p>id: {{pd.id}}</p>
+    <p>img: {{pd.image}}</p>
+    <button  type="submit" value="addtocart" name="addtocart">Add to Cart</button>
+    
+
+  </div>
+</form>
+{% endblock %}
