@@ -1,5 +1,5 @@
 
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Products,Cart,CartItem
 from django.contrib.auth.models import User
 # Create your views here.
@@ -83,7 +83,7 @@ def productLook(response, id):
                 price= pd.price
                 size = pd.size
                 image = pd.image
-                cart.cartitem_set.create(productid=productid, name=name,price=price, size=size, image=image,quantity=1 )
+                cart.cartitem_set.create(productid=productid, name=name,price=price, size=size, image=image )
             else:
                 pass
             
@@ -93,8 +93,20 @@ def productLook(response, id):
     return render(response, "main/productLook.html", {"pd":pd})
 
 def cart(response):
+    carts= response.user.cart.all()
     
-    return render(response, "main/cart.html", {})
+    for i in carts:
+        cart=Cart.objects.get(id= i.id) 
+        number= cart.cartitem_set.count()
+    if response.method =="POST":
+        if response.POST.get("delete"):
+            itemid=response.POST.get("delete")
+            try:
+                cart.cartitem_set.get(id=int(itemid)).delete()
+            except:
+                redirect("/cart/")
+            redirect("/cart/")
+    return render(response, "main/cart.html", {"number":number})
 
     
     

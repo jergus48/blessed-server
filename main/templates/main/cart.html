@@ -9,7 +9,14 @@
     <title>Cart</title>
 </head>
 <body>
+    
+    <form method="post" action="">
+        {% csrf_token %}
     <h1>Cart</h1>
+    {% if number == 0 %}
+    <p>your cart is empty</p>
+    {% else %}
+    
     {% for cart in user.cart.all %}
     
         {% for item in cart.cartitem_set.all %}
@@ -18,9 +25,11 @@
             <p>{{item.name}}</p>
             <p>{{item.size}}</p>
             <p>{{item.price}}</p>
-            
+            <button type="submit" value="{{item.id}}" name="delete">Remove</button>
         {% endfor %}
     {% endfor %}
+    {% endif %}
+    </form>
 </body>
 </html>
 {% endblock %}
