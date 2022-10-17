@@ -7,7 +7,7 @@
   {% csrf_token %}
   <h1>Add products</h1>
   <input type="text" name="name" placeholder="Product Name" required />
-  <input type="text" name="description" placeholder="description" required />
+  <textarea name="description" placeholder="description" required></textarea>
 
   <select name="category" onchange="sizes()" id="category">
     <option name="Shoes" value="Shoes">Shoes</option>
@@ -18,16 +18,20 @@
   <select id="shoes" name="size">
     <option name="44" value="44">44</option>
     <option name="45" value="45">45</option>
-    
   </select>
   <select id="clothes" name="size">
-    
     <option name="M" value="M">M</option>
     <option name="L" value="L">L</option>
   </select>
-  <input type="text" name="size" id="accesories" placeholder="Accesory Size" value="default" />
+  <input
+    type="text"
+    name="size"
+    id="accesories"
+    placeholder="Accesory Size"
+    value="default"
+  />
 
-  <input type="number" name="price" step="0.01" placeholder="price"  required />
+  <input type="number" name="price" step="0.01" placeholder="price" required />
   <input type="file" id="image" name="image" accept="image/*" required />
   <button type="submit" name="create" value="create" class="btn btn-success">
     Create New

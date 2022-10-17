@@ -108,5 +108,21 @@ def cart(response):
             redirect("/cart/")
     return render(response, "main/cart.html", {"number":number})
 
+
+def productEdit(response, id):
+    edit=str(id).replace("edit-", "")
+    pd =Products.objects.get(id=int(edit))
+    if response.method =="POST":
+        if response.POST.get("change"):
+            pd.name = response.POST.get("name")
+            pd.description = response.POST.get("description")
+            pd.price = response.POST.get("price")
+            pd.save()
+
+            
+
+
+
+    return render(response, "main/productEdit.html", {"pd":pd})
     
     

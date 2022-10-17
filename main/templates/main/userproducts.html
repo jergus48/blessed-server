@@ -12,12 +12,14 @@
 <p>nemas vlastne produkty</p>
 
 {% else %} {% for product in user.products.all %}
-<div class="product">
-  <img class="image" src="{{product.image.url}}" alt="image" />
-  <p>Name: {{product.name}}</p>
-  <p>Desciption: {{product.description}}</p>
-  <p>Size: {{product.size}}</p>
-  <p>Category: {{product.categories}}</p>
-  <p>Price: {{product.price}}$</p>
-</div>
+<a href="/edit-{{product.id}}/">
+  <div class="product">
+    <img class="image" src="{{product.image.url}}" alt="image" />
+    <p>Name: {{product.name}}</p>
+    <p>Desciption: {{product.description}}</p>
+    <p>Size: {{product.size}}</p>
+    <p>Category: {{product.categories}}</p>
+    <p>Price: {{product.price}}$</p>
+  </div>
+</a>
 {% endfor %} {% endif %} {% endblock %}

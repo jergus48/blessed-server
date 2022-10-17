@@ -1,0 +1,30 @@
+{% extends 'main/navbar.html' %} {% load static %} {% block content %}
+
+<form method="post" action="" enctype="multipart/form-data">
+  {% csrf_token %}
+  <h1>Edit Product</h1>
+  <input
+    type="text"
+    name="name"
+    placeholder="Product Name"
+    value="{{pd.name}}"
+    required
+  />
+  <textarea name="description" placeholder="description" required>
+{{pd.description}}</textarea
+  >
+
+  <input
+    type="number"
+    name="price"
+    step="0.01"
+    placeholder="price"
+    value="{{pd.price}}"
+    required
+  />
+
+  <button type="submit" name="change" value="change" class="btn btn-success">
+    Change
+  </button>
+</form>
+{% endblock %}
