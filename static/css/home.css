@@ -4,7 +4,7 @@
 }
 .product {
     
-    width: 50%;
+    width: 500px;
     display: flex;
     justify-content: center;
     
@@ -12,16 +12,14 @@
 .container {
     display: flex;
     justify-content: center;
+    height: 500px;
     
 }
 .products {
-    padding-left: 5%;
-    padding-right: 5%;
     display: grid;
-    grid-template-columns: repeat(5, 20%);
-    grid-gap: 20px;
     
-    
-    
-    grid-row-gap: 20px;
+    grid-template-columns: repeat(100, 1fr);
+    list-style-type: none;
+   overflow-y: hidden;
+    overflow-x: auto;
 }

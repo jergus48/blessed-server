@@ -1,11 +1,12 @@
 
+from itertools import product
 from django.shortcuts import render,redirect
 from .models import Products,Cart,CartItem
 from django.contrib.auth.models import User
 # Create your views here.
 from django.contrib.auth import get_user_model
 from django.core.files.storage import FileSystemStorage
-
+import os
 def home(response):
     # for item in CartItem.objects.all():
     #     Products.objects.get(id=int(item.productid)).delete() deleting items from cart....
@@ -24,7 +25,7 @@ def home(response):
 
     try:
             
-            ls =Products.objects.all
+            ls =Products.objects.order_by('-id')[:10]
            
             User = get_user_model()
             users = User.objects.all()
@@ -41,24 +42,46 @@ def home(response):
 
 
 def userproducts(response):
+    if response.method =="POST":
+       
+        if response.POST.get("delete"):
+            itemid=response.POST.get("delete")
+            pd=Products.objects.get(id=int(itemid))
+            imageurl=pd.image.url
+            pd.delete()
+            os.remove('static'+imageurl)
            
+            # pd.delete()
+            
+            
     return render(response, "main/userproducts.html", {})
 
 def addProducts(response):
     if response.method =="POST":
+       
         if response.POST.get("create"):
             name=response.POST.get("name")
             p=Products(name=name)
             p.description = response.POST.get("description")
             p.categories = response.POST.get("category")
-            p.size = response.POST.get("size")
+            
+            if p.categories =="Clothes":
+                p.size = response.POST.get("sizeC")
+            elif p.categories =="Shoes":
+                p.size = response.POST.get("sizeS")
+            elif p.categories =="Accesories":
+                p.size = response.POST.get("sizeA")
             p.price = response.POST.get("price")
             
+            p.color1 = response.POST.get("color1")
+            p.color2 = response.POST.get("color2")
+            p.save()
             img = response.FILES["image"]
+            unit= img.name.split(".")[-1]
             fileSystemStorage=FileSystemStorage()
-            fileSystemStorage.save(img.name,img)
-            p.image = img.name
-            p.checked = False
+            fileSystemStorage.save(str(p.id)+"."+ unit,img)
+            
+            p.image = str(p.id)+"."+ unit
             p.save()
             response.user.products.add(p)
             
@@ -117,6 +140,8 @@ def productEdit(response, id):
             pd.name = response.POST.get("name")
             pd.description = response.POST.get("description")
             pd.price = response.POST.get("price")
+            pd.color1 = response.POST.get("color1")
+            pd.color2 = response.POST.get("color2")
             pd.save()
 
             

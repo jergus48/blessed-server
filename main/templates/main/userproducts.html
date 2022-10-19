@@ -2,24 +2,38 @@
 <head>
   <link rel="stylesheet" href=" {% static '/css/userproducts.css' %} " />
 </head>
+<body>
+  <h2>My Products</h2>
+  <a href="/add/">
+    <button>Add products</button>
+  </a>
 
-{% csrf_token %}
-<h2>My Products</h2>
-<a href="/add/">
-  <button>Add products</button>
-</a>
-{% if user.products.count == 0 %}
-<p>nemas vlastne produkty</p>
+  {% if user.products.count == 0 %}
+  <p>nemas vlastne produkty</p>
 
-{% else %} {% for product in user.products.all %}
-<a href="/edit-{{product.id}}/">
-  <div class="product">
-    <img class="image" src="{{product.image.url}}" alt="image" />
-    <p>Name: {{product.name}}</p>
-    <p>Desciption: {{product.description}}</p>
-    <p>Size: {{product.size}}</p>
-    <p>Category: {{product.categories}}</p>
-    <p>Price: {{product.price}}$</p>
-  </div>
-</a>
-{% endfor %} {% endif %} {% endblock %}
+  {% else %}
+  <form method="post" action="">
+    {% csrf_token %} {% for product in user.products.all %}
+
+    <div class="product">
+      <a href="/edit-{{product.id}}/">
+        <img class="image" src="{{product.image.url}}" alt="image" />
+        {{product.image.url}}
+        <p>Name: {{product.name}}</p>
+        <p>Id: {{product.id}}</p>
+        <p>Desciption: {{product.description}}</p>
+        <p>Size: {{product.size}}</p>
+        <p>Category: {{product.categories}}</p>
+        <p>Price: {{product.price}}$</p>
+        <p>color1: {{product.color1}}</p>
+        <p>color2: {{product.color2}}</p>
+      </a>
+
+      <button type="submit" value="{{product.id}}" name="delete">Remove</button>
+    </div>
+
+    {% endfor %}
+  </form>
+  {% endif %}
+</body>
+{% endblock %}

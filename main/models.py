@@ -22,6 +22,8 @@ class Products(models.Model):
     active=  models.BooleanField(default=True)
     image=models.ImageField(upload_to="", null=True)
     price=models.FloatField(default=0)
+    color1=models.CharField(max_length=7,null=True)
+    color2=models.CharField(max_length=7,null=True)
     categories= models.CharField(max_length=100) #shoes/clothes
     # categories = ListCharField(
     #     base_field=models.CharField(max_length=20),
