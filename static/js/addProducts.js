@@ -27,3 +27,6 @@ function sizes() {
     }
     
 }
+function condition(){
+    var  v = document.getElementById("value").value;
+}

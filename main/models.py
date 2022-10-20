@@ -21,6 +21,7 @@ class Products(models.Model):
     problems = models.BooleanField(default=False)
     active=  models.BooleanField(default=True)
     image=models.ImageField(upload_to="", null=True)
+    condition=models.CharField(max_length=5,null=True)
     price=models.FloatField(default=0)
     color1=models.CharField(max_length=7,null=True)
     color2=models.CharField(max_length=7,null=True)
