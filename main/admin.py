@@ -1,11 +1,12 @@
 from django.contrib import admin
-from .models import Cart, Products,Account,CartItem
+from .models import  Products,Account,Wanted
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 # Register your models here.
 admin.site.register(Products)
-admin.site.register(Cart)
-admin.site.register(CartItem)
+admin.site.register(Wanted)
+# admin.site.register(Cart)
+# admin.site.register(CartItem)
 
 class AccountInline(admin.StackedInline):
     model=Account

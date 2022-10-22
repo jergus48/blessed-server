@@ -1,0 +1,30 @@
+{% extends 'main/navbar.html' %} {% load static %} {% block content %}
+<head>
+  <link rel="stylesheet" href=" {% static '/css/productLook.css' %} " />
+</head>
+<style>
+  button,
+  .bg-box,
+  .add-to-cart,
+  .kolonka-1::after {
+    background: linear-gradient({{pd.color1}}, {{pd.color2}});
+  }
+</style>
+<form method="post" action="">
+  {% csrf_token %}
+
+  <div class="row">
+    <div class="kolonka-1">
+      <h2>{{pd.name}}<br />{{pd.size}}</h2>
+      <h4>{{pd.maxprice}} €</h4>
+      <button class="add-to-cart" type="submit" value="Contact" name="Contact">
+        Contact
+      </button>
+    </div>
+    <div class="kolonka-2">
+      <img class="shoe" src="{{pd.image.url}}" alt="image" />
+      <div class="bg-box"></div>
+    </div>
+  </div>
+</form>
+{% endblock %}

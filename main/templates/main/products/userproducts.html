@@ -16,9 +16,9 @@
     {% csrf_token %} {% for product in user.products.all %}
 
     <div class="product">
-      <a href="/edit-{{product.id}}/">
+      <a href="/{{product.id}}/">
         <img class="image" src="{{product.image.url}}" alt="image" />
-        {{product.image.url}}
+      </a>
         <p>Name: {{product.name}}</p>
         <p>Id: {{product.id}}</p>
         <p>Desciption: {{product.description}}</p>
@@ -28,9 +28,10 @@
         <p>condition: {{product.condition}}</p>
         <p>color1: {{product.color1}}</p>
         <p>color2: {{product.color2}}</p>
-      </a>
+      
 
       <button type="submit" value="{{product.id}}" name="delete">Remove</button>
+      <button><a href="/edit-{{product.id}}/">Edit</a></button>
     </div>
 
     {% endfor %}

@@ -4,10 +4,19 @@
 </head>
 <div class="navbar">
   <a href="/"> <h1>Blessed</h1></a>
+  <form action="{% url 'search_results' %}" method="get">
+    <input
+      name="name"
+      pattern=".{2,}"
+      type="text"
+      placeholder="Search for Products..."
+      required
+    />
+  </form>
   <div class="nav">
     <ul>
       <li><a href="/">About us</a></li>
-      <li><a href="wanted.html">Wanted</a></li>
+      <li><a href="/mywanted/">Wanted</a></li>
       <li><a href="/myproducts/">My Products</a></li>
       <li>
         <a href="/logout/"
@@ -23,9 +32,9 @@
   {% endcomment %}
 </div>
 <div class="second-navbar">
-  <a href="#">Shoes</a>
-  <a href="#">Shoes</a>
-  <a href="#">Shoes</a>
+  <a href="/shoes/">Shoes</a>
+  <a href="/clothes/">Clothes</a>
+  <a href="/accesories/">Accesories</a>
 </div>
 <br />
 {% block content %} {% endblock %}

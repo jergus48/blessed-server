@@ -1,0 +1,41 @@
+{% extends 'main/navbar.html' %}{% load static%} {% block content%}
+<head>
+  <link rel="stylesheet" href=" {% static '/css/userproducts.css' %} " />
+</head>
+<body>
+  <h2>My Wanted</h2>
+  <a href="/add/wanted/">
+    <button>Add wanted</button>
+  </a>
+
+  {% if user.wanted.count == 0 %}
+  <p>nemas vlastne wanted</p>
+
+  {% else %}
+  <form method="post" action="">
+    {% csrf_token %} {% for product in user.wanted.all %}
+
+    <div class="product">
+      <a href="/w{{product.id}}/">
+        <img class="image" src="{{product.image.url}}" alt="image" />
+      </a>
+
+      <p>Name: {{product.name}}</p>
+      <p>Id: {{product.id}}</p>
+
+      <p>Size: {{product.size}}</p>
+      <p>Category: {{product.categories}}</p>
+      <p>Price: {{product.maxprice}}$</p>
+
+      <p>color1: {{product.color1}}</p>
+      <p>color2: {{product.color2}}</p>
+
+      <button type="submit" value="{{product.id}}" name="delete">Remove</button>
+      <button><a href="/edit-w{{product.id}}/">Edit</a></button>
+    </div>
+
+    {% endfor %}
+  </form>
+  {% endif %}
+</body>
+{% endblock %}
