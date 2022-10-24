@@ -1,9 +1,18 @@
 {% extends 'main/navbar.html' %} {% load static %} {% block content %}
 
 <h2>Shoes:</h2>
+<form method="get" action="">
+  <select name="order_by" id="order_by" onchange="this.form.submit()">
+    <option value="latest_products" name="latest_products">
+      Latest products
+    </option>
+    <option value="lowest_price" name="lowest_price">Lowest Price</option>
+    <option value="highest_price" name="highest_price">Highest Price</option>
+  </select>
+</form>
 <div class="container">
   <ul class="products">
-    {% for product in shoes %} {% if product.active == True %}
+    {% for product in shoes %}
     <li class="product">
       <a href="/{{product.id}}/">
         <img class="image" src="{{product.image.url}}" alt="image" />
@@ -15,7 +24,7 @@
         <!-- <p>id: {{product.id}}</p> -->
       </a>
     </li>
-    {% endif %} {% endfor %}
+    {% endfor %}
   </ul>
 </div>
 

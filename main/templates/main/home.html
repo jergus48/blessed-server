@@ -5,9 +5,10 @@
 </head>
 
 <h2>Latest products:</h2>
+<button><a href="/products/">See All</a></button>
 <div class="container">
   <ul class="products">
-    {% for product in ls %} {% if product.active == True %}
+    {% for product in ls %}
     <li class="product">
       <a href="/{{product.id}}/">
         <img class="image" src="{{product.image.url}}" alt="image" />
@@ -16,16 +17,18 @@
         <p>Size: {{product.size}}</p>
         <!-- <p>Category: {{product.categories}}</p> -->
         <p>Price: {{product.price}}$</p>
+        <p>Country: {{product.country}}</p>
         <!-- <p>id: {{product.id}}</p> -->
       </a>
     </li>
-    {% endif %} {% endfor %}
+   {% endfor %}
   </ul>
 </div>
 <h2>Latest wanted products:</h2>
+<button><a href="/wanted/">See All</a></button>
 <div class="container">
   <ul class="products">
-    {% for product in wd %} {% if product.active == True %}
+    {% for product in wd %} 
     <li class="product">
       <a href="/w{{product.id}}/">
         <img class="image" src="{{product.image.url}}" alt="image" />
@@ -35,10 +38,11 @@
         <p>Size: {{product.size}}</p>
         <!-- <p>Category: {{product.categories}}</p> -->
         <p>Max Price: {{product.maxprice}}$</p>
+        <p>Country: {{product.country}}</p>
         <!-- <p>id: {{product.id}}</p> -->
       </a>
     </li>
-    {% endif %} {% endfor %}
+  {% endfor %}
   </ul>
 </div>
 

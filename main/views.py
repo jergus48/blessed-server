@@ -11,14 +11,15 @@ from django.core.files.storage import FileSystemStorage
 import os
 from django.db.models import Q
 from django.views.generic import TemplateView, ListView
+
 def home(response):
    
         
 
     try:
             
-            ls =Products.objects.order_by('-id')[:10]
-            wd =Wanted.objects.order_by('-id')[:10]
+            ls =Products.objects.filter(active = True).order_by('-id')[:10]
+            wd =Wanted.objects.filter(active = True).order_by('-id')[:10]
             
     except:
             print("nejde")
@@ -27,6 +28,22 @@ def home(response):
     return render(response, "main/home.html", {"ls":ls,"wd":wd})
 
 
+class SearchResultsView(ListView):
+    model = Products
+    template_name = "main/SearchResults.html"
+
+    def get_queryset(self):  # new
+        query = self.request.GET.get("name")
+        object_list = Products.objects.filter(
+            Q(name__icontains=query),active=True
+        )
+        return object_list
+ #products       
+def products(response, ):
+    pd =Products.objects.all().order_by('-id').filter(active = True)
+    
+    
+    return render(response, "main/products/products.html", {"pd":pd})
 def userproducts(response):
     if response.method =="POST":
        
@@ -43,6 +60,8 @@ def userproducts(response):
     return render(response, "main/products/userproducts.html", {})
 
 def addProducts(response):
+    eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
+        , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
     if response.method =="POST":
        
         if response.POST.get("create"):
@@ -59,6 +78,7 @@ def addProducts(response):
                 p.size = response.POST.get("sizeA")
             p.price = response.POST.get("price")
             p.condition = response.POST.get("condition")
+            p.country = response.POST.get("country")
             p.color1 = response.POST.get("color1")
             p.color2 = response.POST.get("color2")
             p.save()
@@ -73,7 +93,7 @@ def addProducts(response):
             
 
     
-    return render(response, "main/products/addProducts.html", {})
+    return render(response, "main/products/addProducts.html", {"eu":eu_countries})
 def productLook(response, id):
     pd =Products.objects.get(id=id)
     
@@ -98,7 +118,11 @@ def productEdit(response, id):
     return render(response, "main/products/productEdit.html", {"pd":pd})
 #wanted
 
+def wanted(response, ):
+    wd =Wanted.objects.all().order_by('-id').filter(active = True)
     
+    
+    return render(response, "main/wanted/wanted.html", {"wd":wd})    
 def userwanted(response):
     if response.method =="POST":
        
@@ -132,7 +156,7 @@ def addWanted(response):
             elif w.categories =="Accesories":
                 w.size = response.POST.get("sizeA")
             w.maxprice = response.POST.get("price")
-           
+            w.country = response.POST.get("country")
             w.color1 = response.POST.get("color1")
             w.color2 = response.POST.get("color2")
             w.save()
@@ -181,33 +205,34 @@ def wantedEdit(response, id):
     return render(response, "main/wanted/wantedEdit.html", {"pd":pd})    
 
 
-class SearchResultsView(ListView):
-    model = Products
-    template_name = "main/SearchResults.html"
-
-    def get_queryset(self):  # new
-        query = self.request.GET.get("name")
-        object_list = Products.objects.filter(
-            Q(name__icontains=query) 
-        )
-        return object_list
-        
 #product categories
 def shoes(response):
-    shoes=Products.objects.filter(categories="shoes")
+    shoes=Products.objects.order_by('-id').filter(categories="shoes",active = True)
             
             
     return render(response, "main/products/shoes.html", {"shoes":shoes})
 def clothes(response):
-    clothes=Products.objects.filter(categories="clothes")
+   
+    clothes=Products.objects.order_by('-id').filter(categories="clothes",active = True)
+    if response.method =="GET":
+        if response.GET.get("order_by"):
+            if response.GET.get("latest_products"):
+                clothes=Products.objects.order_by('-id').filter(categories="clothes",active = True)
+            elif response.GET.get("lowest_price"):
+                clothes=Products.objects.order_by('price').filter(categories="clothes",active = True)
+            elif response.GET.get("highest_price"):
+                clothes=Products.objects.order_by('-price').filter(categories="clothes",active = True)
+        
+           
             
             
     return render(response, "main/products/clothes.html", {"clothes":clothes})
 def accesories(response):
-    accesories=Products.objects.filter(categories="accesories")
+    accesories=Products.objects.order_by('-id').filter(categories="accesories",active = True)
             
             
     return render(response, "main/products/accesories.html", {"accesories":accesories})
+
 
 
 

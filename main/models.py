@@ -4,12 +4,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django_mysql.models import ListCharField
 # Create your models here.
-class Account(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE, related_name="account")
-    instagram = models.CharField(max_length=100)
-    mobile= models.IntegerField()
-    def _str_(self):
-        return self.user.username
+# me
 
         
 class Products(models.Model):
@@ -24,7 +19,9 @@ class Products(models.Model):
     price=models.FloatField(default=0)
     color1=models.CharField(max_length=7,default="#FFFFFF")
     color2=models.CharField(max_length=7,default="#000000")
-    categories= models.CharField(max_length=100) #shoes/clothes
+    categories= models.CharField(max_length=100)
+    country= models.CharField(max_length=20)
+     #shoes/clothes
     # categories = ListCharField(
     #     base_field=models.CharField(max_length=20),
     #     size=6,
@@ -47,7 +44,7 @@ class Wanted(models.Model):
     maxprice=models.FloatField(default=0)
     color1=models.CharField(max_length=7,default="#FFFFFF")
     color2=models.CharField(max_length=7,default="#000000")
-   
+    country= models.CharField(max_length=20)
     
     
 

@@ -1,14 +1,68 @@
+var loadFile = function(event) {
+    var output = document.getElementById('imgoutput');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+  };
+  
+const nameinput = document.getElementById('nameinput');
+const nameoutput = document.getElementById('nameoutput');
+
+const inputName = function(e) {
+    nameoutput.innerHTML = e.target.value;
+}
+
+nameinput.addEventListener('input', inputName);
+nameinput.addEventListener('propertychange', inputName);
+
+const priceinput = document.getElementById('priceinput');
+const priceoutput = document.getElementById('priceoutput');
+
+const inputPrice = function(e) {
+    priceoutput.innerHTML = e.target.value + " €";
+}
+
+priceinput.addEventListener('input', inputPrice);
+priceinput.addEventListener('propertychange', inputPrice);
+
+
+const ChangeColor = function() {
+    const color1input = document.getElementById('color1input');
+    const color2input = document.getElementById('color2input');
+    const gradient = document.getElementById('gradient');
+    const gradient2 = document.getElementById('gradient2');
+    const kolonkaafter = document.getElementById('kolonka-1');
+    gradient.style.background = 
+    "linear-gradient( " 
+    + color1input.value 
+    + ", " 
+    + color2input.value 
+    + ")";
+    gradient2.style.background = 
+    "linear-gradient( " 
+    + color1input.value 
+    + ", " 
+    + color2input.value 
+    + ")";
+    
+    
+}
+
+
 
 function sizes() {
-    var  c = document.getElementById("category").value;
-    var  shoes =  document.getElementById("shoes");
-    var  clothes =  document.getElementById("clothes")
-    var  accesories =  document.getElementById("accesories")
+    const  c = document.getElementById("category").value;
+    const  shoes =  document.getElementById("shoes");
+    const  clothes =  document.getElementById("clothes");
+    const  accesories =  document.getElementById("accesories");
+    
     if (c == "Shoes"){
         console.log("Shoes")
         shoes.style.display = "inline-block"
         clothes.style.display = "none"
         accesories.style.display = "none"
+        
         
     }
     else if (c == "Clothes"){
@@ -26,4 +80,14 @@ function sizes() {
         
     }
     
+}
+function shoes(){
+    const  shoes =  document.getElementById("shoes");
+    const  sizeoutput =  document.getElementById("sizeoutput");
+    sizeoutput.innerHTML = shoes.value
+}
+function clothes(){
+    const  clothes =  document.getElementById("clothes").value;
+    const  sizeoutput =  document.getElementById("sizeoutput");
+    sizeoutput.innerHTML = clothes.value
 }
