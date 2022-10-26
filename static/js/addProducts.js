@@ -32,7 +32,7 @@ const ChangeColor = function() {
     const color2input = document.getElementById('color2input');
     const gradient = document.getElementById('gradient');
     const gradient2 = document.getElementById('gradient2');
-    const kolonkaafter = document.getElementById('kolonka-1');
+    const gradient3 = document.getElementById('gradient3');
     gradient.style.background = 
     "linear-gradient( " 
     + color1input.value 
@@ -45,12 +45,27 @@ const ChangeColor = function() {
     + ", " 
     + color2input.value 
     + ")";
+    gradient3.style.background = 
+    "linear-gradient( " 
+    + color1input.value 
+    + ", " 
+    + color2input.value 
+    + ")";
     
     
 }
 
 
-
+function shoes(){
+    const  shoes =  document.getElementById("shoes").value;
+    const  sizeoutput =  document.getElementById("sizeoutput");
+    sizeoutput.innerHTML = shoes
+}
+function clothes(){
+    const  clothes =  document.getElementById("clothes").value;
+    const  sizeoutput =  document.getElementById("sizeoutput");
+    sizeoutput.innerHTML = clothes
+}
 function sizes() {
     const  c = document.getElementById("category").value;
     const  shoes =  document.getElementById("shoes");
@@ -81,13 +96,4 @@ function sizes() {
     }
     
 }
-function shoes(){
-    const  shoes =  document.getElementById("shoes");
-    const  sizeoutput =  document.getElementById("sizeoutput");
-    sizeoutput.innerHTML = shoes.value
-}
-function clothes(){
-    const  clothes =  document.getElementById("clothes").value;
-    const  sizeoutput =  document.getElementById("sizeoutput");
-    sizeoutput.innerHTML = clothes.value
-}
+

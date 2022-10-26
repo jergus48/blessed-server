@@ -20,7 +20,7 @@
     font-size: 20px;
 }
 
-.kolonka-1::after{
+.small-box{
     content: "";
     width: 10px;
     height: 100%;

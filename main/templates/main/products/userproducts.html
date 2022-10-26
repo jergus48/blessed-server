@@ -13,7 +13,7 @@
 
   {% else %}
   <form method="post" action="">
-    {% csrf_token %} {% for product in user.products.all %}
+    {% csrf_token %} {% for product in pd %}
 
     <div class="product">
       <a href="/{{product.id}}/">

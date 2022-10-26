@@ -6,25 +6,33 @@
   button,
   .bg-box,
   .add-to-cart,
-  .kolonka-1::after {
+  .small-box {
     background: linear-gradient({{pd.color1}}, {{pd.color2}});
   }
 </style>
-<form method="post" action="">
-  {% csrf_token %}
 
-  <div class="row">
-    <div class="kolonka-1">
-      <h2>{{pd.name}}<br />{{pd.size}}</h2>
-      <h4>{{pd.price}} €</h4>
-      <button class="add-to-cart" type="submit" value="Contact" name="Contact">
-        Contact
-      </button>
-    </div>
-    <div class="kolonka-2">
-      <img class="shoe" src="{{pd.image.url}}" alt="image" />
-      <div class="bg-box"></div>
-    </div>
+<div class="row">
+  <div class="kolonka-1">
+    <div class="small-box" id="gradient3"></div>
+    <h2>{{pd.name}}<br />{{pd.size}}</h2>
+    <h4>{{pd.price}} €</h4>
+    <button class="add-to-cart" type="submit" value="Contact" name="Contact">
+      Contact
+    </button>
   </div>
-</form>
+  <div class="kolonka-2">
+    <img class="shoe" src="{{pd.image.url}}" alt="image" />
+    <div class="bg-box"></div>
+  </div>
+</div>
+<br />
+<div style="text-align: center">
+  <h5>Country:</h5>
+  <p>{{pd.country}}</p>
+  <h5>Description:</h5>
+  <p>{{pd.description}}</p>
+  <h5>Contact:</h5>
+  <p>Mail:{{pd.user.username}}</p>
+  <a href="https://www.instagram.com/{{ig}}/"><p>Instagram: @{{ig}}</p></a>
+</div>
 {% endblock %}

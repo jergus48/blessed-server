@@ -18,33 +18,88 @@ def home(response):
 
     try:
             
-            ls =Products.objects.filter(active = True).order_by('-id')[:10]
-            wd =Wanted.objects.filter(active = True).order_by('-id')[:10]
+            ls =Products.objects.filter(active = True).exclude(user=response.user).order_by('-id')[:10]
+            wd =Wanted.objects.filter(active = True).exclude(user=response.user).order_by('-id')[:10]
             
     except:
             print("nejde")
 
     
     return render(response, "main/home.html", {"ls":ls,"wd":wd})
+def error(response):
+    redirect("/")
+    return render(response, "404.html", {})
 
 
-class SearchResultsView(ListView):
-    model = Products
-    template_name = "main/SearchResults.html"
 
-    def get_queryset(self):  # new
-        query = self.request.GET.get("name")
+def SearchResultsView(request):
+        if request.GET.get("name"):
+            name = request.GET.get("name")
+        elif request.GET.get("brand"):
+            name = request.GET.get("brand")
+        if request.GET.get("order_by"):
+            order = request.GET.get("order_by")
+            if order == "-id":
+                    choice="Latest products"
+            elif order == "-price":
+                    choice="Highest price"
+            elif order == "id":
+                    choice="Oldest products"
+            elif order == "price":
+                    choice="Lowest price"
+            object_list = Products.objects.filter( Q(name__icontains=name),
+                    active=True).exclude(user=request.user).order_by(order)
+            return render(request, "main/filters.html", {"object_list":object_list,"choice":choice,"name":name})
+        else:
+            object_list = Products.objects.filter(Q(name__icontains=name),
+                active=True
+            ).exclude(user=request.user).order_by("-id")
+            choice="Latest products"
+        return render(request, "main/SearchResults.html", {"object_list":object_list,"name":name,"choice":choice})
+def FiltersView(request):
+   
+    order = request.GET.get("order_by")
+    if order == "-id":
+            choice="Latest products"
+    elif order == "-price":
+            choice="Highest price"
+    elif order == "id":
+            choice="Oldest products"
+    elif order == "price":
+            choice="Lowest price"
+    if request.GET.get("name"):
+        name=request.GET.get("name")
+        if name != "":
+            object_list = Products.objects.filter( Q(name__icontains=name),
+                active=True).exclude(user=request.user).order_by(order)
+            return render(request, "main/filters.html", {"object_list":object_list,"choice":choice,"name":name})
+    else:
         object_list = Products.objects.filter(
-            Q(name__icontains=query),active=True
-        )
-        return object_list
+            active=True# Q(name__icontains=query),
+        ).exclude(user=request.user).order_by(order)
+        return render(request, "main/filters.html", {"object_list":object_list,"choice":choice})
  #products       
-def products(response, ):
-    pd =Products.objects.all().order_by('-id').filter(active = True)
+def products(request ):
     
+    if request.GET.get("order_by"):
+        order = request.GET.get("order_by")
+        if order == "-id":
+                choice="Latest products"
+        elif order == "-price":
+                choice="Highest price"
+        elif order == "id":
+                choice="Oldest products"
+        elif order == "price":
+                choice="Lowest price"
+        pd =Products.objects.all().order_by(order).filter(active = True).exclude(user=request.user)
+        
+    else:
+        pd =Products.objects.all().order_by('-id').filter(active = True).exclude(user=request.user)
+        choice="Latest products"
     
-    return render(response, "main/products/products.html", {"pd":pd})
+    return render(request, "main/products/products.html", {"pd":pd,"choice":choice})
 def userproducts(response):
+    pd=Products.objects.all().order_by('-id').filter(user=response.user,active = True)
     if response.method =="POST":
        
         if response.POST.get("delete"):
@@ -57,7 +112,7 @@ def userproducts(response):
             # pd.delete()
             
             
-    return render(response, "main/products/userproducts.html", {})
+    return render(response, "main/products/userproducts.html", {"pd":pd})
 
 def addProducts(response):
     eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
@@ -96,9 +151,10 @@ def addProducts(response):
     return render(response, "main/products/addProducts.html", {"eu":eu_countries})
 def productLook(response, id):
     pd =Products.objects.get(id=id)
+    ig=pd.user.last_name.replace("@","")
     
     
-    return render(response, "main/products/productLook.html", {"pd":pd})
+    return render(response, "main/products/productLook.html", {"pd":pd,"ig":ig})
 
 
 def productEdit(response, id):
@@ -106,7 +162,7 @@ def productEdit(response, id):
     pd =Products.objects.get(id=int(edit))
     if response.method =="POST":
         if response.POST.get("change"):
-            pd.name = response.POST.get("name")
+            
             pd.description = response.POST.get("description")
             pd.price = response.POST.get("price")
             pd.condition = response.POST.get("condition")
@@ -118,11 +174,25 @@ def productEdit(response, id):
     return render(response, "main/products/productEdit.html", {"pd":pd})
 #wanted
 
-def wanted(response, ):
-    wd =Wanted.objects.all().order_by('-id').filter(active = True)
+def wanted(request, ):
+    wd =Wanted.objects.all().order_by('-id').filter(active = True).exclude(user=request.user)
+    if request.GET.get("order_by"):
+        order = request.GET.get("order_by")
+        if order == "-id":
+                choice="Latest products"
+        elif order == "-maxprice":
+                choice="Highest price"
+        elif order == "id":
+                choice="Oldest products"
+        elif order == "maxprice":
+                choice="Lowest price"
+        wd =Wanted.objects.all().order_by(order).filter(active = True).exclude(user=request.user)
+        
+    else:
+        wd =Wanted.objects.all().order_by('-id').filter(active = True).exclude(user=request.user)
+        choice="Latest Wanted products"
     
-    
-    return render(response, "main/wanted/wanted.html", {"wd":wd})    
+    return render(request, "main/wanted/wanted.html", {"wd":wd,"choice":choice})    
 def userwanted(response):
     if response.method =="POST":
        
@@ -141,6 +211,8 @@ def userwanted(response):
     return render(response, "main/wanted/userwanted.html", {})
 
 def addWanted(response):
+    eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
+        , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
     if response.method =="POST":
        
         if response.POST.get("create"):
@@ -173,16 +245,16 @@ def addWanted(response):
             
 
     
-    return render(response, "main/wanted/addWanted.html", {})
+    return render(response, "main/wanted/addWanted.html", {"eu":eu_countries})
 def wantedLook(response, id):
     wid= str(id).replace("w", "")
     pd =Wanted.objects.get(id=wid)
-    
+    ig=pd.user.last_name.replace("@","")
             
             
             
     
-    return render(response, "main/wanted/wantedLook.html", {"pd":pd})
+    return render(response, "main/wanted/wantedLook.html", {"pd":pd,"ig":ig})
 
 
 def wantedEdit(response, id):
@@ -190,7 +262,12 @@ def wantedEdit(response, id):
     pd =Wanted.objects.get(id=int(edit))
     if response.method =="POST":
         if response.POST.get("change"):
-          
+            if pd.categories == "Shoes":
+                pd.size=response.POST.get("sizeS")
+            elif pd.categories == "Clothes":
+                pd.size=response.POST.get("sizeC")
+            elif pd.categories == "Accesories":
+                pd.size=response.POST.get("sizeA")
     
             pd.maxprice = response.POST.get("price")
        
@@ -206,32 +283,69 @@ def wantedEdit(response, id):
 
 
 #product categories
-def shoes(response):
-    shoes=Products.objects.order_by('-id').filter(categories="shoes",active = True)
+def shoes(request):
+    
+    if request.GET.get("order_by"):
+        order = request.GET.get("order_by")
+        if order == "-id":
+                choice="Latest products"
+        elif order == "-price":
+                choice="Highest price"
+        elif order == "id":
+                choice="Oldest products"
+        elif order == "price":
+                choice="Lowest price"
+        shoes=Products.objects.order_by(order).filter(categories="shoes",active = True).exclude(user=request.user)
+        
+    else:
+        shoes=Products.objects.order_by('-id').filter(categories="shoes",active = True).exclude(user=request.user)
+        choice="Latest products"
             
             
-    return render(response, "main/products/shoes.html", {"shoes":shoes})
-def clothes(response):
+    return render(request, "main/products/shoes.html", {"shoes":shoes,"choice":choice})
+def clothes(request):
    
-    clothes=Products.objects.order_by('-id').filter(categories="clothes",active = True)
-    if response.method =="GET":
-        if response.GET.get("order_by"):
-            if response.GET.get("latest_products"):
-                clothes=Products.objects.order_by('-id').filter(categories="clothes",active = True)
-            elif response.GET.get("lowest_price"):
-                clothes=Products.objects.order_by('price').filter(categories="clothes",active = True)
-            elif response.GET.get("highest_price"):
-                clothes=Products.objects.order_by('-price').filter(categories="clothes",active = True)
+    if request.GET.get("order_by"):
+        order = request.GET.get("order_by")
+        if order == "-id":
+                choice="Latest products"
+        elif order == "-price":
+                choice="Highest price"
+        elif order == "id":
+                choice="Oldest products"
+        elif order == "price":
+                choice="Lowest price"
+        clothes=Products.objects.order_by(order).filter(categories="clothes",active = True).exclude(user=request.user)
+        
+    else:
+        clothes=Products.objects.order_by('-id').filter(categories="clothes",active = True).exclude(user=request.user)
+        choice="Latest products"
         
            
             
             
-    return render(response, "main/products/clothes.html", {"clothes":clothes})
-def accesories(response):
-    accesories=Products.objects.order_by('-id').filter(categories="accesories",active = True)
+    return render(request, "main/products/clothes.html", {"clothes":clothes,"choice":choice})
+def accesories(request):
+    if request.GET.get("order_by"):
+        order = request.GET.get("order_by")
+        if order == "-id":
+                choice="Latest products"
+        elif order == "-price":
+                choice="Highest price"
+        elif order == "id":
+                choice="Oldest products"
+        elif order == "price":
+                choice="Lowest price"
+        accesories=Products.objects.order_by(order).filter(categories="accesories",active = True).exclude(user=request.user)
+        
+    else:
+        accesories=Products.objects.order_by('-id').filter(categories="accesories",active = True).exclude(user=request.user)
+        choice="Latest products"
+        
+           
             
             
-    return render(response, "main/products/accesories.html", {"accesories":accesories})
+    return render(request, "main/products/accesories.html", {"accesories":accesories,"choice":choice})
 
 
 

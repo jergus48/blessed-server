@@ -2,24 +2,25 @@
 <head>
   <link rel="stylesheet" href=" {% static '/css/search.css' %} " />
 </head>
-<h1>Search Results:</h1>
-<form method="get" action="">
-  <input name="name" value="{{name}}" style="display: none;"></input>
-<select name="order_by" id="order_by" onchange="this.form.submit()">
-  <option
-    class="hidden_option"
-    name="{{choice}}"
-    value="{{choice}}"
-    style="display: none"
-  >
-    {{choice}}
-  </option>
-  <option value="-id" name="-id">Latest products</option>
-  <option value="id" name="id">Oldest products</option>
-  <option value="price" name="price">Lowest Price</option>
-  <option value="-price" name="price">Highest Price</option>
-</select>
+<h1>Products:</h1>
+<form method="get" action="{% url 'filters' %}">
+    <input name="name" value="{{name}}" style="display: none;"></input>
+  <select name="order_by" id="order_by" onchange="this.form.submit()">
+    <option
+      class="hidden_option"
+      name="{{choice}}"
+      value="{{choice}}"
+      style="display: none"
+    >
+      {{choice}}
+    </option>
+    <option value="-id" name="-id">Latest products</option>
+    <option value="id" name="id">Oldest products</option>
+    <option value="price" name="price">Lowest Price</option>
+    <option value="-price" name="price">Highest Price</option>
+  </select>
 </form>
+
 <div class="container">
   <ul class="products">
     {% for product in object_list %} {% if product.active == True %}
@@ -30,7 +31,7 @@
         <!-- <p>Description: {{product.description}}</p> -->
         <p>Size: {{product.size}}</p>
         <!-- <p>Category: {{product.categories}}</p> -->
-        <p>Price: {{product.price}}$</p>
+        <p>Price: {{product.price}}€</p>
         <!-- <p>id: {{product.id}}</p> -->
       </a>
     </li>

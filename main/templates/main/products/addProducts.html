@@ -77,7 +77,7 @@
     onchange="loadFile(event)"
     required
   />
-  <input type="color" name="color1" id="color1input" value="#FFFFFF" onchange="ChangeColor()"/>
+  <input type="color" name="color1" value="#FFFFFF" id="color1input" onchange="ChangeColor()"/>
   <input type="color" name="color2" id="color2input" value="#000000" onchange="ChangeColor()"/>
   <button type="submit" name="create" value="create" class="btn btn-success">
     Create New
@@ -85,10 +85,11 @@
 </form>
 <div class="row">
   <div class="kolonka-1" id="kolonka-1">
+    <div class="small-box" id="gradient"></div>
     <h2><span id="nameoutput">Name</span></br>
       <span id="sizeoutput">Size</span></h2>
     <h4 id="priceoutput">1000 €</h4>
-    <button class="add-to-cart" type="submit" id="gradient" value="Contact" name="Contact">
+    <button class="add-to-cart" type="submit" id="gradient2" value="Contact" name="Contact">
       Contact
     </button>
   </div>
@@ -97,8 +98,9 @@
       id="imgoutput"
       src="{% static '/images/blessedimg.jpeg' %}"
       alt="your image"
+      class="shoe"
     />
-    <div class="bg-box" id="gradient2"></div>
+    <div class="bg-box" id="gradient3"></div>
   </div>
 </div>
 <script src="{% static '/js/addProducts.js' %}"></script>

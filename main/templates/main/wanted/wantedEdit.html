@@ -1,25 +1,77 @@
 {% extends 'main/navbar.html' %} {% load static %} {% block content %}
 <head>
   <link rel="stylesheet" href=" {% static '/css/productEdit.css' %} " />
+  <style>
+    
+    .bg-box,
+    .add-to-cart,
+    .small-box {
+      background: linear-gradient({{pd.color1}}, {{pd.color2}});
+    }
+  </style>
 </head>
 <form method="post" action="" enctype="multipart/form-data">
   {% csrf_token %}
   <h1>Edit Product</h1>
   <h2>{{pd.name}}</h2>
+  {% if pd.categories == "Shoes"%}
+  <select id="shoes" name="sizeS">
+    <option name="44" value="44">44</option>
+    <option name="45" value="45">45</option>
+  </select>
+{% elif pd.categories == "Clothes"%}
+  <select id="clothes" name="sizeC">
+    <option name="M" value="M">M</option>
+    <option name="L" value="L">L</option>
+  </select>
+  {% elif pd.categories == "Accesories"%}
+  <input
+    type="text"
+    name="sizeA"
+    id="accesories"
+    maxlength="10"
+    placeholder="Accesory Size"
+  />
+  {% endif %}
   <input
     type="number"
     name="price"
     step="0.01"
+    placeholder="price in €"
     min="0.01"
-    placeholder="price"
+    id="priceinput"
+    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
     value="{{pd.maxprice}}"
+    maxlength="5"
     required
   />
-  <input type="color" name="color1" value="{{pd.color1}}" />
-  <input type="color" name="color2" value="{{pd.color2}}" />
+  
+  <input type="color" name="color1" value="{{pd.color1}}" id="color1input" onchange="ChangeColor()"/>
+  <input type="color" name="color2" value="{{pd.color2}}" id="color2input" onchange="ChangeColor()"/>
   <button type="submit" name="change" value="change" class="btn btn-success">
     Change
   </button>
 </form>
+<div class="row">
+  <div class="kolonka-1" id="kolonka-1">
+    <div class="small-box" id="gradient"></div>
+    <h2><span id="nameoutput">{{pd.name}}</span></br>
+      <span id="sizeoutput">{{pd.size}}</span></h2>
+    <h4 id="priceoutput">{{pd.maxprice}} €</h4>
+    <button class="add-to-cart" type="submit" id="gradient2" value="Contact" name="Contact">
+      Contact
+    </button>
+  </div>
+  <div class="kolonka-2">
+    <img
+      id="imgoutput"
+      src="{{pd.image.url}}"
+      alt="your image"
+      class="shoe"
+    />
+    <div class="bg-box" id="gradient3"></div>
+  </div>
+</div>
+<script src="{% static '/js/editProduct.js' %}"></script>
 
 {% endblock %}

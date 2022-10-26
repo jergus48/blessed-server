@@ -1,14 +1,20 @@
 {% extends 'main/navbar.html' %} {% load static %} {% block content %}
 
 <h2>Accesories:</h2>
-<form method="post" action="">
-  {% csrf_token %}
+<form method="get" action="">
   <select name="order_by" id="order_by" onchange="this.form.submit()">
-    <option value="latest_products" name="latest_products">
-      Latest products
+    <option
+      class="hidden_option"
+      name="{{choice}}"
+      value="{{choice}}"
+      style="display: none"
+    >
+      {{choice}}
     </option>
-    <option value="lowest_price" name="lowest_price">Lowest Price</option>
-    <option value="highest_price" name="highest_price">Highest Price</option>
+    <option value="-id" name="-id">Latest products</option>
+    <option value="id" name="id">Oldest products</option>
+    <option value="price" name="price">Lowest Price</option>
+    <option value="-price" name="price">Highest Price</option>
   </select>
 </form>
 <div class="container">
