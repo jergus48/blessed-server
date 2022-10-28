@@ -5,6 +5,7 @@
 
 <form method="post" action="" enctype="multipart/form-data">
   {% csrf_token %}
+  <div class="inputs">
   <h1>Add products</h1>
   <input
     type="text"
@@ -77,9 +78,13 @@
     onchange="loadFile(event)"
     required
   />
+  <div class="colors">
+    <p>Pick colors theme of button and boxes</p>
   <input type="color" name="color1" value="#FFFFFF" id="color1input" onchange="ChangeColor()"/>
   <input type="color" name="color2" id="color2input" value="#000000" onchange="ChangeColor()"/>
-  <button type="submit" name="create" value="create" class="btn btn-success">
+</div>
+</div>
+  <button type="submit" name="create" value="create" class="submit">
     Create New
   </button>
 </form>

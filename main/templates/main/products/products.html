@@ -1,12 +1,14 @@
 {% extends 'main/navbar.html' %} {% load static %} {% block content %}
-
+<head>
+  <link rel="stylesheet" href=" {% static '/css/products.css' %} " />
+</head>
 <h2>Products:</h2>
 <form method="get" action="">
   <select name="order_by" id="order_by" onchange="this.form.submit()">
     <option
       class="hidden_option"
-      name="{{choice}}"
-      value="{{choice}}"
+      value="{{order}}"
+      name="{{order}}"
       style="display: none"
     >
       {{choice}}
@@ -16,6 +18,10 @@
     <option value="price" name="price">Lowest Price</option>
     <option value="-price" name="price">Highest Price</option>
   </select>
+  <input type="checkbox" name="sizeS" />
+  <input type="checkbox" name="sizeM" />
+  <input type="checkbox" name="sizeL" />
+  <button type="submit">Filter</button>
 </form>
 <div class="container">
   <ul class="products">

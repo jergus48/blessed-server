@@ -3,11 +3,21 @@
   <link rel="stylesheet" href=" {% static '/css/productLook.css' %} " />
 </head>
 <style>
-  button,
+  .add-to-cart,
   .bg-box,
   .add-to-cart,
   .small-box {
     background: linear-gradient({{pd.color1}}, {{pd.color2}});
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient({{pd.color1}}, {{pd.color2}});
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient({{pd.color1}}, {{pd.color2}});
+    border-radius: 10px;
   }
 </style>
 

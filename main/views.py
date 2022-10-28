@@ -80,7 +80,8 @@ def FiltersView(request):
         return render(request, "main/filters.html", {"object_list":object_list,"choice":choice})
  #products       
 def products(request ):
-    
+    if request.GET.getlist("order_by"):
+        print(request.GET.keys())
     if request.GET.get("order_by"):
         order = request.GET.get("order_by")
         if order == "-id":
@@ -96,8 +97,9 @@ def products(request ):
     else:
         pd =Products.objects.all().order_by('-id').filter(active = True).exclude(user=request.user)
         choice="Latest products"
+        order="-id"
     
-    return render(request, "main/products/products.html", {"pd":pd,"choice":choice})
+    return render(request, "main/products/products.html", {"pd":pd,"choice":choice,"order":order})
 def userproducts(response):
     pd=Products.objects.all().order_by('-id').filter(user=response.user,active = True)
     if response.method =="POST":
@@ -318,13 +320,15 @@ def clothes(request):
         clothes=Products.objects.order_by(order).filter(categories="clothes",active = True).exclude(user=request.user)
         
     else:
+        
         clothes=Products.objects.order_by('-id').filter(categories="clothes",active = True).exclude(user=request.user)
         choice="Latest products"
+        order="-id"
         
            
             
             
-    return render(request, "main/products/clothes.html", {"clothes":clothes,"choice":choice})
+    return render(request, "main/products/clothes.html", {"clothes":clothes,"choice":choice,"order":order})
 def accesories(request):
     if request.GET.get("order_by"):
         order = request.GET.get("order_by")

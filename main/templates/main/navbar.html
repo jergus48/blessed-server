@@ -2,41 +2,40 @@
 <head>
   <link rel="stylesheet" href=" {% static '/css/navbar.css' %} " />
 </head>
-<div class="navbar">
-  <a href="/"> <h1>Blessed</h1></a>
-  <form action="{% url 'search_results' %}" method="get">
-    <input
-      name="name"
-      pattern=".{2,}"
-      type="text"
-      placeholder="Search for Products..."
-      required
-    />
-  </form>
-  <div class="nav">
-    <ul>
-      <li><a href="/add/">Sell</a></li>
-      <li><a href="/mywanted/">Wanted</a></li>
-      <li><a href="/myproducts/">My Products</a></li>
-      <li>
-        <a href="/logout/"
-          ><button class="logout" type="button">Log out</button></a
+<div class="navcontainer">
+  <div class="navbar">
+    <a href="/home/">
+      <img src="{% static '/images/logo.jpeg' %}" class="logo" />
+    </a>
+
+    <form
+      action="{% url 'search_results' %}"
+      class="search"
+      id="form"
+      method="get"
+    >
+      <input
+        name="name"
+        pattern=".{2,}"
+        class="search-field"
+        type="search"
+        id="query"
+        placeholder="Search for Products..."
+        required
+      />
+      <button type="submit" class="search-button">Search</button>
+    </form>
+
+    <nav>
+      <ul>
+        <li><a href="/add/">Sell</a></li>
+        <li><a href="/mywanted/">Wanted</a></li>
+        <li><a href="/myproducts/">My products</a></li>
+        <a href="/logout/" class="logout"
+          ><button class="log-out">Logout</button></a
         >
-      </li>
-    </ul>
+      </ul>
+    </nav>
   </div>
-  {% comment %}
-  <a href="/cart/"
-    ><img src=" {% static '/images/kosik.png' %} " class="basket"
-  /></a>
-  {% endcomment %}
 </div>
-{% comment %}
-<div class="second-navbar">
-  <a href="/shoes/">Shoes</a>
-  <a href="/clothes/">Clothes</a>
-  <a href="/accesories/">Accesories</a>
-</div>
-{% endcomment %}
-<br />
 {% block content %} {% endblock %}
