@@ -1,22 +1,92 @@
 {% extends 'main/navbar.html' %} {% load static %} {% block content %}
-
+<head>
+  <link rel="stylesheet" href=" {% static '/css/products.css' %} " />
+</head>
 <h2>Wanted:</h2>
-<form method="get" action="">
+<form method="post" action="">
+  {% csrf_token %}
   <select name="order_by" id="order_by" onchange="this.form.submit()">
     <option
       class="hidden_option"
-      name="{{choice}}"
-      value="{{choice}}"
+      value="{{order}}"
+      name="{{order}}"
       style="display: none"
     >
       {{choice}}
     </option>
-    <option value="-id" name="-id">Latest Wanted products</option>
-    <option value="id" name="id">Oldest Wanted products</option>
+    <option value="-id" name="-id">Latest products</option>
+    <option value="id" name="id">Oldest products</option>
     <option value="maxprice" name="maxprice">Lowest Price</option>
     <option value="-maxprice" name="maxprice">Highest Price</option>
   </select>
+  <h5>Categories</h5>
+  {% for category in categories %} {% if category in c %}
+  <label
+    ><input
+      type="checkbox"
+      name="category"
+      value="{{category}}"
+      onchange="this.form.submit()"
+      checked
+    />{{category}}</label
+  >
+  {% else %}
+  <label
+    ><input
+      type="checkbox"
+      name="category"
+      value="{{category}}"
+      onchange="this.form.submit()"
+    />{{category}}</label
+  >
+  {%endif%} {% endfor %}
+  <h5>Size</h5>
+  {% for size in sizes %} {% if size in x %}
+  <label
+    ><input
+      type="checkbox"
+      name="size"
+      value="{{size}}"
+      onchange="this.form.submit()"
+      checked
+    />{{size}}</label
+  >
+  {% else %}
+  <label
+    ><input
+      type="checkbox"
+      name="size"
+      value="{{size}}"
+      onchange="this.form.submit()"
+    />{{size}}</label
+  >
+  {%endif%} {% endfor %}
+
+  <h5>Country</h5>
+  {% for country in eu_countries %} {% if country in z %}
+  <label
+    ><input
+      type="checkbox"
+      name="country"
+      value="{{country}}"
+      onchange="this.form.submit()"
+      checked
+    />{{country}}</label
+  >
+  {% else %}
+  <label
+    ><input
+      type="checkbox"
+      name="country"
+      value="{{country}}"
+      onchange="this.form.submit()"
+    />{{country}}</label
+  >
+  {%endif%} {% endfor %}
 </form>
+{% if wd.count == 0 %}
+<p>Nothing Match</p>
+{% endif %}
 <div class="container">
   <ul class="products">
     {% for product in wd %}
@@ -26,6 +96,7 @@
         <p>Name: {{product.name}}</p>
         <!-- <p>Description: {{product.description}}</p> -->
         <p>Size: {{product.size}}</p>
+        <p>Country: {{product.country}}</p>
         <p>Category: {{product.categories}}</p>
         <p>Price: {{product.maxprice}}$</p>
         <!-- <p>id: {{product.id}}</p> -->

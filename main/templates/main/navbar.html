@@ -8,12 +8,7 @@
       <img src="{% static '/images/logo.jpeg' %}" class="logo" />
     </a>
 
-    <form
-      action="{% url 'search_results' %}"
-      class="search"
-      id="form"
-      method="get"
-    >
+    <form action="/search/" class="search" id="form" method="get">
       <input
         name="name"
         pattern=".{2,}"

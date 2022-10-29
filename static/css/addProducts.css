@@ -86,6 +86,7 @@ textarea {
         justify-content: space-between;
         align-items: center;
         width: 100%;
+        margin-top: 15%;
     }
     
     .kolonka-1{
@@ -137,6 +138,7 @@ textarea {
     
     .kolonka-2 .shoe{
         width: 80%;
+        
     }
     
     .bg-box{

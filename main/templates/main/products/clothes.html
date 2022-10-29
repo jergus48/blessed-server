@@ -1,11 +1,15 @@
 {% extends 'main/navbar.html' %} {% load static %} {% block content %}
+<head>
+  <link rel="stylesheet" href=" {% static '/css/products.css' %} " />
+</head>
 <h2>Clothes:</h2>
-<form method="get" action="">
+<form method="post" action="">
+  {% csrf_token %}
   <select name="order_by" id="order_by" onchange="this.form.submit()">
     <option
       class="hidden_option"
-      name="{{choice}}"
-      value="{{choice}}"
+      value="{{order}}"
+      name="{{order}}"
       style="display: none"
     >
       {{choice}}
@@ -15,7 +19,74 @@
     <option value="price" name="price">Lowest Price</option>
     <option value="-price" name="price">Highest Price</option>
   </select>
+
+  <h5>Size</h5>
+  {% for size in sizes %} {% if size in x %}
+  <label
+    ><input
+      type="checkbox"
+      name="size"
+      value="{{size}}"
+      onchange="this.form.submit()"
+      checked
+    />{{size}}</label
+  >
+  {% else %}
+  <label
+    ><input
+      type="checkbox"
+      name="size"
+      value="{{size}}"
+      onchange="this.form.submit()"
+    />{{size}}</label
+  >
+  {%endif%} {% endfor %}
+  <h5>Condition</h5>
+  {% for condition in conditions %} {% if condition in y %}
+  <label
+    ><input
+      type="checkbox"
+      name="condition"
+      value="{{condition}}"
+      onchange="this.form.submit()"
+      checked
+    />{{condition}}</label
+  >
+  {% else %}
+  <label
+    ><input
+      type="checkbox"
+      name="condition"
+      value="{{condition}}"
+      onchange="this.form.submit()"
+    />{{condition}}</label
+  >
+  {%endif%} {% endfor %}
+  <h5>Country</h5>
+  {% for country in eu_countries %} {% if country in z %}
+  <label
+    ><input
+      type="checkbox"
+      name="country"
+      value="{{country}}"
+      onchange="this.form.submit()"
+      checked
+    />{{country}}</label
+  >
+  {% else %}
+  <label
+    ><input
+      type="checkbox"
+      name="country"
+      value="{{country}}"
+      onchange="this.form.submit()"
+    />{{country}}</label
+  >
+  {%endif%} {% endfor %}
 </form>
+{% if clothes.count == 0 %}
+<p>Nothing Match</p>
+{% endif %}
 <div class="container">
   <ul class="products">
     {% for product in clothes %} {% if product.active == True %}

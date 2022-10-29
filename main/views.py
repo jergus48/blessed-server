@@ -1,6 +1,7 @@
 
 from asyncio.windows_events import NULL
 from itertools import product
+from msilib.schema import Condition
 from unicodedata import category
 from django.shortcuts import render,redirect
 from .models import Products, Wanted
@@ -30,60 +31,32 @@ def error(response):
     redirect("/")
     return render(response, "404.html", {})
 
-
+# object_list = Products.objects.filter(Q(name__icontains=name),
+#                 active=True
+#             ).exclude(user=request.user).order_by("-id")
 
 def SearchResultsView(request):
-        if request.GET.get("name"):
-            name = request.GET.get("name")
-        elif request.GET.get("brand"):
-            name = request.GET.get("brand")
-        if request.GET.get("order_by"):
-            order = request.GET.get("order_by")
-            if order == "-id":
-                    choice="Latest products"
-            elif order == "-price":
-                    choice="Highest price"
-            elif order == "id":
-                    choice="Oldest products"
-            elif order == "price":
-                    choice="Lowest price"
-            object_list = Products.objects.filter( Q(name__icontains=name),
-                    active=True).exclude(user=request.user).order_by(order)
-            return render(request, "main/filters.html", {"object_list":object_list,"choice":choice,"name":name})
-        else:
-            object_list = Products.objects.filter(Q(name__icontains=name),
-                active=True
-            ).exclude(user=request.user).order_by("-id")
-            choice="Latest products"
-        return render(request, "main/SearchResults.html", {"object_list":object_list,"name":name,"choice":choice})
-def FiltersView(request):
-   
-    order = request.GET.get("order_by")
-    if order == "-id":
-            choice="Latest products"
-    elif order == "-price":
-            choice="Highest price"
-    elif order == "id":
-            choice="Oldest products"
-    elif order == "price":
-            choice="Lowest price"
+    c=[]
+    x=[]
+    y=[]
+    z=[]
+    categories=["Shoes","Clothes","Accesories"]
+    sizes=["M","L","44","45"]
+    conditions=["New","9/10","8/10","7/10","6/10","5/10","4/10","3/10","2/10","1/10"]
+    eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
+        , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
     if request.GET.get("name"):
-        name=request.GET.get("name")
-        if name != "":
-            object_list = Products.objects.filter( Q(name__icontains=name),
-                active=True).exclude(user=request.user).order_by(order)
-            return render(request, "main/filters.html", {"object_list":object_list,"choice":choice,"name":name})
-    else:
-        object_list = Products.objects.filter(
-            active=True# Q(name__icontains=query),
-        ).exclude(user=request.user).order_by(order)
-        return render(request, "main/filters.html", {"object_list":object_list,"choice":choice})
- #products       
-def products(request ):
-    if request.GET.getlist("order_by"):
-        print(request.GET.keys())
-    if request.GET.get("order_by"):
-        order = request.GET.get("order_by")
+        name = request.GET.get("name")
+    elif request.GET.get("brand"):
+        name = request.GET.get("brand")
+
+    if request.POST.get("order_by"):
+        
+        size="empty"
+        condition="empty"
+        category="empty"
+        country="empty"
+        order = request.POST.get("order_by")
         if order == "-id":
                 choice="Latest products"
         elif order == "-price":
@@ -92,14 +65,113 @@ def products(request ):
                 choice="Oldest products"
         elif order == "price":
                 choice="Lowest price"
-        pd =Products.objects.all().order_by(order).filter(active = True).exclude(user=request.user)
+        if request.POST.getlist("size"):
+            size="choosen"
+            x=request.POST.getlist("size")
+            pd =Products.objects.all().order_by(order).filter(Q(name__icontains=name),active = True,size__in=x).exclude(user=request.user)
+        else:
+            pd =Products.objects.all().order_by(order).filter(Q(name__icontains=name),active = True).exclude(user=request.user)
+        if request.POST.getlist("condition"):
+            condition="choosen"
+            y=request.POST.getlist("condition")
+            
+            if size == "choosen":
+                pd=pd.filter(condition__in=y)
+            else:
+                pd =Products.objects.all().order_by(order).filter(Q(name__icontains=name),active = True,condition__in=y).exclude(user=request.user)
+        if request.POST.getlist("country"):
+            country="choosen"
+            z=request.POST.getlist("country")
+            
+            if size == "choosen" or condition=="choosen":
+                pd=pd.filter(country__in=z)
+            else:
+                pd =Products.objects.all().order_by(order).filter(Q(name__icontains=name),active = True,country__in=z).exclude(user=request.user)
+        if request.POST.getlist("category"):
+            category=="choosen"
+            c=request.POST.getlist("category")
+            
+            if size == "choosen" or condition=="choosen" or country=="choosen":
+                pd=pd.filter(categories__in=c)
+            else:
+                pd =Products.objects.all().order_by(order).filter(Q(name__icontains=name),active = True,categories__in=c).exclude(user=request.user)
         
     else:
+        # ,price__lte=100
+        pd =Products.objects.all().order_by('-id').filter(Q(name__icontains=name),active = True).exclude(user=request.user)
+        
+        choice="Latest products"
+        order="-id"
+    return render(request, "main/SearchResults.html", {"pd":pd,"name":name,"choice":choice,"order":order,"categories":categories,"sizes":sizes,"x":x,"y":y,"z":z,"c":c,"conditions":conditions,"eu_countries":eu_countries})
+
+ #products       
+def products(request ):
+    c=[]
+    x=[]
+    y=[]
+    z=[]
+    categories=["Shoes","Clothes","Accesories"]
+    sizes=["M","L","44","45"]
+    conditions=["New","9/10","8/10","7/10","6/10","5/10","4/10","3/10","2/10","1/10"]
+    eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
+        , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
+    if request.POST.get("order_by"):
+        
+        size="empty"
+        condition="empty"
+        category="empty"
+        country="empty"
+        order = request.POST.get("order_by")
+        if order == "-id":
+                choice="Latest products"
+        elif order == "-price":
+                choice="Highest price"
+        elif order == "id":
+                choice="Oldest products"
+        elif order == "price":
+                choice="Lowest price"
+        if request.POST.getlist("size"):
+            size="choosen"
+            x=request.POST.getlist("size")
+            pd =Products.objects.all().order_by(order).filter(active = True,size__in=x).exclude(user=request.user)
+        else:
+            pd =Products.objects.all().order_by(order).filter(active = True).exclude(user=request.user)
+        if request.POST.getlist("condition"):
+            condition="choosen"
+            y=request.POST.getlist("condition")
+            
+            if size == "choosen":
+                pd=pd.filter(condition__in=y)
+            else:
+                pd =Products.objects.all().order_by(order).filter(active = True,condition__in=y).exclude(user=request.user)
+        if request.POST.getlist("country"):
+            country="choosen"
+            z=request.POST.getlist("country")
+            
+            if size == "choosen" or condition=="choosen":
+                pd=pd.filter(country__in=z)
+            else:
+                pd =Products.objects.all().order_by(order).filter(active = True,country__in=z).exclude(user=request.user)
+        if request.POST.getlist("category"):
+            category=="choosen"
+            c=request.POST.getlist("category")
+            
+            if size == "choosen" or condition=="choosen" or country=="choosen":
+                pd=pd.filter(categories__in=c)
+            else:
+                pd =Products.objects.all().order_by(order).filter(active = True,categories__in=c).exclude(user=request.user)
+        
+    else:
+        # ,price__lte=100
         pd =Products.objects.all().order_by('-id').filter(active = True).exclude(user=request.user)
+        
         choice="Latest products"
         order="-id"
     
-    return render(request, "main/products/products.html", {"pd":pd,"choice":choice,"order":order})
+    
+
+    
+    return render(request, "main/products/products.html", {"pd":pd,"choice":choice,"order":order,"categories":categories,"sizes":sizes,"x":x,"y":y,"z":z,"c":c,"conditions":conditions,"eu_countries":eu_countries})
 def userproducts(response):
     pd=Products.objects.all().order_by('-id').filter(user=response.user,active = True)
     if response.method =="POST":
@@ -177,9 +249,20 @@ def productEdit(response, id):
 #wanted
 
 def wanted(request, ):
-    wd =Wanted.objects.all().order_by('-id').filter(active = True).exclude(user=request.user)
-    if request.GET.get("order_by"):
-        order = request.GET.get("order_by")
+    c=[]
+    x=[]
+    
+    z=[]
+    categories=["Shoes","Clothes","Accesories"]
+    sizes=["M","L","44","45"]
+    
+    eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
+        , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
+    if request.POST.get("order_by"):
+        
+        size="empty"
+        country="empty"
+        order = request.POST.get("order_by")
         if order == "-id":
                 choice="Latest products"
         elif order == "-maxprice":
@@ -188,13 +271,37 @@ def wanted(request, ):
                 choice="Oldest products"
         elif order == "maxprice":
                 choice="Lowest price"
-        wd =Wanted.objects.all().order_by(order).filter(active = True).exclude(user=request.user)
+        if request.POST.getlist("size"):
+            size="choosen"
+            x=request.POST.getlist("size")
+            wd =Wanted.objects.all().order_by(order).filter(active = True,size__in=x).exclude(user=request.user)
+        else:
+            wd =Wanted.objects.all().order_by(order).filter(active = True).exclude(user=request.user)
         
+        if request.POST.getlist("country"):
+            country="choosen"
+            z=request.POST.getlist("country")
+            
+            if size == "choosen" :
+                wd=wd.filter(country__in=z)
+            else:
+                wd =Wanted.objects.all().order_by(order).filter(active = True,country__in=z).exclude(user=request.user)
+        if request.POST.getlist("category"):
+            category=="choosen"
+            c=request.POST.getlist("category")
+            
+            if size == "choosen" or country=="choosen":
+                wd=wd.filter(categories__in=c)
+            else:
+                wd =Wanted.objects.all().order_by(order).filter(active = True,categories__in=c).exclude(user=request.user)
     else:
+        # ,price__lte=100
         wd =Wanted.objects.all().order_by('-id').filter(active = True).exclude(user=request.user)
-        choice="Latest Wanted products"
+        
+        choice="Latest products"
+        order="-id"
     
-    return render(request, "main/wanted/wanted.html", {"wd":wd,"choice":choice})    
+    return render(request, "main/wanted/wanted.html", {"wd":wd,"choice":choice,"order":order,"categories":categories,"c":c,"sizes":sizes,"x":x,"z":z,"eu_countries":eu_countries})    
 def userwanted(response):
     if response.method =="POST":
        
@@ -287,28 +394,20 @@ def wantedEdit(response, id):
 #product categories
 def shoes(request):
     
-    if request.GET.get("order_by"):
-        order = request.GET.get("order_by")
-        if order == "-id":
-                choice="Latest products"
-        elif order == "-price":
-                choice="Highest price"
-        elif order == "id":
-                choice="Oldest products"
-        elif order == "price":
-                choice="Lowest price"
-        shoes=Products.objects.order_by(order).filter(categories="shoes",active = True).exclude(user=request.user)
-        
-    else:
-        shoes=Products.objects.order_by('-id').filter(categories="shoes",active = True).exclude(user=request.user)
-        choice="Latest products"
-            
-            
-    return render(request, "main/products/shoes.html", {"shoes":shoes,"choice":choice})
-def clothes(request):
+    x=[]
+    y=[]
+    z=[]
    
-    if request.GET.get("order_by"):
-        order = request.GET.get("order_by")
+    sizes=["M","L","44","45"]
+    conditions=["New","9/10","8/10","7/10","6/10","5/10","4/10","3/10","2/10","1/10"]
+    eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
+        , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
+    if request.POST.get("order_by"):
+        
+        size="empty"
+        condition="empty"
+        
+        order = request.POST.get("order_by")
         if order == "-id":
                 choice="Latest products"
         elif order == "-price":
@@ -317,21 +416,53 @@ def clothes(request):
                 choice="Oldest products"
         elif order == "price":
                 choice="Lowest price"
-        clothes=Products.objects.order_by(order).filter(categories="clothes",active = True).exclude(user=request.user)
+        if request.POST.getlist("size"):
+            size="choosen"
+            x=request.POST.getlist("size")
+            shoes =Products.objects.all().order_by(order).filter(categories="shoes",active = True,size__in=x).exclude(user=request.user)
+        else:
+            shoes =Products.objects.all().order_by(order).filter(categories="shoes",active = True).exclude(user=request.user)
+        if request.POST.getlist("condition"):
+            condition="choosen"
+            y=request.POST.getlist("condition")
+            
+            if size == "choosen":
+                shoes=shoes.filter(condition__in=y)
+            else:
+                shoes =Products.objects.all().order_by(order).filter(categories="shoes",active = True,condition__in=y).exclude(user=request.user)
+        if request.POST.getlist("country"):
+            
+            z=request.POST.getlist("country")
+            
+            if size == "choosen" or condition=="choosen":
+                shoes=shoes.filter(country__in=z)
+            else:
+                shoes =Products.objects.all().order_by(order).filter(categories="shoes",active = True,country__in=z).exclude(user=request.user)
         
     else:
+        # ,price__lte=100
+        shoes =Products.objects.all().order_by('-id').filter(categories="shoes",active = True).exclude(user=request.user)
         
-        clothes=Products.objects.order_by('-id').filter(categories="clothes",active = True).exclude(user=request.user)
         choice="Latest products"
         order="-id"
+            
+            
+    return render(request, "main/products/shoes.html", {"shoes":shoes,"choice":choice,"order":order,"sizes":sizes,"x":x,"y":y,"z":z,"conditions":conditions,"eu_countries":eu_countries})
+def clothes(request):
+    x=[]
+    y=[]
+    z=[]
+   
+    sizes=["M","L","44","45"]
+    conditions=["New","9/10","8/10","7/10","6/10","5/10","4/10","3/10","2/10","1/10"]
+    eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
+        , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
+    if request.POST.get("order_by"):
         
-           
-            
-            
-    return render(request, "main/products/clothes.html", {"clothes":clothes,"choice":choice,"order":order})
-def accesories(request):
-    if request.GET.get("order_by"):
-        order = request.GET.get("order_by")
+        size="empty"
+        condition="empty"
+        
+        order = request.POST.get("order_by")
         if order == "-id":
                 choice="Latest products"
         elif order == "-price":
@@ -340,78 +471,87 @@ def accesories(request):
                 choice="Oldest products"
         elif order == "price":
                 choice="Lowest price"
-        accesories=Products.objects.order_by(order).filter(categories="accesories",active = True).exclude(user=request.user)
+        if request.POST.getlist("size"):
+            size="choosen"
+            x=request.POST.getlist("size")
+            clothes =Products.objects.all().order_by(order).filter(categories="clothes",active = True,size__in=x).exclude(user=request.user)
+        else:
+            clothes =Products.objects.all().order_by(order).filter(categories="clothes",active = True).exclude(user=request.user)
+        if request.POST.getlist("condition"):
+            condition="choosen"
+            y=request.POST.getlist("condition")
+            
+            if size == "choosen":
+                clothes=clothes.filter(condition__in=y)
+            else:
+                clothes =Products.objects.all().order_by(order).filter(categories="clothes",active = True,condition__in=y).exclude(user=request.user)
+        if request.POST.getlist("country"):
+            
+            z=request.POST.getlist("country")
+            
+            if size == "choosen" or condition=="choosen":
+                clothes=clothes.filter(country__in=z)
+            else:
+                clothes =Products.objects.all().order_by(order).filter(categories="clothes",active = True,country__in=z).exclude(user=request.user)
         
     else:
-        accesories=Products.objects.order_by('-id').filter(categories="accesories",active = True).exclude(user=request.user)
+        # ,price__lte=100
+        clothes =Products.objects.all().order_by('-id').filter(categories="clothes",active = True).exclude(user=request.user)
+        
         choice="Latest products"
-        
-           
+        order="-id"
             
             
-    return render(request, "main/products/accesories.html", {"accesories":accesories,"choice":choice})
+    return render(request, "main/products/clothes.html", {"clothes":clothes,"choice":choice,"order":order,"sizes":sizes,"x":x,"y":y,"z":z,"conditions":conditions,"eu_countries":eu_countries})
+def accesories(request):
 
-
-
-
-
-
-
-# def cart(response):
-#     carts= response.user.cart.all()
+    y=[]
+    z=[]
+   
     
-#     for i in carts:
-#         cart=Cart.objects.get(id= i.id) 
-#         number= cart.cartitem_set.count()
-#     if response.method =="POST":
-#         if response.POST.get("delete"):
-#             itemid=response.POST.get("delete")
-#             try:
-#                 cart.cartitem_set.get(id=int(itemid)).delete()
-#             except:
-#                 redirect("/cart/")
-#             redirect("/cart/")
-#     return render(response, "main/cart.html", {"number":number})
-
-# home
-#  # for item in CartItem.objects.all():
-    #     Products.objects.get(id=int(item.productid)).delete() deleting items from cart....
-
-    # try:
-    #     x=response.user.cart.count()
+    conditions=["New","9/10","8/10","7/10","6/10","5/10","4/10","3/10","2/10","1/10"]
+    eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
+        , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
+    if request.POST.get("order_by"):
         
+       
+        condition="empty"
         
-    #     if x  < 1:
-    #         c=Cart()
-    #         c.save()
-    #         response.user.cart.add(c)
-    # except:
-    #         print("nejde cart")
-    
-    # cart items quantity
-    # for cart in response.user.cart.all():
-    
-    #     number=cart.cartitem_set.count()
-
-    #look
-
-
-    # carts= response.user.cart.all()
-    
-    # for i in carts:
-    #     cart=Cart.objects.get(id= i.id) 
-    #     items=cart.cartitem_set
-    #     quantity=items.filter(productid=pd.id)
+        order = request.POST.get("order_by")
+        if order == "-id":
+                choice="Latest products"
+        elif order == "-price":
+                choice="Highest price"
+        elif order == "id":
+                choice="Oldest products"
+        elif order == "price":
+                choice="Lowest price"
         
-    
-    # if response.method =="POST":
-    #     if response.POST.get("addtocart"):
-    #         if len(quantity) == 0:
-    #             productid=pd.id
-    #             name = pd.name
-    #             price= pd.price
-    #             size = pd.size
-    #             image = pd.image
-    #             # cart.cartitem_set.create(productid=productid, name=name,price=price, size=size, image=image )
-    #         else:
-    #             pass
+        if request.POST.getlist("condition"):
+            condition="choosen"
+            y=request.POST.getlist("condition")
+            
+            
+            accesories =Products.objects.all().order_by(order).filter(categories="accesories",active = True,condition__in=y).exclude(user=request.user)
+        else:
+            accesories =Products.objects.all().order_by(order).filter(categories="accesories",active = True).exclude(user=request.user)
+        if request.POST.getlist("country"):
+            
+            z=request.POST.getlist("country")
+            
+            if condition=="choosen":
+                accesories=accesories.filter(country__in=z)
+            else:
+                accesories =Products.objects.all().order_by(order).filter(categories="accesories",active = True,country__in=z).exclude(user=request.user)
+        
+    else:
+        # ,price__lte=100
+        accesories =Products.objects.all().order_by('-id').filter(categories="accesories",active = True).exclude(user=request.user)
+        
+        choice="Latest products"
+        order="-id"
+            
+            
+    return render(request, "main/products/accesories.html", {"accesories":accesories,"choice":choice,"order":order,"y":y,"z":z,"conditions":conditions,"eu_countries":eu_countries})
+
+
