@@ -20,6 +20,23 @@
     <option value="price" name="price">Lowest Price</option>
     <option value="-price" name="price">Highest Price</option>
   </select>
+  <select name="pricemax" id="pricemax" onchange="this.form.submit()">
+    <option
+      class="hidden_option"
+      value="{{price}}"
+      name="{{price}}"
+      style="display: none"
+    >
+      {{choicep}}
+    </option>
+    <option value="0" name="0">Price up to €</option>
+    <option value="100" name="100">up to 100€</option>
+    <option value="200" name="200">up to 200€</option>
+    <option value="500" name="500">up to 500€</option>
+    <option value="1000" name="1000">up to 1000€</option>
+    <option value="2000" name="2000">up to 2000€</option>
+    <option value="2001" name="2001">from 2000€</option>
+  </select>
 <h5>Categories</h5>
   {% for category in categories %} {% if category in c %}
   <label
@@ -116,7 +133,7 @@
       <a href="/{{product.id}}/">
         <img class="image" src="{{product.image.url}}" alt="image" />
         <p>Name: {{product.name}}</p>
-        <!-- <p>Description: {{product.description}}</p> -->
+        {{product.condition}}
         <p>Size: {{product.size}}</p>
         <!-- <p>Category: {{product.categories}}</p> -->
         <p>Price: {{product.price}}$</p>

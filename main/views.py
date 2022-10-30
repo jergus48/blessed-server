@@ -40,8 +40,10 @@ def SearchResultsView(request):
     x=[]
     y=[]
     z=[]
+    choicep="Price up to €"
+    pricex=""
     categories=["Shoes","Clothes","Accesories"]
-    sizes=["M","L","44","45"]
+    sizes=["XXS","XS","S","M","L","XL","XXL","3XL","35","36","37","38","39","40","41","42","43","44","45"]
     conditions=["New","9/10","8/10","7/10","6/10","5/10","4/10","3/10","2/10","1/10"]
     eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
         , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
@@ -102,7 +104,23 @@ def SearchResultsView(request):
         
         choice="Latest products"
         order="-id"
-    return render(request, "main/SearchResults.html", {"pd":pd,"name":name,"choice":choice,"order":order,"categories":categories,"sizes":sizes,"x":x,"y":y,"z":z,"c":c,"conditions":conditions,"eu_countries":eu_countries})
+    if request.POST.get("pricemax"):
+     
+        pricex=request.POST.get("pricemax")
+        pricex=int(pricex)
+        list=[0,100,200,500,1000,2000,2001]
+       
+        if list.count(pricex) == 1:
+            if pricex == 2001:
+                pd=pd.filter(price__gte=2000)
+                choicep="from 2000€"
+            elif pricex == 0:
+                
+                choicep="Price up to €"   
+            else:
+                pd=pd.filter(price__lte=pricex)
+                choicep="up to "+str(pricex)+"€"
+    return render(request, "main/SearchResults.html", {"pd":pd,"name":name,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"sizes":sizes,"x":x,"y":y,"z":z,"c":c,"conditions":conditions,"eu_countries":eu_countries})
 
  #products       
 def products(request ):
@@ -110,8 +128,10 @@ def products(request ):
     x=[]
     y=[]
     z=[]
+    choicep="Price up to €"
+    pricex=""
     categories=["Shoes","Clothes","Accesories"]
-    sizes=["M","L","44","45"]
+    sizes=["XXS","XS","S","M","L","XL","XXL","3XL","35","36","37","38","39","40","41","42","43","44","45"]
     conditions=["New","9/10","8/10","7/10","6/10","5/10","4/10","3/10","2/10","1/10"]
     eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
         , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
@@ -167,11 +187,27 @@ def products(request ):
         
         choice="Latest products"
         order="-id"
-    
+    if request.POST.get("pricemax"):
+     
+        pricex=request.POST.get("pricemax")
+        pricex=int(pricex)
+        list=[0,100,200,500,1000,2000,2001]
+       
+        if list.count(pricex) == 1:
+            if pricex == 2001:
+                pd=pd.filter(price__gte=2000)
+                choicep="from 2000€"
+            elif pricex == 0:
+                
+                choicep="Price up to €"   
+            else:
+                pd=pd.filter(price__lte=pricex)
+                choicep="up to "+str(pricex)+"€"
+                
     
 
     
-    return render(request, "main/products/products.html", {"pd":pd,"choice":choice,"order":order,"categories":categories,"sizes":sizes,"x":x,"y":y,"z":z,"c":c,"conditions":conditions,"eu_countries":eu_countries})
+    return render(request, "main/products/products.html", {"pd":pd,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"sizes":sizes,"x":x,"y":y,"z":z,"c":c,"conditions":conditions,"eu_countries":eu_countries})
 def userproducts(response):
     pd=Products.objects.all().order_by('-id').filter(user=response.user,active = True)
     if response.method =="POST":
@@ -191,6 +227,8 @@ def userproducts(response):
 def addProducts(response):
     eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
         , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
+    shoessize=["35","36","37","38","39","40","41","42","43","44","45"]
+    clothessize=["XXS","XS","S","M","L","XL","XXL","3XL"]
     if response.method =="POST":
        
         if response.POST.get("create"):
@@ -222,7 +260,7 @@ def addProducts(response):
             
 
     
-    return render(response, "main/products/addProducts.html", {"eu":eu_countries})
+    return render(response, "main/products/addProducts.html", {"eu":eu_countries,"shoessize":shoessize,"clothessize":clothessize})
 def productLook(response, id):
     pd =Products.objects.get(id=id)
     ig=pd.user.last_name.replace("@","")
@@ -251,10 +289,11 @@ def productEdit(response, id):
 def wanted(request, ):
     c=[]
     x=[]
-    
     z=[]
+    choicep="Price up to €"
+    pricex=""
     categories=["Shoes","Clothes","Accesories"]
-    sizes=["M","L","44","45"]
+    sizes=["XXS","XS","S","M","L","XL","XXL","3XL","35","36","37","38","39","40","41","42","43","44","45"]
     
     eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
         , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
@@ -300,8 +339,23 @@ def wanted(request, ):
         
         choice="Latest products"
         order="-id"
-    
-    return render(request, "main/wanted/wanted.html", {"wd":wd,"choice":choice,"order":order,"categories":categories,"c":c,"sizes":sizes,"x":x,"z":z,"eu_countries":eu_countries})    
+    if request.POST.get("pricemax"):
+     
+        pricex=request.POST.get("pricemax")
+        pricex=int(pricex)
+        list=[0,100,200,500,1000,2000,2001]
+       
+        if list.count(pricex) == 1:
+            if pricex == 2001:
+                wd=wd.filter(maxprice__gte=2000)
+                choicep="from 2000€"
+            elif pricex == 0:
+                
+                choicep="Price up to €"   
+            else:
+                wd=wd.filter(maxprice__lte=pricex)
+                choicep="up to "+str(pricex)+"€"
+    return render(request, "main/wanted/wanted.html", {"wd":wd,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"c":c,"sizes":sizes,"x":x,"z":z,"eu_countries":eu_countries})    
 def userwanted(response):
     if response.method =="POST":
        
@@ -322,6 +376,8 @@ def userwanted(response):
 def addWanted(response):
     eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
         , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
+    shoessize=["35","36","37","38","39","40","41","42","43","44","45"]
+    clothessize=["XXS","XS","S","M","L","XL","XXL","3XL"]
     if response.method =="POST":
        
         if response.POST.get("create"):
@@ -354,7 +410,7 @@ def addWanted(response):
             
 
     
-    return render(response, "main/wanted/addWanted.html", {"eu":eu_countries})
+    return render(response, "main/wanted/addWanted.html", {"eu":eu_countries,"shoessize":shoessize,"clothessize":clothessize})
 def wantedLook(response, id):
     wid= str(id).replace("w", "")
     pd =Wanted.objects.get(id=wid)
@@ -369,6 +425,8 @@ def wantedLook(response, id):
 def wantedEdit(response, id):
     edit=str(id).replace("edit-w", "")
     pd =Wanted.objects.get(id=int(edit))
+    shoessize=["35","36","37","38","39","40","41","42","43","44","45"]
+    clothessize=["XXS","XS","S","M","L","XL","XXL","3XL"]
     if response.method =="POST":
         if response.POST.get("change"):
             if pd.categories == "Shoes":
@@ -388,7 +446,7 @@ def wantedEdit(response, id):
 
 
 
-    return render(response, "main/wanted/wantedEdit.html", {"pd":pd})    
+    return render(response, "main/wanted/wantedEdit.html", {"pd":pd,"shoessize":shoessize,"clothessize":clothessize})    
 
 
 #product categories
@@ -397,8 +455,9 @@ def shoes(request):
     x=[]
     y=[]
     z=[]
-   
-    sizes=["M","L","44","45"]
+    choicep="Price up to €"
+    pricex=""
+    sizes=["35","36","37","38","39","40","41","42","43","44","45"]
     conditions=["New","9/10","8/10","7/10","6/10","5/10","4/10","3/10","2/10","1/10"]
     eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
         , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
@@ -445,15 +504,31 @@ def shoes(request):
         
         choice="Latest products"
         order="-id"
+    if request.POST.get("pricemax"):
+     
+        pricex=request.POST.get("pricemax")
+        pricex=int(pricex)
+        list=[0,100,200,500,1000,2000,2001]
+       
+        if list.count(pricex) == 1:
+            if pricex == 2001:
+                shoes=shoes.filter(price__gte=2000)
+                choicep="from 2000€"
+            elif pricex == 0:
+                
+                choicep="Price up to €"   
+            else:
+                shoes=shoes.filter(price__lte=pricex)
+                choicep="up to "+str(pricex)+"€"        
             
-            
-    return render(request, "main/products/shoes.html", {"shoes":shoes,"choice":choice,"order":order,"sizes":sizes,"x":x,"y":y,"z":z,"conditions":conditions,"eu_countries":eu_countries})
+    return render(request, "main/products/shoes.html", {"shoes":shoes,"choice":choice,"choicep":choicep,"price":pricex,"order":order,"sizes":sizes,"x":x,"y":y,"z":z,"conditions":conditions,"eu_countries":eu_countries})
 def clothes(request):
     x=[]
     y=[]
     z=[]
-   
-    sizes=["M","L","44","45"]
+    choicep="Price up to €"
+    pricex=""
+    sizes=["XXS","XS","S","M","L","XL","XXL","3XL"]
     conditions=["New","9/10","8/10","7/10","6/10","5/10","4/10","3/10","2/10","1/10"]
     eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
         , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
@@ -500,14 +575,30 @@ def clothes(request):
         
         choice="Latest products"
         order="-id"
+    if request.POST.get("pricemax"):
+     
+        pricex=request.POST.get("pricemax")
+        pricex=int(pricex)
+        list=[0,100,200,500,1000,2000,2001]
+       
+        if list.count(pricex) == 1:
+            if pricex == 2001:
+                clothes=clothes.filter(price__gte=2000)
+                choicep="from 2000€"
+            elif pricex == 0:
+                
+                choicep="Price up to €"   
+            else:
+                clothes=clothes.filter(price__lte=pricex)
+                choicep="up to "+str(pricex)+"€"       
             
-            
-    return render(request, "main/products/clothes.html", {"clothes":clothes,"choice":choice,"order":order,"sizes":sizes,"x":x,"y":y,"z":z,"conditions":conditions,"eu_countries":eu_countries})
+    return render(request, "main/products/clothes.html", {"clothes":clothes,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"sizes":sizes,"x":x,"y":y,"z":z,"conditions":conditions,"eu_countries":eu_countries})
 def accesories(request):
 
     y=[]
     z=[]
-   
+    choicep="Price up to €"
+    pricex=""
     
     conditions=["New","9/10","8/10","7/10","6/10","5/10","4/10","3/10","2/10","1/10"]
     eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
@@ -550,8 +641,23 @@ def accesories(request):
         
         choice="Latest products"
         order="-id"
+    if request.POST.get("pricemax"):
+     
+        pricex=request.POST.get("pricemax")
+        pricex=int(pricex)
+        list=[0,100,200,500,1000,2000,2001]
+       
+        if list.count(pricex) == 1:
+            if pricex == 2001:
+                accesories=accesories.filter(price__gte=2000)
+                choicep="from 2000€"
+            elif pricex == 0:
+                
+                choicep="Price up to €"   
+            else:
+                accesories=accesories.filter(price__lte=pricex)
+                choicep="up to "+str(pricex)+"€"       
             
-            
-    return render(request, "main/products/accesories.html", {"accesories":accesories,"choice":choice,"order":order,"y":y,"z":z,"conditions":conditions,"eu_countries":eu_countries})
+    return render(request, "main/products/accesories.html", {"accesories":accesories,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"y":y,"z":z,"conditions":conditions,"eu_countries":eu_countries})
 
 

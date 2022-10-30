@@ -24,13 +24,17 @@
   </select>
 
   <select id="shoes" name="sizeS" onchange="shoes()">
-    <option name="44" value="44">44</option>
-    <option name="45" value="45">45</option>
+    {% for size in shoessize %}
+    <option name="{{size}}" value="{{size}}">{{size}}</option>
+    
+    {% endfor %}
   </select>
 
   <select id="clothes" name="sizeC" onchange="clothes()">
-    <option name="M" value="M">M</option>
-    <option name="L" value="L">L</option>
+    {% for size in clothessize %}
+    <option name="{{size}}" value="{{size}}">{{size}}</option>
+    
+    {% endfor %}
   </select>
 
   <input

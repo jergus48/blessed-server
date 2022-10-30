@@ -16,13 +16,33 @@
   <h2>{{pd.name}}</h2>
   {% if pd.categories == "Shoes"%}
   <select id="shoes" name="sizeS">
-    <option name="44" value="44">44</option>
-    <option name="45" value="45">45</option>
+    <option
+      class="hidden_option"
+      value="{{pd.size}}"
+      name="{{pd.size}}"
+      style="display: none"
+    >
+      {{pd.size}}
+    </option>
+    {% for size in shoessize %}
+    <option name="{{size}}" value="{{size}}">{{size}}</option>
+    
+    {% endfor %}
   </select>
 {% elif pd.categories == "Clothes"%}
   <select id="clothes" name="sizeC">
-    <option name="M" value="M">M</option>
-    <option name="L" value="L">L</option>
+    <option
+      class="hidden_option"
+      value="{{pd.size}}"
+      name="{{pd.size}}"
+      style="display: none"
+    >
+      {{pd.size}}
+    </option>
+    {% for size in clothessize %}
+    <option name="{{size}}" value="{{size}}">{{size}}</option>
+    
+    {% endfor %}
   </select>
   {% elif pd.categories == "Accesories"%}
   <input
@@ -30,6 +50,7 @@
     name="sizeA"
     id="accesories"
     maxlength="10"
+    value="{{pd.size}}"
     placeholder="Accesory Size"
   />
   {% endif %}
