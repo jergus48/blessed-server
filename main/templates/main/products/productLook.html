@@ -26,7 +26,13 @@
     <div class="small-box" id="gradient3"></div>
     <h2>{{pd.name}}<br />{{pd.size}}</h2>
     <h4>{{pd.price}} €</h4>
-    <button class="add-to-cart" type="submit" value="Contact" name="Contact">
+    <button
+      class="add-to-cart"
+      type="submit"
+      id="contact-btn"
+      value="Contact"
+      name="Contact"
+    >
       Contact
     </button>
   </div>
@@ -37,12 +43,16 @@
 </div>
 <br />
 <div style="text-align: center">
-  <h5>Country:</h5>
+  <h2>For Sale</h2>
+  <br />
+  <h4>Country:</h4>
   <p>{{pd.country}}</p>
-  <h5>Description:</h5>
+  <h4>Description:</h4>
   <p>{{pd.description}}</p>
-  <h5>Contact:</h5>
+  <br />
+  <h3>Contact:</h3>
   <p>Mail:{{pd.user.username}}</p>
   <a href="https://www.instagram.com/{{ig}}/"><p>Instagram: @{{ig}}</p></a>
 </div>
+<script src="{% static '/js/Look.js' %}"></script>
 {% endblock %}

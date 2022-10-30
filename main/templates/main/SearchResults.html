@@ -2,7 +2,7 @@
 <head>
   <link rel="stylesheet" href=" {% static '/css/search.css' %} " />
 </head>
-<h1>Search Results:</h1>
+<h1>Search Results for {{name}}:</h1>
 <form method="post" action="">
   {% csrf_token %}
   <input name="name" value="{{name}}" style="display: none;"></input>

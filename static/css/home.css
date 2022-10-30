@@ -74,7 +74,7 @@ h3 {
   list-style-type: none;
 }
 
-.brands a {
+.brands button,.brands a {
   text-align: center;
   border: 1px solid rgb(229, 229, 229);
   background: linear-gradient(#817693e7, #cfb7b1);
