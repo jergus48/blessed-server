@@ -1,8 +1,25 @@
 {% extends 'main/navbar.html' %} {% load static %} {% block content %}
 <head>
-  <link rel="stylesheet" href=" {% static '/css/products.css' %} " />
+  <link rel="stylesheet" href=" {% static '/css/UsersProducts.css' %} " />
 </head>
-<h2>Wanted:</h2>
+<div class="contact">
+  <h2>{{user.first_name}}:</h2>
+  <br />
+  <h3>Contact:</h3>
+  <div class="mailig">
+    <a href="https://www.instagram.com/{{ig}}/"><p>Instagram: @{{ig}}</p></a>
+    <p>Mail: {{user.username}}</p>
+  </div>
+</div>
+<br />
+<div class="containerNapisy">
+  <a href="/user-{{user.id}}/products/"
+    ><div class="pdcontainernapis containernapis">Products</div></a
+  >
+  <a href="/user-{{user.id}}/wanted/"
+    ><div class="containernapis">Wanted</div></a
+  >
+</div>
 <form method="post" action="">
   {% csrf_token %}
   <select name="order_by" id="order_by" onchange="this.form.submit()">
@@ -16,8 +33,8 @@
     </option>
     <option value="-id" name="-id">Latest products</option>
     <option value="id" name="id">Oldest products</option>
-    <option value="maxprice" name="maxprice">Lowest Price</option>
-    <option value="-maxprice" name="maxprice">Highest Price</option>
+    <option value="price" name="price">Lowest Price</option>
+    <option value="-price" name="price">Highest Price</option>
   </select>
   <select name="pricemax" id="pricemax" onchange="this.form.submit()">
     <option
@@ -78,7 +95,27 @@
     />{{size}}</label
   >
   {%endif%} {% endfor %}
-
+  <h5>Condition</h5>
+  {% for condition in conditions %} {% if condition in y %}
+  <label
+    ><input
+      type="checkbox"
+      name="condition"
+      value="{{condition}}"
+      onchange="this.form.submit()"
+      checked
+    />{{condition}}</label
+  >
+  {% else %}
+  <label
+    ><input
+      type="checkbox"
+      name="condition"
+      value="{{condition}}"
+      onchange="this.form.submit()"
+    />{{condition}}</label
+  >
+  {%endif%} {% endfor %}
   <h5>Country</h5>
   {% for country in eu_countries %} {% if country in z %}
   <label
@@ -101,26 +138,25 @@
   >
   {%endif%} {% endfor %}
 </form>
-{% if wd.count == 0 %}
+{% if pd.count == 0 %}
 <p>Nothing Match</p>
 {% endif %}
 <div class="container">
   <ul class="products">
-    {% for product in wd %}
+    {% for product in pd %}
     <li class="product">
-      <a href="/w{{product.id}}/">
+      <a href="/{{product.id}}/">
         <img class="image" src="{{product.image.url}}" alt="image" />
         <p>Name: {{product.name}}</p>
-        <!-- <p>Description: {{product.description}}</p> -->
-        <p>Size: {{product.size}}</p>
         <p>Country: {{product.country}}</p>
+        <p>Size: {{product.size}}</p>
+        <p>condition: {{product.condition}}</p>
         <p>Category: {{product.categories}}</p>
-        <p>Price: {{product.maxprice}}$</p>
-        <!-- <p>id: {{product.id}}</p> -->
+        <p>Price: {{product.price}}€</p>
       </a>
     </li>
     {% endfor %}
   </ul>
 </div>
-
+<script></script>
 {% endblock %}

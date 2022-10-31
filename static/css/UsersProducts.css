@@ -1,0 +1,56 @@
+body{
+    overflow-x: hidden;
+}
+.contact {
+    text-align: center;
+}
+.mailig{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.containerNapisy {
+    display: flex;
+    flex-direction: row;
+    
+    width: 100%;
+}
+.containernapis {
+    position: relative;
+    width:50vw;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    background-color: aliceblue;
+}
+.pdcontainernapis {
+    background-color:blueviolet;
+}
+.image {
+    width: 40%;
+    
+}
+.product {
+    
+    
+    display: flex;
+    justify-content: center;
+    
+}
+.container {
+    display: flex;
+    justify-content: center;
+    padding-left: 5%;
+    padding-right: 5%;
+   
+    
+}
+.products {
+    display: grid;
+    
+    grid-template-columns: repeat(6, 1fr);
+    list-style-type: none;
+   overflow-y: hidden;
+    overflow-x: auto;
+}

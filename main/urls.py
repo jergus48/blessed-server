@@ -9,6 +9,7 @@ urlpatterns = [
     #products
     path("products/", views.products, name="products"),
     path("myproducts/", views.userproducts, name="myproducts"),
+    path("user-<int:id>/products/", views.UsersProducts, name="UsersProducts"),
     path("add/", views.addProducts, name="add"),
     path("<int:id>/", views.productLook, name="look"),
     path("edit-<int:id>/", views.productEdit, name="edit"),
@@ -18,6 +19,7 @@ urlpatterns = [
     # wanted
     path("wanted/", views.wanted, name="wanted"),
     path("mywanted/", views.userwanted, name="mywanted"),
+    path("user-<int:id>/wanted/", views.UsersWanted, name="UsersWanted"),
     path("add/wanted/", views.addWanted, name="add"),
     path("w<int:id>/", views.wantedLook, name="look"),
     path("edit-w<int:id>/", views.wantedEdit, name="edit"),

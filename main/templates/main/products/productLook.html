@@ -53,8 +53,10 @@
   <p>{{pd.description}}</p>
   <br />
   <h3>Contact:</h3>
-  <p>Mail:{{pd.user.username}}</p>
   <a href="https://www.instagram.com/{{ig}}/"><p>Instagram: @{{ig}}</p></a>
+  <p>Mail:{{pd.user.username}}</p>
+  <a href="/user-{{pd.user.id}}/products/"><p>Account: Click</p></a>
 </div>
+<br />
 <script src="{% static '/js/Look.js' %}"></script>
 {% endblock %}

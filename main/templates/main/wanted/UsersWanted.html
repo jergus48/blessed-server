@@ -1,8 +1,22 @@
 {% extends 'main/navbar.html' %} {% load static %} {% block content %}
 <head>
-  <link rel="stylesheet" href=" {% static '/css/products.css' %} " />
+  <link rel="stylesheet" href=" {% static '/css/UsersWanted.css' %} " />
 </head>
-<h2>Wanted:</h2>
+<div class="contact">
+    
+    <h2>{{user.first_name}}:</h2>
+    <br/>
+    <h3>Contact:</h3>
+    <div class="mailig">
+        <a href="https://www.instagram.com/{{ig}}/"><p>Instagram: @{{ig}}</p></a>
+        <p>Mail:  {{user.username}}</p>
+    </div>
+</div>
+<br/>
+<div class="containerNapisy">
+    <a href="/user-{{user.id}}/products/"><div class="containernapis">Products</div></a>
+    <a href="/user-{{user.id}}/wanted/"><div class="containernapis wdcontainernapis">Wanted</div></a>
+</div>
 <form method="post" action="">
   {% csrf_token %}
   <select name="order_by" id="order_by" onchange="this.form.submit()">
@@ -108,7 +122,7 @@
   <ul class="products">
     {% for product in wd %}
     <li class="product">
-      <a href="/w{{product.id}}/">
+      <a href="w/{{product.id}}/">
         <img class="image" src="{{product.image.url}}" alt="image" />
         <p>Name: {{product.name}}</p>
         <!-- <p>Description: {{product.description}}</p> -->
