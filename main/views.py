@@ -209,7 +209,7 @@ def products(request ):
 
     return render(request, "main/products/products.html", {"pd":pd,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"sizes":sizes,"x":x,"y":y,"z":z,"c":c,"conditions":conditions,"eu_countries":eu_countries})
 def userproducts(response):
-    pd=Products.objects.all().order_by('-id').filter(user=response.user,active = True)
+    pd=Products.objects.all().order_by('-id').filter(user=response.user)
     if response.method =="POST":
 
         if response.POST.get("delete"):
@@ -220,6 +220,16 @@ def userproducts(response):
             os.remove('static'+imageurl)
 
             # pd.delete()
+        else:
+            for item in pd:
+                  
+                  if response.POST.get("p" + str(item.id)) == "on":
+                     item.active = True
+                     
+                    
+                  else:
+                      item.active = False
+                  item.save()
 
 
     return render(response, "main/products/userproducts.html", {"pd":pd})
@@ -443,6 +453,7 @@ def wanted(request, ):
                 choicep="up to "+str(pricex)+"€"
     return render(request, "main/wanted/wanted.html", {"wd":wd,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"c":c,"sizes":sizes,"x":x,"z":z,"eu_countries":eu_countries})
 def userwanted(response):
+    wd=Wanted.objects.all().order_by('-id').filter(user=response.user)
     if response.method =="POST":
 
         if response.POST.get("delete"):
@@ -454,10 +465,19 @@ def userwanted(response):
             if pd.image.url != '/images/blessedimg.jpeg':
                 os.remove('static'+imageurl)
 
-            # pd.delete()
+        else:
+            for item in wd:
+                  
+                  if response.POST.get("w" + str(item.id)) == "on":
+                     item.active = True
+                     
+                    
+                  else:
+                      item.active = False
+                  item.save()
 
 
-    return render(response, "main/wanted/userwanted.html", {})
+    return render(response, "main/wanted/userwanted.html", {"wd":wd})
 def UsersWanted(request,id):
     
     user=User.objects.get(id=id)

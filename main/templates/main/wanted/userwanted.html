@@ -13,7 +13,7 @@
 
   {% else %}
   <form method="post" action="">
-    {% csrf_token %} {% for product in user.wanted.all %}
+    {% csrf_token %} {% for product in wd %}
 
     <div class="product">
       <a href="/w{{product.id}}/">
@@ -32,6 +32,30 @@
 
       <button type="submit" value="{{product.id}}" name="delete">Remove</button>
       <button><a href="/edit-w{{product.id}}/">Edit</a></button>
+      {% if product.active == True%}
+
+      <label class="switch">
+        <input
+          type="checkbox"
+          onchange="form.submit()"
+          name="w{{product.id}}"
+          checked
+        />
+        <span class="slider round"></span>
+      </label>
+
+      {% else %}
+
+      <label class="switch">
+        <input
+          type="checkbox"
+          onchange="form.submit()"
+          name="w{{product.id}}"
+        />
+        <span class="slider round"></span>
+      </label>
+
+      {% endif %} {{product.active}}
     </div>
 
     {% endfor %}

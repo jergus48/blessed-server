@@ -11,6 +11,8 @@ class RegisterForm(UserCreationForm):
     
     username = forms.EmailField(max_length=254, required=True,label="Mail")
     last_name.widget.attrs.update( placeholder='@')
+    username.widget.attrs.update( placeholder='Unique Mail')
+
 
 
     class Meta:

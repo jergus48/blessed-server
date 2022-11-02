@@ -8,6 +8,32 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
     crossorigin="anonymous"
   />
+  <style>
+    .alert {
+  padding: 20px;
+  background-color: #f44336; /* Red */
+  color: white;
+  margin-bottom: 15px;
+  display:{{display}} ;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
+}
+  </style>
 </head>
 
 <form method="POST" class="form-group">
@@ -16,6 +42,16 @@
   <div style="display: flex; justify-content: center">
     <div style="width: 50%">
       {{ form|crispy }}
+      
+      <div class="alert">
+        <span
+          class="closebtn"
+          onclick="this.parentElement.style.display='none';"
+          >&times;</span
+        >
+        Form Didn't validate, please try again
+      </div>
+      
       <button type="submit" class="btn btn-success">Register</button>
     </div>
   </div>

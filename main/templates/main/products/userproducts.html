@@ -12,7 +12,7 @@
   <p>nemas vlastne produkty</p>
 
   {% else %}
-  <form method="post" action="">
+  <form method="post" action="" id="form_id" >
     {% csrf_token %} {% for product in pd %}
 
     <div class="product">
@@ -31,10 +31,30 @@
 
       <button type="submit" value="{{product.id}}" name="delete">Remove</button>
       <button><a href="/edit-{{product.id}}/">Edit</a></button>
-    </div>
-
+      {% if product.active == True%}
+   
+      <label class="switch">
+        
+        <input type="checkbox" onchange="form.submit()" name="p{{product.id}}" checked />
+        <span class="slider round"></span>
+        
+      </label>
+    
+    
+    {% else %}
+    
+    <label class="switch">
+      <input type="checkbox" onchange="form.submit()"   name="p{{product.id}}"/>
+      <span class="slider round"></span>
+    </label>
+  
+  
+  {% endif %}
+  {{product.active}}
+</div>
     {% endfor %}
   </form>
   {% endif %}
 </body>
+
 {% endblock %}
