@@ -1,17 +1,15 @@
 
-from asyncio.windows_events import NULL
-from itertools import product
-from msilib.schema import Condition
+from django.core.mail import send_mail
 from unicodedata import category
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 from .models import Products, Wanted
 from django.contrib.auth.models import User
 # Create your views here.
-from django.contrib.auth import get_user_model
+
 from django.core.files.storage import FileSystemStorage
 import os
 from django.db.models import Q
-from django.views.generic import TemplateView, ListView
+
 
 def home(response):
 
@@ -27,13 +25,29 @@ def home(response):
 
 
     return render(response, "main/home.html", {"ls":ls,"wd":wd})
-def error(response):
-    redirect("/")
-    return render(response, "404.html", {})
-
-# object_list = Products.objects.filter(Q(name__icontains=name),
-#                 active=True
-#             ).exclude(user=request.user).order_by("-id")
+def about_us(response):
+    
+    return render(response, "main/about_us.html", {})
+def contact(request):
+    if request.method == "POST":
+        name=request.POST.get("name")
+        msg=request.POST.get("message")
+        email=request.POST.get("email")
+        message="from mail: "+email + '\n'+'Message:'+ '\n' +msg
+        
+        send_mail(name,message,'blessedstore.sk@gmail.com',['blessedstore.sk@gmail.com'])
+        return HttpResponse('Email was sent')
+    return render(request, "main/contact.html", {})
+def FAQ(response):
+    
+    return render(response, "main/FAQ.html", {})
+def handler404(request, exception,):
+    response=redirect("/")
+    return response
+def handler500(response):
+    
+    response=redirect("/")
+    return response
 
 def SearchResultsView(request):
     c=[]
@@ -235,6 +249,9 @@ def userproducts(response):
     return render(response, "main/products/userproducts.html", {"pd":pd})
 
 def addProducts(response):
+    if response.user.is_authenticated == False:
+        response = redirect('/login/')
+        return response
     eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
         , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
     shoessize=["35","36","37","38","39","40","41","42","43","44","45"]
@@ -272,12 +289,18 @@ def addProducts(response):
 
     return render(response, "main/products/addProducts.html", {"eu":eu_countries,"shoessize":shoessize,"clothessize":clothessize})
 def productLook(response, id):
+    if response.user.is_authenticated == False:
+        response = redirect('/login/')
+        return response
     pd =Products.objects.get(id=id)
     ig=pd.user.last_name.replace("@","")
 
 
     return render(response, "main/products/productLook.html", {"pd":pd,"ig":ig})
 def UsersProducts(request,id):
+    if request.user.is_authenticated == False:
+        response = redirect('/login/')
+        return response
     c=[]
     x=[]
     y=[]
@@ -309,9 +332,9 @@ def UsersProducts(request,id):
         if request.POST.getlist("size"):
             size="choosen"
             x=request.POST.getlist("size")
-            pd =Products.objects.all().order_by(order).filter(active = True,size__in=x).exclude(user=request.user)
+            pd =Products.objects.all().order_by(order).filter(active = True,size__in=x,user=user)
         else:
-            pd =Products.objects.all().order_by(order).filter(active = True).exclude(user=request.user)
+            pd =Products.objects.all().order_by(order).filter(active = True,user=user)
         if request.POST.getlist("condition"):
             condition="choosen"
             y=request.POST.getlist("condition")
@@ -319,7 +342,7 @@ def UsersProducts(request,id):
             if size == "choosen":
                 pd=pd.filter(condition__in=y)
             else:
-                pd =Products.objects.all().order_by(order).filter(active = True,condition__in=y).exclude(user=request.user)
+                pd =Products.objects.all().order_by(order).filter(active = True,condition__in=y,user=user)
         if request.POST.getlist("country"):
             country="choosen"
             z=request.POST.getlist("country")
@@ -327,7 +350,7 @@ def UsersProducts(request,id):
             if size == "choosen" or condition=="choosen":
                 pd=pd.filter(country__in=z)
             else:
-                pd =Products.objects.all().order_by(order).filter(active = True,country__in=z).exclude(user=request.user)
+                pd =Products.objects.all().order_by(order).filter(active = True,country__in=z,user=user)
         if request.POST.getlist("category"):
             category=="choosen"
             c=request.POST.getlist("category")
@@ -335,11 +358,11 @@ def UsersProducts(request,id):
             if size == "choosen" or condition=="choosen" or country=="choosen":
                 pd=pd.filter(categories__in=c)
             else:
-                pd =Products.objects.all().order_by(order).filter(active = True,categories__in=c).exclude(user=request.user)
+                pd =Products.objects.all().order_by(order).filter(active = True,categories__in=c,user=user)
 
     else:
         # ,price__lte=100
-        pd =Products.objects.all().order_by('-id').filter(active = True).exclude(user=request.user)
+        pd =Products.objects.all().order_by('-id').filter(active = True,user=user)
 
         choice="Latest products"
         order="-id"
@@ -366,6 +389,9 @@ def UsersProducts(request,id):
     return render(request, "main/products/UsersProducts.html", {"pd":pd,"choice":choice,"user":user,"ig":ig,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"sizes":sizes,"x":x,"y":y,"z":z,"c":c,"conditions":conditions,"eu_countries":eu_countries})
 
 def productEdit(response, id):
+    if response.user.is_authenticated == False:
+        response = redirect('/login/')
+        return response
     edit=str(id).replace("edit-", "")
     pd =Products.objects.get(id=int(edit))
     if response.method =="POST":
@@ -479,7 +505,9 @@ def userwanted(response):
 
     return render(response, "main/wanted/userwanted.html", {"wd":wd})
 def UsersWanted(request,id):
-    
+    if request.user.is_authenticated == False:
+        response = redirect('/login/')
+        return response
     user=User.objects.get(id=id)
     ig=user.last_name.replace("@","")
     c=[]
@@ -508,9 +536,9 @@ def UsersWanted(request,id):
         if request.POST.getlist("size"):
             size="choosen"
             x=request.POST.getlist("size")
-            wd =Wanted.objects.all().order_by(order).filter(active = True,size__in=x,user=user).exclude(user=request.user)
+            wd =Wanted.objects.all().order_by(order).filter(active = True,size__in=x,user=user)
         else:
-            wd =Wanted.objects.all().order_by(order).filter(active = True,user=user).exclude(user=request.user)
+            wd =Wanted.objects.all().order_by(order).filter(active = True,user=user)
 
         if request.POST.getlist("country"):
             country="choosen"
@@ -519,7 +547,7 @@ def UsersWanted(request,id):
             if size == "choosen" :
                 wd=wd.filter(country__in=z)
             else:
-                wd =Wanted.objects.all().order_by(order).filter(active = True,country__in=z,user=user).exclude(user=request.user)
+                wd =Wanted.objects.all().order_by(order).filter(active = True,country__in=z,user=user)
         if request.POST.getlist("category"):
             category=="choosen"
             c=request.POST.getlist("category")
@@ -527,10 +555,10 @@ def UsersWanted(request,id):
             if size == "choosen" or country=="choosen":
                 wd=wd.filter(categories__in=c)
             else:
-                wd =Wanted.objects.all().order_by(order).filter(active = True,categories__in=c,user=user).exclude(user=request.user)
+                wd =Wanted.objects.all().order_by(order).filter(active = True,categories__in=c,user=user)
     else:
         # ,price__lte=100
-        wd =Wanted.objects.all().order_by('-id').filter(active = True,user=user).exclude(user=request.user)
+        wd =Wanted.objects.all().order_by('-id').filter(active = True,user=user)
 
         choice="Latest products"
         order="-id"
@@ -552,6 +580,9 @@ def UsersWanted(request,id):
                 choicep="up to "+str(pricex)+"€"
     return render(request, "main/wanted/UsersWanted.html", {"user":user,"ig":ig,"wd":wd,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"c":c,"sizes":sizes,"x":x,"z":z,"eu_countries":eu_countries})
 def addWanted(response):
+    if response.user.is_authenticated == False:
+        response = redirect('/login/')
+        return response
     eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
         , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
     shoessize=["35","36","37","38","39","40","41","42","43","44","45"]
@@ -590,7 +621,9 @@ def addWanted(response):
 
     return render(response, "main/wanted/addWanted.html", {"eu":eu_countries,"shoessize":shoessize,"clothessize":clothessize})
 def wantedLook(response, id):
-
+    if response.user.is_authenticated == False:
+        response = redirect('/login/')
+        return response
     wid= str(id).replace("w", "")
     pd =Wanted.objects.get(id=wid)
     ig=pd.user.last_name.replace("@","")
@@ -602,6 +635,9 @@ def wantedLook(response, id):
 
 
 def wantedEdit(response, id):
+    if response.user.is_authenticated == False:
+        response = redirect('/login/')
+        return response
     edit=str(id).replace("edit-w", "")
     pd =Wanted.objects.get(id=int(edit))
     shoessize=["35","36","37","38","39","40","41","42","43","44","45"]

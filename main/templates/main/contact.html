@@ -1,0 +1,22 @@
+<title>{% block title %}Contact - Blessed{% endblock  %}</title>
+{% block content %}
+<h1>Contact</h1>
+<h4>Mail: blessedstore.sk@gmail.com</h4>
+
+<form  method="POST">
+    {% csrf_token %}
+    <div class="namediv"><label class="name">Name</label></div>
+    <input class= "input-name" type="text" id="name" name="name" required>
+    <div class="maildiv"><label class="gmail">Mail</label></div>
+    <input class= "input-mail" type="text" id="gmail" name="email" required>
+
+
+    <div><label class="message">Message</label></div>
+    <textarea  style="resize: none;" name="message" id="message" cols="30" rows="10" required></textarea>
+    <div></div>
+    
+    
+
+    <input class="submit"type="submit" class="send-message-cta" value="Send message">
+</form>
+{% endblock  %}

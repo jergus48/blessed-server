@@ -19,7 +19,7 @@ from register import views as v
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-
+from register.forms import MyAuthForm
 
 urlpatterns = [
         
@@ -28,8 +28,10 @@ urlpatterns = [
         path('', v.redirect_login,name="login"),
         path("register/", v.register, name="register"),
         path('', include("main.urls")),
-        
+        path('login/', auth_views.LoginView.as_view(template_name='registration/login.html', authentication_form=MyAuthForm), name='login'),
         path('', include("django.contrib.auth.urls")),
         
     ]
+# handler404 = 'main.views.handler404'
+# handler500 = 'main.views.handler500'
 
