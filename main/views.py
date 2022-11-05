@@ -33,7 +33,7 @@ def contact(request):
         name=request.POST.get("name")
         msg=request.POST.get("message")
         email=request.POST.get("email")
-        message="from mail: "+email + '\n'+'Message:'+ '\n' +msg
+        message="Name: "+ name + '\n' + "From Mail: "+email + '\n'+'Message:'+ '\n' +msg
         
         send_mail(name,message,'blessedstore.sk@gmail.com',['blessedstore.sk@gmail.com'])
         return HttpResponse('Email was sent')

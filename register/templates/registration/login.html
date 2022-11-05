@@ -15,6 +15,7 @@
     <form method="post" class="from-group">
       {% csrf_token %} {{form|crispy}}
       <p class="register">Don't have an account? Create one <a href="/register">here</a></p>
+      <p class="register">Forgot your password? Click <a href="/reset_password">here</a></p>
       {% comment %}
       <p>Forgot password? Click <a href="#">here</a></p>
       {% endcomment %}

@@ -14,20 +14,18 @@ class RegisterForm(UserCreationForm):
     first_name.widget.attrs.update( placeholder='First Name & Last Name')
     last_name.widget.attrs.update( placeholder='@')
     username.widget.attrs.update( placeholder='Unique Mail')
-    password1= forms.CharField(widget=forms.PasswordInput, label="Password")
-    password2 = forms.CharField(widget=forms.PasswordInput, label="Password Confirmation")
+    password1= forms.CharField(widget=forms.PasswordInput, required=True, label="Password")
+    password2 = forms.CharField(widget=forms.PasswordInput, required=True, label="Password Confirmation")
     password1.widget.attrs.update( placeholder='Password')
     password2.widget.attrs.update( placeholder='Password Confirmation')
-
+    email = forms.EmailField( required=False)
 
 
 
     class Meta:
         model = User
-        fields = ["first_name","last_name", "username", "password1", "password2"]
-class CustomAuthForm(AuthenticationForm):
-    username = forms.CharField(widget=TextInput(attrs={'class':'validate','placeholder': 'Email'}))
-    password = forms.CharField(widget=PasswordInput(attrs={'placeholder':'Password'}))
+        fields = ["first_name","last_name", "username",'email', "password1", "password2"]
+
 
 
 
