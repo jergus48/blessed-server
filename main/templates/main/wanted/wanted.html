@@ -17,7 +17,7 @@
     <option value="-id" name="-id">Latest products</option>
     <option value="id" name="id">Oldest products</option>
     <option value="maxprice" name="maxprice">Lowest Price</option>
-    <option value="-maxprice" name="maxprice">Highest Price</option>
+    <option value="-maxprice" name="-maxprice">Highest Price</option>
   </select>
   <select name="pricemax" id="pricemax" onchange="this.form.submit()">
     <option
@@ -36,71 +36,122 @@
     <option value="2000" name="2000">up to 2000€</option>
     <option value="2001" name="2001">from 2000€</option>
   </select>
-  <h5>Categories</h5>
-  {% for category in categories %} {% if category in c %}
-  <label
-    ><input
-      type="checkbox"
-      name="category"
-      value="{{category}}"
-      onchange="this.form.submit()"
-      checked
-    />{{category}}</label
-  >
-  {% else %}
-  <label
-    ><input
-      type="checkbox"
-      name="category"
-      value="{{category}}"
-      onchange="this.form.submit()"
-    />{{category}}</label
-  >
-  {%endif%} {% endfor %}
-  <h5>Size</h5>
-  {% for size in sizes %} {% if size in x %}
-  <label
-    ><input
-      type="checkbox"
-      name="size"
-      value="{{size}}"
-      onchange="this.form.submit()"
-      checked
-    />{{size}}</label
-  >
-  {% else %}
-  <label
-    ><input
-      type="checkbox"
-      name="size"
-      value="{{size}}"
-      onchange="this.form.submit()"
-    />{{size}}</label
-  >
-  {%endif%} {% endfor %}
+  <div style="display: none">
+    <input type="checkbox" id="sizecheck" name="sizecheck" {{sizecheck}} />
 
-  <h5>Country</h5>
-  {% for country in eu_countries %} {% if country in z %}
-  <label
-    ><input
+    <input
       type="checkbox"
-      name="country"
-      value="{{country}}"
-      onchange="this.form.submit()"
-      checked
-    />{{country}}</label
-  >
-  {% else %}
-  <label
-    ><input
+      id="categoriescheck"
+      name="categoriescheck"
+      {{categoriescheck}}
+    />
+    <input
       type="checkbox"
-      name="country"
-      value="{{country}}"
-      onchange="this.form.submit()"
-    />{{country}}</label
+      id="countrycheck"
+      name="countrycheck"
+      {{countrycheck}}
+    />
+  </div>
+  <button type="button" onclick="Categories()">
+    <h5>Categories</h5>
+    <img
+      src=" {% static '/images/arrow.png' %}"
+      class="arrow"
+      id="categories_arrow"
+      style="transform: rotate({{categories_arrow}}deg);"
+    />
+  </button>
+  <div
+    id="categories"
+    class="categories"
+    style="display:{{categories_display}} ;"
   >
-  {%endif%} {% endfor %}
+    {% for category in categories %} {% if category in c %}
+    <label
+      ><input
+        type="checkbox"
+        name="category"
+        value="{{category}}"
+        onchange="this.form.submit()"
+        checked
+      />{{category}}</label
+    >
+    {% else %}
+    <label
+      ><input
+        type="checkbox"
+        name="category"
+        value="{{category}}"
+        onchange="this.form.submit()"
+      />{{category}}</label
+    >
+    {%endif%} {% endfor %}
+  </div>
+  <button type="button" onclick="Size()">
+    <h5>Size</h5>
+    <img
+      src=" {% static '/images/arrow.png' %}"
+      class="arrow"
+      id="Size_arrow"
+      style="transform: rotate({{size_arrow}}deg);"
+    />
+  </button>
+  <div id="size" class="size" style="display: {{size_display}};">
+    {% for size in sizes %} {% if size in x %}
+    <label
+      ><input
+        type="checkbox"
+        name="size"
+        value="{{size}}"
+        onchange="this.form.submit()"
+        checked
+      />{{size}}</label
+    >
+    {% else %}
+    <label
+      ><input
+        type="checkbox"
+        name="size"
+        value="{{size}}"
+        onchange="this.form.submit()"
+      />{{size}}</label
+    >
+    {%endif%} {% endfor %}
+  </div>
+
+  <button type="button" onclick="Country()">
+    <h5>Country</h5>
+    <img
+      src=" {% static '/images/arrow.png' %}"
+      class="arrow"
+      id="country_arrow"
+      style="transform: rotate({{country_arrow}}deg);"
+    />
+  </button>
+  <div id="country" class="country" style="display: {{country_display}};">
+    {% for country in eu_countries %} {% if country in z %}
+    <label
+      ><input
+        type="checkbox"
+        name="country"
+        value="{{country}}"
+        onchange="this.form.submit()"
+        checked
+      />{{country}}</label
+    >
+    {% else %}
+    <label
+      ><input
+        type="checkbox"
+        name="country"
+        value="{{country}}"
+        onchange="this.form.submit()"
+      />{{country}}</label
+    >
+    {%endif%} {% endfor %}
+  </div>
 </form>
+<br /><br />
 {% if wd.count == 0 %}
 <p>Nothing Match</p>
 {% endif %}
@@ -111,16 +162,17 @@
       <a href="/w{{product.id}}/">
         <img class="image" src="{{product.image.url}}" alt="image" />
         <p>Name: {{product.name}}</p>
-        <!-- <p>Description: {{product.description}}</p> -->
+
         <p>Size: {{product.size}}</p>
         <p>Country: {{product.country}}</p>
         <p>Category: {{product.categories}}</p>
         <p>Price: {{product.maxprice}}$</p>
-        <!-- <p>id: {{product.id}}</p> -->
       </a>
     </li>
     {% endfor %}
   </ul>
 </div>
-
+<script src="{% static '/js/filterwanted.js' %}"></script>
+<!-- <script src="{% static '/js/reload.js' %}">
+</script> -->
 {% endblock %}

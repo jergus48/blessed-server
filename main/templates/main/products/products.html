@@ -5,7 +5,7 @@
 <h2>Products:</h2>
 <form method="post" action="">
   {% csrf_token %}
-  <select name="order_by" id="order_by" onchange="shoes()">
+  <select name="order_by" id="order_by" onchange="this.form.submit()">
     <option
       class="hidden_option"
       value="{{order}}"
@@ -36,12 +36,17 @@
     <option value="2000" name="2000">up to 2000€</option>
     <option value="2001" name="2001">from 2000€</option>
   </select>
-
+  <div style="display: none;">
+    <input type="checkbox" id="sizecheck" name="sizecheck" {{sizecheck}}>
+    <input type="checkbox" id="conditioncheck" name="conditioncheck" {{conditioncheck}}>
+    <input type="checkbox" id="categoriescheck" name="categoriescheck" {{categoriescheck}}>
+    <input type="checkbox" id="countrycheck" name="countrycheck" {{countrycheck}}>
+  </div>
   <button type="button" onclick="Categories()">
     <h5>Categories</h5>
-    <img src=" {% static '/images/arrow.png' %}" class="arrow" id="categories_arrow"/>
+    <img src=" {% static '/images/arrow.png' %}" class="arrow" id="categories_arrow"   style="transform: rotate({{categories_arrow}}deg);"/>
   </button>
-  <div id="categories" class="categories">
+  <div id="categories" class="categories" style="display:{{categories_display}} ;">
   {% for category in categories %} {% if category in c %}
   <label
     ><input
@@ -65,9 +70,9 @@
 </div>
   <button type="button"  onclick="Size()">
     <h5>Size</h5>
-    <img src=" {% static '/images/arrow.png' %}" class="arrow" id="Size_arrow"/>
+    <img src=" {% static '/images/arrow.png' %}" class="arrow" id="Size_arrow"  style="transform: rotate({{size_arrow}}deg);"/>
   </button>
-  <div id="size" class="size">
+  <div id="size" class="size" style="display: {{size_display}};">
   {% for size in sizes %} {% if size in x %}
   <label
     ><input
@@ -91,9 +96,9 @@
 </div>
   <button type="button" onclick="Condition()">
     <h5>Condition</h5>
-    <img src=" {% static '/images/arrow.png' %}" class="arrow" id="condition_arrow"/>
+    <img src=" {% static '/images/arrow.png' %}" class="arrow" id="condition_arrow"  style="transform: rotate({{condition_arrow}}deg);"/>
   </button>
-  <div id="condition" class="condition">
+  <div id="condition" class="condition" style="display: {{condition_display}};">
   {% for condition in conditions %} {% if condition in y %}
   <label
     ><input
@@ -117,9 +122,9 @@
 </div>
   <button type="button" onclick="Country()">
     <h5>Country</h5>
-    <img src=" {% static '/images/arrow.png' %}" class="arrow" id="country_arrow"/>
+    <img src=" {% static '/images/arrow.png' %}" class="arrow" id="country_arrow"  style="transform: rotate({{country_arrow}}deg);"/>
   </button>
-  <div id="country" class="country">
+  <div id="country" class="country" style="display: {{country_display}};">
   {% for country in eu_countries %} {% if country in z %}
   <label
     ><input
@@ -147,6 +152,7 @@
 
 </div>
 </form>
+<br><br>
 {% if pd.count == 0 %}
 <p>Nothing Match</p>
 {% endif %}
@@ -168,8 +174,9 @@
     {% endfor %}
   </ul>
 </div>
-<script src="{% static '/js/filters.js' %}">
-  
-
+<script src="{% static '/js/filterproducts.js' %}">
 </script>
+<!-- <script src="{% static '/js/reload.js' %}">
+</script> -->
 {% endblock %}
+

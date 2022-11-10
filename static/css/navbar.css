@@ -93,3 +93,6 @@ nav ul li a:hover{
     width: 20%;
     border: 1px solid black;
 }
+.menu {
+    display: none;
+}

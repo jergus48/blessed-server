@@ -50,6 +50,18 @@ def handler500(response):
     return response
 
 def SearchResultsView(request):
+    sizecheck=""
+    conditioncheck=""
+    categoriescheck=""
+    countrycheck=""
+    categories_display="none"
+    condition_display="none"
+    size_display="none"
+    country_display="none"
+    size_arrow=0
+    condition_arrow=0
+    categories_arrow=0
+    country_arrow=0
     c=[]
     x=[]
     y=[]
@@ -65,7 +77,22 @@ def SearchResultsView(request):
         name = request.GET.get("name")
     elif request.GET.get("brand"):
         name = request.GET.get("brand")
-
+    if request.POST.get("sizecheck"):
+        sizecheck="checked"
+        size_display="block"
+        size_arrow=180
+    if request.POST.get("conditioncheck"):
+        conditioncheck="checked"
+        condition_display="block"
+        condition_arrow=180
+    if request.POST.get("categoriescheck"):
+        categoriescheck="checked"
+        categories_display="block"
+        categories_arrow=180
+    if request.POST.get("countrycheck"):
+        countrycheck="checked"
+        country_display="block"
+        country_arrow=180
     if request.POST.get("order_by"):
 
         size="empty"
@@ -134,10 +161,22 @@ def SearchResultsView(request):
             else:
                 pd=pd.filter(price__lte=pricex)
                 choicep="up to "+str(pricex)+"€"
-    return render(request, "main/SearchResults.html", {"pd":pd,"name":name,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"sizes":sizes,"x":x,"y":y,"z":z,"c":c,"conditions":conditions,"eu_countries":eu_countries})
+    return render(request, "main/SearchResults.html", {"sizecheck":sizecheck,"countrycheck":countrycheck,"categoriescheck":categoriescheck,"conditioncheck":conditioncheck,"size_display":size_display,"country_display":country_display,"categories_display":categories_display,"condition_display":condition_display,"size_arrow":size_arrow,"country_arrow":country_arrow,"categories_arrow":categories_arrow,"condition_arrow":condition_arrow,"pd":pd,"name":name,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"sizes":sizes,"x":x,"y":y,"z":z,"c":c,"conditions":conditions,"eu_countries":eu_countries})
 
  #products
 def products(request ):
+    sizecheck=""
+    conditioncheck=""
+    categoriescheck=""
+    countrycheck=""
+    categories_display="none"
+    condition_display="none"
+    size_display="none"
+    country_display="none"
+    size_arrow=0
+    condition_arrow=0
+    categories_arrow=0
+    country_arrow=0
     c=[]
     x=[]
     y=[]
@@ -149,6 +188,22 @@ def products(request ):
     conditions=["New","9/10","8/10","7/10","6/10","5/10","4/10","3/10","2/10","1/10"]
     eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
         , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
+    if request.POST.get("sizecheck"):
+        sizecheck="checked"
+        size_display="block"
+        size_arrow=180
+    if request.POST.get("conditioncheck"):
+        conditioncheck="checked"
+        condition_display="block"
+        condition_arrow=180
+    if request.POST.get("categoriescheck"):
+        categoriescheck="checked"
+        categories_display="block"
+        categories_arrow=180
+    if request.POST.get("countrycheck"):
+        countrycheck="checked"
+        country_display="block"
+        country_arrow=180
     if request.POST.get("order_by"):
 
         size="empty"
@@ -221,7 +276,7 @@ def products(request ):
 
 
 
-    return render(request, "main/products/products.html", {"pd":pd,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"sizes":sizes,"x":x,"y":y,"z":z,"c":c,"conditions":conditions,"eu_countries":eu_countries})
+    return render(request, "main/products/products.html", {"sizecheck":sizecheck,"countrycheck":countrycheck,"categoriescheck":categoriescheck,"conditioncheck":conditioncheck,"size_display":size_display,"country_display":country_display,"categories_display":categories_display,"condition_display":condition_display,"size_arrow":size_arrow,"country_arrow":country_arrow,"categories_arrow":categories_arrow,"condition_arrow":condition_arrow,"pd":pd,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"sizes":sizes,"x":x,"y":y,"z":z,"c":c,"conditions":conditions,"eu_countries":eu_countries})
 def userproducts(response):
     pd=Products.objects.all().order_by('-id').filter(user=response.user)
     if response.method =="POST":
@@ -409,6 +464,15 @@ def productEdit(response, id):
 #wanted
 
 def wanted(request, ):
+    sizecheck=""
+    categoriescheck=""
+    countrycheck=""
+    categories_display="none"
+    size_display="none"
+    country_display="none"
+    size_arrow=0
+    categories_arrow=0
+    country_arrow=0
     c=[]
     x=[]
     z=[]
@@ -419,6 +483,18 @@ def wanted(request, ):
 
     eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
         , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
+    if request.POST.get("sizecheck"):
+        sizecheck="checked"
+        size_display="block"
+        size_arrow=180
+    if request.POST.get("countrycheck"):
+        countrycheck="checked"
+        country_display="block"
+        country_arrow=180
+    if request.POST.get("categoriescheck"):
+        categoriescheck="checked"
+        categories_display="block"
+        categories_arrow=180
     if request.POST.get("order_by"):
 
         size="empty"
@@ -477,7 +553,7 @@ def wanted(request, ):
             else:
                 wd=wd.filter(maxprice__lte=pricex)
                 choicep="up to "+str(pricex)+"€"
-    return render(request, "main/wanted/wanted.html", {"wd":wd,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"c":c,"sizes":sizes,"x":x,"z":z,"eu_countries":eu_countries})
+    return render(request, "main/wanted/wanted.html", {"sizecheck":sizecheck,"countrycheck":countrycheck,"categoriescheck":categoriescheck,"size_display":size_display,"country_display":country_display,"categories_display":categories_display,"size_arrow":size_arrow,"country_arrow":country_arrow,"categories_arrow":categories_arrow,"wd":wd,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"c":c,"sizes":sizes,"x":x,"z":z,"eu_countries":eu_countries})
 def userwanted(response):
     wd=Wanted.objects.all().order_by('-id').filter(user=response.user)
     if response.method =="POST":
@@ -666,7 +742,15 @@ def wantedEdit(response, id):
 
 #product categories
 def shoes(request):
-
+    sizecheck=""
+    conditioncheck=""
+    countrycheck=""
+    condition_display="none"
+    size_display="none"
+    country_display="none"
+    size_arrow=0
+    condition_arrow=0
+    country_arrow=0
     x=[]
     y=[]
     z=[]
@@ -676,6 +760,18 @@ def shoes(request):
     conditions=["New","9/10","8/10","7/10","6/10","5/10","4/10","3/10","2/10","1/10"]
     eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
         , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
+    if request.POST.get("sizecheck"):
+        sizecheck="checked"
+        size_display="block"
+        size_arrow=180
+    if request.POST.get("conditioncheck"):
+        conditioncheck="checked"
+        condition_display="block"
+        condition_arrow=180
+    if request.POST.get("countrycheck"):
+        countrycheck="checked"
+        country_display="block"
+        country_arrow=180
     if request.POST.get("order_by"):
 
         size="empty"
@@ -736,8 +832,17 @@ def shoes(request):
                 shoes=shoes.filter(price__lte=pricex)
                 choicep="up to "+str(pricex)+"€"
 
-    return render(request, "main/products/shoes.html", {"shoes":shoes,"choice":choice,"choicep":choicep,"price":pricex,"order":order,"sizes":sizes,"x":x,"y":y,"z":z,"conditions":conditions,"eu_countries":eu_countries})
+    return render(request, "main/products/shoes.html", {"sizecheck":sizecheck,"countrycheck":countrycheck,"conditioncheck":conditioncheck,"size_display":size_display,"country_display":country_display,"condition_display":condition_display,"size_arrow":size_arrow,"country_arrow":country_arrow,"condition_arrow":condition_arrow,"shoes":shoes,"choice":choice,"choicep":choicep,"price":pricex,"order":order,"sizes":sizes,"x":x,"y":y,"z":z,"conditions":conditions,"eu_countries":eu_countries})
 def clothes(request):
+    sizecheck=""
+    conditioncheck=""
+    countrycheck=""
+    condition_display="none"
+    size_display="none"
+    country_display="none"
+    size_arrow=0
+    condition_arrow=0
+    country_arrow=0
     x=[]
     y=[]
     z=[]
@@ -747,6 +852,18 @@ def clothes(request):
     conditions=["New","9/10","8/10","7/10","6/10","5/10","4/10","3/10","2/10","1/10"]
     eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
         , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
+    if request.POST.get("sizecheck"):
+        sizecheck="checked"
+        size_display="block"
+        size_arrow=180
+    if request.POST.get("conditioncheck"):
+        conditioncheck="checked"
+        condition_display="block"
+        condition_arrow=180
+    if request.POST.get("countrycheck"):
+        countrycheck="checked"
+        country_display="block"
+        country_arrow=180
     if request.POST.get("order_by"):
 
         size="empty"
@@ -807,9 +924,17 @@ def clothes(request):
                 clothes=clothes.filter(price__lte=pricex)
                 choicep="up to "+str(pricex)+"€"
 
-    return render(request, "main/products/clothes.html", {"clothes":clothes,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"sizes":sizes,"x":x,"y":y,"z":z,"conditions":conditions,"eu_countries":eu_countries})
+    return render(request, "main/products/clothes.html", {"sizecheck":sizecheck,"countrycheck":countrycheck,"conditioncheck":conditioncheck,"size_display":size_display,"country_display":country_display,"condition_display":condition_display,"size_arrow":size_arrow,"country_arrow":country_arrow,"condition_arrow":condition_arrow,"clothes":clothes,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"sizes":sizes,"x":x,"y":y,"z":z,"conditions":conditions,"eu_countries":eu_countries})
 def accesories(request):
-
+    sizecheck=""
+    conditioncheck=""
+    countrycheck=""
+    condition_display="none"
+    size_display="none"
+    country_display="none"
+    size_arrow=0
+    condition_arrow=0
+    country_arrow=0
     y=[]
     z=[]
     choicep="Price up to €"
@@ -818,6 +943,18 @@ def accesories(request):
     conditions=["New","9/10","8/10","7/10","6/10","5/10","4/10","3/10","2/10","1/10"]
     eu_countries = [ "Slovakia", "Czech Republic", "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary"
         , "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovenia", "Spain", "Sweden"]
+    if request.POST.get("sizecheck"):
+        sizecheck="checked"
+        size_display="block"
+        size_arrow=180
+    if request.POST.get("conditioncheck"):
+        conditioncheck="checked"
+        condition_display="block"
+        condition_arrow=180
+    if request.POST.get("countrycheck"):
+        countrycheck="checked"
+        country_display="block"
+        country_arrow=180
     if request.POST.get("order_by"):
 
 
@@ -873,6 +1010,6 @@ def accesories(request):
                 accesories=accesories.filter(price__lte=pricex)
                 choicep="up to "+str(pricex)+"€"
 
-    return render(request, "main/products/accesories.html", {"accesories":accesories,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"y":y,"z":z,"conditions":conditions,"eu_countries":eu_countries})
+    return render(request, "main/products/accesories.html", {"sizecheck":sizecheck,"countrycheck":countrycheck,"conditioncheck":conditioncheck,"size_display":size_display,"country_display":country_display,"condition_display":condition_display,"size_arrow":size_arrow,"country_arrow":country_arrow,"condition_arrow":condition_arrow,"accesories":accesories,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"y":y,"z":z,"conditions":conditions,"eu_countries":eu_countries})
 
 

@@ -4,6 +4,8 @@
 </head>
 <div class="navcontainer">
   <div class="navbar">
+    <!-- <button onclick="menu()">Menu</button>
+    <div id="menu" class="menu"><button onclick="menu()">Close</button><p>Menu</p></div> -->
     <a href="/home/">
       <img src="{% static '/images/logo.jpeg' %}" class="logo" />
     </a>
@@ -33,4 +35,5 @@
     </nav>
   </div>
 </div>
+<script src="{% static '/js/navbar.js' %}"></script>
 {% block content %} {% endblock %}

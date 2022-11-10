@@ -1,4 +1,4 @@
-{% extends 'main/navbar.html' %} {% load static %}{% block content %}
+{% extends 'main/navbar.html' %} {% load static %} {% block content %}
 <head>
   <link rel="stylesheet" href=" {% static '/css/search.css' %} " />
 </head>
@@ -37,7 +37,17 @@
     <option value="2000" name="2000">up to 2000€</option>
     <option value="2001" name="2001">from 2000€</option>
   </select>
-<h5>Categories</h5>
+  <div style="display: none;">
+    <input type="checkbox" id="sizecheck" name="sizecheck" {{sizecheck}}>
+    <input type="checkbox" id="conditioncheck" name="conditioncheck" {{conditioncheck}}>
+    <input type="checkbox" id="categoriescheck" name="categoriescheck" {{categoriescheck}}>
+    <input type="checkbox" id="countrycheck" name="countrycheck" {{countrycheck}}>
+  </div>
+  <button type="button" onclick="Categories()">
+    <h5>Categories</h5>
+    <img src=" {% static '/images/arrow.png' %}" class="arrow" id="categories_arrow"   style="transform: rotate({{categories_arrow}}deg);"/>
+  </button>
+  <div id="categories" class="categories" style="display:{{categories_display}} ;">
   {% for category in categories %} {% if category in c %}
   <label
     ><input
@@ -58,7 +68,12 @@
     />{{category}}</label
   >
   {%endif%} {% endfor %}
-  <h5>Size</h5>
+</div>
+  <button type="button"  onclick="Size()">
+    <h5>Size</h5>
+    <img src=" {% static '/images/arrow.png' %}" class="arrow" id="Size_arrow"  style="transform: rotate({{size_arrow}}deg);"/>
+  </button>
+  <div id="size" class="size" style="display: {{size_display}};">
   {% for size in sizes %} {% if size in x %}
   <label
     ><input
@@ -79,7 +94,12 @@
     />{{size}}</label
   >
   {%endif%} {% endfor %}
-  <h5>Condition</h5>
+</div>
+  <button type="button" onclick="Condition()">
+    <h5>Condition</h5>
+    <img src=" {% static '/images/arrow.png' %}" class="arrow" id="condition_arrow"  style="transform: rotate({{condition_arrow}}deg);"/>
+  </button>
+  <div id="condition" class="condition" style="display: {{condition_display}};">
   {% for condition in conditions %} {% if condition in y %}
   <label
     ><input
@@ -100,7 +120,12 @@
     />{{condition}}</label
   >
   {%endif%} {% endfor %}
-  <h5>Country</h5>
+</div>
+  <button type="button" onclick="Country()">
+    <h5>Country</h5>
+    <img src=" {% static '/images/arrow.png' %}" class="arrow" id="country_arrow"  style="transform: rotate({{country_arrow}}deg);"/>
+  </button>
+  <div id="country" class="country" style="display: {{country_display}};">
   {% for country in eu_countries %} {% if country in z %}
   <label
     ><input
@@ -121,26 +146,37 @@
     />{{country}}</label
   >
   {%endif%} {% endfor %}
+  
 
+
+
+
+</div>
 </form>
+<br><br>
 {% if pd.count == 0 %}
-    <p>Nothing Match</p>
-    {% endif %}
+<p>Nothing Match</p>
+{% endif %}
 <div class="container">
   <ul class="products">
-    {% for product in pd %} {% if product.active == True %}
+    {% for product in pd %}
     <li class="product">
       <a href="/{{product.id}}/">
         <img class="image" src="{{product.image.url}}" alt="image" />
         <p>Name: {{product.name}}</p>
-        {{product.condition}}
+        <p>Country: {{product.country}}</p>
         <p>Size: {{product.size}}</p>
-        <!-- <p>Category: {{product.categories}}</p> -->
-        <p>Price: {{product.price}}$</p>
-        <!-- <p>id: {{product.id}}</p> -->
+        <p>condition: {{product.condition}}</p>
+        <p>Category: {{product.categories}}</p>
+        <p>Price: {{product.price}}€</p>
+        
       </a>
     </li>
-    {% endif %}{% endfor %} 
+    {% endfor %}
   </ul>
 </div>
+<script src="{% static '/js/filterproducts.js' %}">
+</script>
+<!-- <script src="{% static '/js/reload.js' %}">
+</script> -->
 {% endblock %}

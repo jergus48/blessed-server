@@ -36,49 +36,86 @@
     <option value="2000" name="2000">up to 2000€</option>
     <option value="2001" name="2001">from 2000€</option>
   </select>
-  <h5>Condition</h5>
-  {% for condition in conditions %} {% if condition in y %}
-  <label
-    ><input
+  <div style="display: none">
+    <input
       type="checkbox"
-      name="condition"
-      value="{{condition}}"
-      onchange="this.form.submit()"
-      checked
-    />{{condition}}</label
-  >
-  {% else %}
-  <label
-    ><input
+      id="conditioncheck"
+      name="conditioncheck"
+      {{conditioncheck}}
+    />
+
+    <input
       type="checkbox"
-      name="condition"
-      value="{{condition}}"
-      onchange="this.form.submit()"
-    />{{condition}}</label
-  >
-  {%endif%} {% endfor %}
-  <h5>Country</h5>
-  {% for country in eu_countries %} {% if country in z %}
-  <label
-    ><input
-      type="checkbox"
-      name="country"
-      value="{{country}}"
-      onchange="this.form.submit()"
-      checked
-    />{{country}}</label
-  >
-  {% else %}
-  <label
-    ><input
-      type="checkbox"
-      name="country"
-      value="{{country}}"
-      onchange="this.form.submit()"
-    />{{country}}</label
-  >
-  {%endif%} {% endfor %}
+      id="countrycheck"
+      name="countrycheck"
+      {{countrycheck}}
+    />
+  </div>
+
+  <button type="button" onclick="Condition()">
+    <h5>Condition</h5>
+    <img
+      src=" {% static '/images/arrow.png' %}"
+      class="arrow"
+      id="condition_arrow"
+      style="transform: rotate({{condition_arrow}}deg);"
+    />
+  </button>
+  <div id="condition" class="condition" style="display: {{condition_display}};">
+    {% for condition in conditions %} {% if condition in y %}
+    <label
+      ><input
+        type="checkbox"
+        name="condition"
+        value="{{condition}}"
+        onchange="this.form.submit()"
+        checked
+      />{{condition}}</label
+    >
+    {% else %}
+    <label
+      ><input
+        type="checkbox"
+        name="condition"
+        value="{{condition}}"
+        onchange="this.form.submit()"
+      />{{condition}}</label
+    >
+    {%endif%} {% endfor %}
+  </div>
+  <button type="button" onclick="Country()">
+    <h5>Country</h5>
+    <img
+      src=" {% static '/images/arrow.png' %}"
+      class="arrow"
+      id="country_arrow"
+      style="transform: rotate({{country_arrow}}deg);"
+    />
+  </button>
+  <div id="country" class="country" style="display: {{country_display}};">
+    {% for country in eu_countries %} {% if country in z %}
+    <label
+      ><input
+        type="checkbox"
+        name="country"
+        value="{{country}}"
+        onchange="this.form.submit()"
+        checked
+      />{{country}}</label
+    >
+    {% else %}
+    <label
+      ><input
+        type="checkbox"
+        name="country"
+        value="{{country}}"
+        onchange="this.form.submit()"
+      />{{country}}</label
+    >
+    {%endif%} {% endfor %}
+  </div>
 </form>
+<br /><br />
 {% if accesories.count == 0 %}
 <p>Nothing Match</p>
 {% endif %}
@@ -99,5 +136,7 @@
     {% endfor %}
   </ul>
 </div>
-
+<script src="{% static '/js/filteraccesories.js' %}"></script>
+<!-- <script src="{% static '/js/reload.js' %}">
+    </script> -->
 {% endblock %}

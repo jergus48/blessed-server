@@ -23,3 +23,35 @@
    overflow-y: hidden;
     overflow-x: auto;
 }
+.arrow{  width: 10px;}
+#size {
+    display: none;
+    position: absolute;
+    z-index: 2;
+}
+#condition {
+    display: none;
+    position: absolute;
+    z-index: 2;
+}
+#categories {
+    display: none;
+    position: absolute;
+    z-index: 2;
+}
+#country {
+    display: none;
+    position: absolute;
+    z-index: 2;
+}
+#Size_arrow{
+    transform: rotate(0deg);
+}
+#country_arrow{
+    transform: rotate(0deg);
+}
+#condition_arrow{
+    transform: rotate(0deg);
+}
+#categories_arrow{
+    transform: rotate(0deg);}
