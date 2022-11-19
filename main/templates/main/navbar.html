@@ -1,16 +1,22 @@
 {% load static%}
 <head>
   <link rel="stylesheet" href=" {% static '/css/navbar.css' %} " />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <div class="navcontainer">
+  <img src="/static/images/search.png" class="search-mobile" />
+
   <div class="navbar">
-    <!-- <button onclick="menu()">Menu</button>
-    <div id="menu" class="menu"><button onclick="menu()">Close</button><p>Menu</p></div> -->
     <a href="/home/">
-      <img src="{% static '/images/logo.jpeg' %}" class="logo" />
+      <img src="{% static '/images/logo.jpeg' %}" class="nav-logo" />
     </a>
 
-    <form action="/search/" class="search" id="form" method="get">
+    <form
+      action="{% url 'search_results' %}"
+      class="search"
+      id="form"
+      method="get"
+    >
       <input
         name="name"
         pattern=".{2,}"
@@ -32,8 +38,14 @@
           ><button class="log-out">Logout</button></a
         >
       </ul>
+      <button id="menu" onclick="menu()">
+        Open
+        <div id="menu-container" style="display: none">
+          <button id="close" onclick="close()"></button>
+        </div>
+      </button>
     </nav>
   </div>
 </div>
-<script src="{% static '/js/navbar.js' %}"></script>
+<!-- <script src="/static/js/navbar.js"></script> -->
 {% block content %} {% endblock %}

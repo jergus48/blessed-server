@@ -1,8 +1,8 @@
 {% extends 'main/navbar.html' %} {% load static %} {% block content %}
 
 <head>
-  <title>{% block title %}Home{% endblock %}</title>
   <link rel="stylesheet" href=" {% static '/css/home.css' %} " />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 
 <div class="second-navbar">
@@ -12,8 +12,9 @@
     <li><a href="/accesories/">Accesories </a></li>
   </ul>
 </div>
+
 <div class="info">
-  <h2>Latest products:</h2>
+  <h2>Latest products</h2>
   <a href="/products/">See All</a>
 </div>
 <div class="container">
@@ -37,25 +38,25 @@
 </div>
 
 <form action="/search/" class="brands" method="get">
-  <button type="submit" name="brand" value="Nike">
+  <button type="submit" name="brand" value="Nike" class="brand">
     <img src="/static/images/nike-logo.png" class="nike" />
   </button>
-  <button type="submit" name="brand" value="Jordan">
+  <button type="submit" name="brand" value="Jordan" class="brand">
     <img src="/static/images/jumpman-logo.png" class="jordan" />
   </button>
-  <button type="submit" name="brand" value="Supreme">
+  <button type="submit" name="brand" value="Supreme" class="brand">
     <img src="/static/images/supreme.png" class="supreme" />
   </button>
-  <button type="submit" name="brand" value="Off white">
-    <img src="/static/images/off-white.png" class="off-white" />
+  <button type="submit" name="brand" value="The North Face" class="brand">
+    <img src="/static/images/the-north-face.png" class="off-white" />
   </button>
-  <button type="submit" name="brand" value="Yeezy">
+  <button type="submit" name="brand" value="Yeezy" class="brand">
     <img src="/static/images/Yeezy-Logo.png" class="yeezy" />
   </button>
 </form>
 
 <div class="info">
-  <h3>Latest wanted products:</h3>
+  <h3>"Wanted"</h3>
   <a href="/wanted/">See All</a>
 </div>
 <div class="container">
@@ -69,7 +70,7 @@
           <p>Name: {{product.name}}</p>
           <!-- <p>Description: {{product.description}}</p> -->
           <p>Size: {{product.size}}</p>
-          <p>Category: {{product.categories}}</p>
+
           <p>Max Price: {{product.maxprice}}$</p>
           <!-- <p>id: {{product.id}}</p> -->
         </div>

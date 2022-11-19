@@ -29,9 +29,11 @@ class Products(models.Model):
     # )
     
 
-
-    def _str_(self):
+    class Meta:  
+        verbose_name_plural = 'Products'
+    def __str__(self):
         return self.name
+
 
 class Wanted(models.Model):
     user = models.ForeignKey(
@@ -48,8 +50,9 @@ class Wanted(models.Model):
     
     
 
-
-    def _str_(self):
+    class Meta:  
+        verbose_name_plural = 'Wanted'
+    def __str__(self):
         return self.name
 
 

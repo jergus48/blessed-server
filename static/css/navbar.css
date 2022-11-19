@@ -5,7 +5,6 @@
 }
 
 .navcontainer {
-    margin: auto;
     padding-left: 2%;
     padding-right: 2%;
     box-sizing: border-box;
@@ -19,8 +18,7 @@
     align-items: center;
 }
 
-.logo{
-    
+.nav-logo{
     width: 100px;
     cursor: pointer;
     margin: 0px 0px;
@@ -28,7 +26,7 @@
 
 nav{
     flex: 1;
-    text-align: right;
+    text-align: right; 
 }
 
 nav ul {
@@ -52,7 +50,7 @@ nav ul li a:hover{
 }
 
 .log-out {
-    width: 10%;
+    width: 120px;
     height: 35px;
     color: white;
     background-color: black;
@@ -68,13 +66,12 @@ nav ul li a:hover{
     width: 50%;
     position: relative;
     margin-left: 25px;
-    
     display: flex;
     flex-direction: row;
 }
 
 .search-button {
-    width:10%;
+    width: 120px;
     height: 35px;
     color: white;
     background-color: black;
@@ -85,14 +82,72 @@ nav ul li a:hover{
 .search-button:hover {
     color: black;
     background-color: white;
+    border: none;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
 .search-field {
     padding-left: 15px;
     height: 35px;
-    width: 20%;
-    border: 1px solid black;
+    width: 240px;
+    border: none;
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+
 }
-.menu {
+
+.search-mobile {
     display: none;
+}
+
+#menu {
+    display: none;
+}
+
+@media (max-width: 1054px) {
+    .navcontainer {
+        padding: 0;
+    }
+
+    .navbar{
+        height: 90px;
+    }
+
+    .nav-logo{
+        height: 90px;
+        width: auto;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 0;
+    }
+
+    .log-out {
+        display: none;
+    }
+
+    .search {
+        padding-left: 18px;
+        height: 30px;
+        width: 70%;
+        border-radius: 10px;
+        display: none;
+    }
+
+    .search-mobile {
+        display: block;
+        background-color: transparent;
+        height: 25px;
+        border: none;
+        position: absolute;
+        right: 20px;
+        top: 35px;
+    }
+
+    ul {
+        display: none;
+    }
 }

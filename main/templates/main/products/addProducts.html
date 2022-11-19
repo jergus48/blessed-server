@@ -2,20 +2,20 @@
 <head>
   <link rel="stylesheet" href=" {% static '/css/addProducts.css' %} " />
 </head>
-
+<h1>Add products</h1>
 <form method="post" action="" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="inputs">
-  <h1>Add products</h1>
+ 
   <input
     type="text"
     name="name"
     placeholder="Product Name"
     id="nameinput"
-    maxlength="20"
+    maxlength="30"
     required
   />
-  <textarea name="description" placeholder="description" required></textarea>
+  <textarea name="description" placeholder="description" maxlength="900" required></textarea>
 
   <select name="category" onchange="sizes()" id="category">
     <option name="Shoes" value="Shoes">Shoes</option>
@@ -82,11 +82,19 @@
     onchange="loadFile(event)"
     required
   />
-  <div class="colors">
-    <p>Pick colors theme of button and boxes</p>
-  <input type="color" name="color1" value="#FFFFFF" id="color1input" onchange="ChangeColor()"/>
-  <input type="color" name="color2" id="color2input" value="#000000" onchange="ChangeColor()"/>
-</div>
+  <div class="sugest">
+        <p>We suggest you pick 2 main colors on your product. </p>
+      </div>
+      <div class="color">
+        <div class="color1">
+          <p>Color 1:</p>
+          <input type="color" name="color1" value="#FFFFFF" id="color1input" onchange="ChangeColor()"/>
+        </div>
+        <div class="color2">
+          <p>Color 2:</p>
+          <input type="color" name="color2" id="color2input" value="#000000" onchange="ChangeColor()"/>
+        </div>
+      </div>
 </div>
   <button type="submit" name="create" value="create" class="submit">
     Create New

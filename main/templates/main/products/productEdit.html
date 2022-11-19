@@ -15,7 +15,7 @@
   {% csrf_token %}
   <h1>Edit Product</h1>
   <h2>{{pd.name}}</h2>
-  <textarea name="description" placeholder="description" required>
+  <textarea name="description" placeholder="description" maxlength="1000" required>
 {{pd.description}}</textarea
   >
   <select id="condition" name="condition">

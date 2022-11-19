@@ -1,12 +1,16 @@
 {% extends 'main/navbar.html' %} {% load static %} {% block content %}
 <head>
   <link rel="stylesheet" href=" {% static '/css/productLook.css' %} " />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <style>
   .add-to-cart,
   .bg-box,
   .add-to-cart,
-  .small-box {
+  .small-box ,
+  .condition ,
+  .price ,
+  hr{
     background: linear-gradient({{pd.color1}}, {{pd.color2}});
   }
 
@@ -19,44 +23,107 @@
     background: linear-gradient({{pd.color1}}, {{pd.color2}});
     border-radius: 10px;
   }
+  
+  @media (max-width: 991px) {
+    .add-to-cart {
+      background: white;
+    }
+  }
+
 </style>
 
 <div class="row">
   <div class="kolonka-1">
     <div class="small-box" id="gradient3"></div>
-    <h2>{{pd.name}}<br />{{pd.size}}</h2>
-    <h4>{{pd.price}} €</h4>
-    <button
-      class="add-to-cart"
-      type="submit"
-      id="contact-btn"
-      value="Contact"
-      name="Contact"
-    >
-      Contact
-    </button>
+    <div>
+      <h2>{{pd.name}}<h1>{{pd.size}}</h1></h2>
+      <h4>{{pd.price}} €</h4>
+      
+        <button
+          class="add-to-cart"
+          type="submit"
+       
+          value="Contact"
+          name="Contact"
+        >
+         Condition: {{pd.condition}}
+        </button>
+      
+    </div>
   </div>
   <div class="kolonka-2">
     <img class="shoe" src="{{pd.image.url}}" alt="image" />
     <div class="bg-box"></div>
   </div>
 </div>
-<br />
-<div style="text-align: center">
-  <h2>For Sale</h2>
-  <br />
-  <h4>Country:</h4>
-  <p>{{pd.country}}</p>
-  <h4>Condition:</h4>
-  <p>{{pd.condition}}</p>
-  <h4>Description:</h4>
-  <p>{{pd.description}}</p>
-  <br />
-  <h3>Contact:</h3>
-  <a href="https://www.instagram.com/{{ig}}/"><p>Instagram: @{{ig}}</p></a>
-  <p>Mail:{{pd.user.username}}</p>
-  <a href="/user-{{pd.user.id}}/products/"><p>Account: Click</p></a>
+  
+
+
+
+
+
+<div class="row-1">
+  <div class="kolonka-2-1">
+    <img class="shoe-1" src="{{pd.image.url}}" alt="image" />
+    <!-- <div class="bg-box"></div> -->
+  </div>
 </div>
-<br />
+<div class="name">
+  <div class="small-box" id="gradient3"></div>
+  <h1>{{pd.name}}<h2 style=>Size:{{pd.size}}</h2></h1>
+  <div class="visuals">
+    <p class="condition">Condition:{{pd.condition}}</p>
+    <p class="price">Price:{{pd.price}} €</p>
+  </div>
+</div>
+<div class="center">
+  <div class="description-1" style="text-align: center">
+    <hr class="for-sale">
+    <h4>For Sale</h4>
+    <div class="info">
+      <p class="question">Country:<p>
+      <p class="country">{{pd.country}}</p>
+    </div>
+    <!-- <div class="info">
+      <p class="question">Condition:<p>
+      <p class="country">{{pd.condition}}</p>
+    </div> -->
+    <hr class="about-product">
+    <div class="content">
+      <h5 class="desc">Description</h5>
+      <div class="center">
+      <p class="desc-content">{{ pd.description}}</p>
+    </div>
+    </div>
+    <hr class="contact-line">
+    <div class="contact">
+      <h6>Contact</h6>
+      <div class="links">
+        <div class="instagram">
+          <p>Mail:</p>
+          <p>{{pd.user.username}}</p>
+        </div>  
+        <a class="mail" href="https://www.instagram.com/{{ig}}/">
+            <p>Instagram:</p>
+            <p class="ig"> @{{ig}}</p>
+          </a>
+       
+      </div>
+    </div>
+  </div>
+</div>
+<div class="buttons-1">
+  <a href="/user-{{pd.user.id}}/products/"> 
+  
+  <button
+    class="add-to-cart"
+    type="submit"
+    id="profile-btn"
+    value="profile"
+    name="profile"
+  >
+    View Profile
+  </button></a>
+</div> 
 <script src="{% static '/js/Look.js' %}"></script>
 {% endblock %}
