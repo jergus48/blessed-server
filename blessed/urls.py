@@ -24,12 +24,7 @@ from main import sitemaps as s
 
 
 
-sitemaps= {
-     'Products':s.ProductsSitemap,
-     'Wanted':s.WantedSitemap,
-     'static':s.StaticViewsSitemap,
-     'active':s.ActiveViewsSitemap
- }
+
 
 urlpatterns = [
         
@@ -37,8 +32,7 @@ urlpatterns = [
         path('admin/', admin.site.urls),
         path('', v.redirect_login,name="login"),
         path("register/", v.register, name="register"),
-        path("sitemap.xml/", sitemap, {'sitemaps':sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
-
+        
         path('reset_password/',auth_views.PasswordResetView.as_view(template_name='reset/reset_password.html',html_email_template_name='reset/password_reset_html_email.html'),name='reset_password'),
         path('password_reset/done/',auth_views.PasswordResetDoneView.as_view(template_name='reset/password_reset_sent.html'),name='password_reset_done'),
         path('reset/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(template_name='reset/password_reset_form.html'),name='password_reset_confirm'),
@@ -48,7 +42,7 @@ urlpatterns = [
         path('', include("django.contrib.auth.urls")),
         
     ]
-    
+
 handler404 = 'main.views.handler404'
 handler500 = 'main.views.handler500'
 
