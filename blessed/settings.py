@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-i)9+nd(m1ermdrg2091pjyju@46u4v1#yegv6(_905j9d8$ve)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'blessedsk.herokuapp.com']
 
 
 # Application definition
@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'register.apps.RegisterConfig',
     'django_mysql',
     "django.contrib.sites",
-    "django.contrib.sitemaps",
     'django_cleanup.apps.CleanupConfig',
      
     
