@@ -17,10 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from register import views as v
 from django.contrib.auth import views as auth_views
-from django.contrib.sitemaps.views import sitemap
 from django.contrib.auth.models import User
 from register.forms import MyAuthForm
-from main import sitemaps as s
 
 
 
