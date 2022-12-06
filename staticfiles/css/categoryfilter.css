@@ -1,0 +1,60 @@
+::-webkit-scrollbar-track {
+    background: rgb(243, 243, 243);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c8c8c8e7;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    border-radius: 10px;
+
+}
+
+@media screen and (min-width:770px) {
+    .size-filters {
+        left: 60%;
+        width: 85px;
+    }
+
+    .condition-filters {
+        left: 75%;
+        width: 100px;
+    }
+
+    .categories-filters {
+        left: 40%;
+        width: 160px;
+    }
+
+    .country-filters {
+        left: 90%;
+        width: 190px;
+    }
+}
+
+@media screen and (max-width:770px) {
+    .size-filters {
+        top: 520px;
+    }
+
+    .categories-filters {
+
+        top: 165px;
+    }
+
+    .selects {
+
+        grid-row-gap: 10px;
+    }
+
+    #categorybtn {
+        width: 140px;
+    }
+}
