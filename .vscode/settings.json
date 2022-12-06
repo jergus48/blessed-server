@@ -1,0 +1,17 @@
+{
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5000,
+      "driver": "MySQL",
+      "name": "blessed_db",
+      "username": "Jergus Snahnican",
+      "database": "blessed_db",
+      "password": "2ie3-.9L9FwNX5j"
+    }
+  ]
+}
