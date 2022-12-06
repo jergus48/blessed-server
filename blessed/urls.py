@@ -48,6 +48,6 @@ urlpatterns = [
         path('', include("django.contrib.auth.urls")),
         
     ]
-# handler404 = 'main.views.handler404'
-# handler500 = 'main.views.handler500'
+handler404 = 'main.views.handler404'
+handler500 = 'main.views.handler500'
 
