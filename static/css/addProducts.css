@@ -1,16 +1,44 @@
 * {
-    padding: 0;
     margin: 0;
+    padding: 0;
+    font-family: "SuisseIntl-Medium", sans-serif;
 }
-body{
+
+::-webkit-scrollbar-track {
+    background: rgb(243, 243, 243);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c8c8c8e7;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    border-radius: 10px;
+
+}
+
+.StripeElement {
+    width: 500px;
+}
+
+body {
     overflow-x: hidden;
 }
+
 #clothes {
     display: none;
 }
+
 #accesories {
     display: none;
 }
+
 #shoes {
     display: block;
 }
@@ -19,25 +47,26 @@ body {
     border: none;
 }
 
-h1 {
-    font-size: 52px;
-    margin-top: 50px;
+.center {
     text-align: center;
-    margin-bottom: 50px;
 }
 
-input, select { 
+input,
+select {
     align-self: center;
     height: 35px;
 }
 
-input:not(.search-field), select, textarea, .import-file {
+input:not(.search-field),
+select,
+textarea,
+.import-file {
     width: 80%;
     margin: auto;
 }
 
 textarea {
-    padding-bottom: 20px; 
+    padding-bottom: 20px;
     resize: none;
 }
 
@@ -54,18 +83,20 @@ textarea {
 
 }
 
-.color .color1 , .color2 {
+.color .color1,
+.color2 {
     margin: 50px;
     display: flex;
     align-items: center;
-} 
+}
 
-.color1, .color2 {
+.color1,
+.color2 {
     display: flex;
     height: 35px;
 }
 
-.color input{
+.color input {
     background-color: transparent;
     border: none;
     width: 125px;
@@ -73,15 +104,16 @@ textarea {
 }
 
 .submit {
-    position: absolute;
-    
+
     height: 35px;
-    left: 50%;
-    transform: translateX(-50%);
     width: 30%;
     background-color: black;
     color: white;
     cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
 }
 
 .submit:hover {
@@ -93,7 +125,7 @@ textarea {
 .import-file {
     height: 35px;
     cursor: pointer;
-} 
+}
 
 .adding {
     width: 80%;
@@ -103,61 +135,51 @@ textarea {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: minmax(100px, 100px);
-    
+
 }
 
-.row{
-    margin-top: 15%;
+.row {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     margin-bottom: 10%;
+    margin-top: 5%;
+
 }
 
-.kolonka-1{
+.kolonka-1 {
     flex-basis: 40%;
     position: relative;
-    margin-left: 10%;
+    margin-left: 100px;
 }
 
-.kolonka-1 h2{
+.kolonka-1 h2 {
     font-size: 54px;
-    display: flex;
 }
 
-.kolonka-1 h3 {
-    font-size: 40px;
-    color: grey;
-    display: flex;
-}
-
-.kolonka-1 h4{
+.kolonka-1 h4 {
     margin: 30px 0;
     font-size: 20px;
-    display: flex;
 }
 
-.small-box{
+.small-box {
     content: "";
     width: 10px;
     height: 100%;
-    position: absolute;
-    left: -30px;
-}
 
-.buttons {
-    display: flex;
-    width: 100%;
-    margin-top: 25px;
+    position: absolute;
+    left: -50px;
+    top: 8px;
 }
 
 .add-to-cart {
-    width: 30%;
-        border: 0;
-        height: 35px;
-        color:#fff;
-        cursor: pointer;
-        
+    width: 120px;
+    border: 0;
+    height: 35px;
+    color: #fff;
+
+
 }
 
 /* .add-to-cart:hover{
@@ -166,85 +188,34 @@ textarea {
     align-items: center;
 } */
 
-.kolonka-2{
+.kolonka-2 {
     position: relative;
-    flex-basis: 50%;
+    flex-basis: 70%;
     display: flex;
     align-items: center;
 }
 
-.kolonka-2 .shoe{
-    height: 500px;
-    position: relative;
-    padding-right: 150px;
+.kolonka-2 .shoe {
+    width: 80%;
 }
 
-.bg-box{
+.bg-box {
     position: absolute;
     right: 0;
+    top: 10%;
+
     border-radius: 10px 0px 0px 10px;
-    height: 100%;
+    height: 80%;
     width: 10%;
-}
-
-.description {
-    margin-top: 5%;
-}
-
-.desc-param {
-    width: 50%;
-    display: flex;
-    text-align: left;
-    line-height: 1.5;
-}
-
-.description h5 {
-    font-size: 36px;
-    margin-bottom: 5%;
-    display: flex;
-}
-
-.kolonka-1-1{
-    flex-basis: 40%;
-    position: relative;
-    margin-left: 100px;
-}
-
-.kolonka-1-1 h2{
-    font-size: 54px;
-}
-
-.kolonka-1-1 h4{
-    margin: 30px 0;
-    font-size: 20px;
-}
-
-.small-box{
-    content: "";
-    width: 10px;
-    height: 100%;
-    position: absolute;
-}
-
-.kolonka-2-1{
-    display: flex;
-    align-items: center;
-}
-
-.kolonka-2-1 .shoe-1{
-    width: 100%;
-    background-color: rgb(244, 244, 244);
-}
-
-#imgoutput {
-    margin-left: 150px;
 }
 
 .bg-box,
 .add-to-cart,
 .small-box,
-.small-box-2 {
-    background: linear-gradient(#FFFFFF, #000000 );
+.small-box-2,
+.price,
+.condition {
+    background: linear-gradient(#FFFFFF, #000000);
 }
 
 ::-webkit-file-upload-button {
@@ -274,6 +245,59 @@ hr {
     display: none;
 }
 
+.card-payment {
+    margin-top: .7em;
+    margin-right: .5em;
+}
+
+#card-errors {
+    margin-top: .7em;
+    margin-left: .5em;
+    color: red;
+}
+
+.form-row {
+    display: flex;
+    justify-content: center;
+}
+
+.StripeElement {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    width: 40%;
+    background-color: white;
+    margin-bottom: 50px;
+}
+
+.StripeElement {
+    box-sizing: border-box;
+    height: 40px;
+    padding: 10px 12px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+    border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+}
+
+.hidden {
+    display: none;
+}
+
+
 @media (max-width: 991px) {
 
     body {
@@ -284,7 +308,7 @@ hr {
         top: 195%;
     }
 
-    .sugest p{
+    .sugest p {
         text-align: center;
     }
 
@@ -292,13 +316,12 @@ hr {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         grid-auto-rows: minmax(100px, 100px);
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1;
     }
 
-    input, select, textarea, .import-file {
+    input,
+    select,
+    textarea,
+    .import-file {
         width: 80%;
         margin: auto;
     }
@@ -331,12 +354,39 @@ hr {
         border-radius: 5px;
     }
 
-    .color .color1 , .color2 {
+    .color .color1,
+    .color2 {
         margin: 10px;
-    } 
+    }
 
     .row-1 {
         position: relative;
-        margin-top: 300%;
+        margin-top: 5%;
+    }
+}
+
+@media (max-width: 690px) {
+
+    .card-payment {
+        margin-top: 0.7em;
+
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .form-row {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+    }
+
+    .StripeElement {
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+        margin-top: 6px;
+        display: block;
     }
 }

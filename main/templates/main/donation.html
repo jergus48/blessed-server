@@ -1,0 +1,27 @@
+{% extends 'main/navbar.html' %}  {% load static %}{% block content %}
+<head>
+  <!-- <link rel="stylesheet" href=" {% static '/css/addProducts.css' %} " /> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta
+    name="description"
+    property="og:description"
+    content="Blessed is website for selling or buying hype shoes, clothes and accesories"
+  />
+  <meta property="og:title" content="Donation - Blessed" />
+  <title>Donation - Blessed</title>
+  <meta name="author" content="Jerguš Sňahničan, Alexander Poole" />
+  <meta
+    name="keywords"
+    content="Blessed, blessed, resell,market, hypebeast,shoes,clothes,accesories"
+  />
+</head>
+<div class="center" style="text-align: center">
+  <h1>Donation was sent</h1>
+</br>
+  <p>
+    Dear {{name}} Thank you very much for your donation. We will try to bring
+    new projects, raffles and new updates because of you.
+  </p>
+</div>
+{% endblock %}

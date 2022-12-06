@@ -1,0 +1,137 @@
+
+
+{% extends 'main/navbar.html' %} {% block content %} {% load static %} 
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta
+    name="description"
+    property="og:description"
+    content="Blessed is website for selling or buying hype shoes, clothes and accesories"
+  />
+  <meta property="og:title" content="About Us - Blessed" />
+  <title>About Us - Blessed</title>
+  <meta name="author" content="Jerguš Sňahničan, Alexander Poole" />
+  <meta
+    name="keywords"
+    content="Blessed, blessed, resell,market, hypebeast,shoes,clothes,accesories"
+  />
+  <link rel="stylesheet" href=" {% static '/css/about-us.css' %} " />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  {% if user.is_authenticated == False%}
+  <a href="/">
+    <img src="{% static '/images/icons/logo4.jpg' %}" class="logo">
+    </a>
+    {% endif %}
+    {% if user.is_authenticated%}
+  <h1>About Us</h1>
+  {% endif %}
+  <div class="about-us-top">
+    <p class="about-us">Blessed is an online marketplace for selling/buying hype sneakers, streetwear or accesories.
+      Blessed is avaible for the whole Europe.
+      The products sold here can be new and also vintage.
+      <br><br>
+      <span class="madeby">
+      This website was made by:
+      <br>
+      
+      <span class="us" ><a target="_blank" class="jergus" href="https://jergussnahnican.000webhostapp.com/">Jerguš Sňahničan(16)</a>: Full stack django developer
+      <br>
+      Alexander Poole(17): Frontend developer
+      </span>
+    </span>
+      <br><br>
+      For websites like this, you can contact us via <a href="/contact/">contact form.</a>
+      If you really like this project, you can support us by a donation with the price of your choice. This money will be used for new interesting projects, updates of this website or raffles on our instagram. Thank you for your support. 
+    </p>
+  </div>
+
+  <p class="opt-donation">Optional Donation(€)</p>
+  <form action="{% url 'DonationCharge' %}" method="post" id="payment-form">
+    {% csrf_token %}
+
+    <input
+      type="number"
+      name="price"
+      step="0.01"
+      placeholder="Donation in €" 
+      min="0.50" 
+      id="priceinput"
+      required
+    />
+    <input
+      type="text"
+      name="name"
+      placeholder="Name of Donator"
+      maxlength="30"
+    />
+    <input
+      type="email"
+      name="email"
+      placeholder="Optional Mail of Donator"
+      id="nameinput"
+    />
+    <div class="form-row">
+      <div id="card-element">
+        <!-- A Stripe Element will be inserted here. -->
+      </div>
+
+      <!-- Used to display Element errors. -->
+      <div id="card-errors" role="alert"></div>
+    </div>
+
+    <button class="submit">Submit Payment</button>
+  </form>
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    const stripe = Stripe(
+      "pk_test_51M6dQHLUoQwS73AdpvDRcFzQEhEjrZNLv6nEKvMINOuQeQBodB1w8IqyDPNcbVlm4IwkdA0dh7BPtGs2t0tA1Mi300R9aNf7kJ"
+    );
+    const elements = stripe.elements();
+    const style = {
+      base: {
+        // Add your base input styles here. For example:
+        fontSize: "16px",
+        color: "#32325d",
+      },
+    };
+
+    // Create an instance of the card Element.
+    const card = elements.create("card", { style });
+
+    // Add an instance of the card Element into the `card-element` <div>.
+    card.mount("#card-element");
+    const form = document.getElementById("payment-form");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const { token, error } = await stripe.createToken(card);
+
+      if (error) {
+        // Inform the customer that there was an error.
+        const errorElement = document.getElementById("card-errors");
+        errorElement.textContent = error.message;
+      } else {
+        // Send the token to your server.
+        stripeTokenHandler(token);
+      }
+    });
+    const stripeTokenHandler = (token) => {
+      // Insert the token ID into the form so it gets submitted to the server
+      const form = document.getElementById("payment-form");
+      const hiddenInput = document.createElement("input");
+      hiddenInput.setAttribute("type", "hidden");
+      hiddenInput.setAttribute("name", "stripeToken");
+      hiddenInput.setAttribute("value", token.id);
+      form.appendChild(hiddenInput);
+
+      // Submit the form
+      form.submit();
+    };
+  </script>
+</body>
+{% endblock %}

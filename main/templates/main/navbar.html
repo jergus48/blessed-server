@@ -1,51 +1,58 @@
-{% load static%}
+{% load static%} {% if user.is_authenticated %}
+
 <head>
   <link rel="stylesheet" href=" {% static '/css/navbar.css' %} " />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
-<div class="navcontainer">
-  <img src="/static/images/search.png" class="search-mobile" />
 
+<!-- <script src="/static/js/navbar.js"></script> -->
+<div class="navcontainer" id="navcon">
+
+  <img src="{% static '/images/icons/search.png' %}" class="search-mobile" onclick="search()" />
+  <img src="{% static '/images/icons/cancel.png' %}" class="cancel" onclick="cancel()" />
   <div class="navbar">
     <a href="/home/">
-      <img src="{% static '/images/logo.jpeg' %}" class="nav-logo" />
+      <img src="{% static '/images/icons/logo4.jpg' %}" class="nav-logo" title="Blessed" />
     </a>
 
-    <form
-      action="{% url 'search_results' %}"
-      class="search"
-      id="form"
-      method="get"
-    >
-      <input
-        name="name"
-        pattern=".{2,}"
-        class="search-field"
-        type="search"
-        id="query"
-        placeholder="Search for Products..."
-        required
-      />
+    <form action="{% url 'search_results' %}" class="search" id="form" method="get">
+      <input name="name" pattern=".{2,}" class="search-field" type="search" id="query"
+        placeholder="Search for Products..." required />
       <button type="submit" class="search-button">Search</button>
     </form>
 
-    <nav>
+    <form action="{% url 'search_results' %}" class="m-search" id="form" method="get">
+      <input name="name" pattern=".{2,}" class="m-search-field" type="search" id="query"
+        placeholder="Search for Products..." required />
+    </form>
+
+    <nav class="pc-nav">
       <ul>
         <li><a href="/add/">Sell</a></li>
         <li><a href="/mywanted/">Wanted</a></li>
         <li><a href="/myproducts/">My products</a></li>
-        <a href="/logout/" class="logout"
-          ><button class="log-out">Logout</button></a
-        >
+        <li><a href="/about-us/">About us</a></li>
+        <a href="/logout/" class="logout">
+          <button class="log-out">Logout</button>
+        </a>
       </ul>
-      <button id="menu" onclick="menu()">
-        Open
-        <div id="menu-container" style="display: none">
-          <button id="close" onclick="close()"></button>
-        </div>
-      </button>
     </nav>
+    <div class="hamburger">
+      <div class="bar"></div>
+    </div>
   </div>
+
+  <nav class="mobile-nav" id="mobilemenu">
+    <a id="link1" href="/add/">Sell</a>
+    <a id="link2" href="/mywanted/">Wanted</a>
+    <a id="link3" href="/myproducts/">My products</a>
+    <a id="link4" href="/about-us/">About us</a>
+    <a id="link5" href="/logout/" class="logout">
+      <button id="link" class="log-out-mobile">Logout</button>
+    </a>
+
+  </nav>
 </div>
-<!-- <script src="/static/js/navbar.js"></script> -->
-{% block content %} {% endblock %}
+<script src="../static/js/navbar.js"></script>
+
+{% endif %} {% block content %} {% endblock %}

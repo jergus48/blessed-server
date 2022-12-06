@@ -1,66 +1,249 @@
-.image {
-    width: 40%;
-    
+body {
+  text-align: center;
 }
+
+::-webkit-scrollbar-track {
+  background: rgb(243, 243, 243);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c8c8c8e7;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  border-radius: 10px;
+
+}
+
+h2 {
+  font-size: 52px;
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 100px;
+}
+
+.add-product {
+  position: absolute;
+  left: 50%;
+  top: 200px;
+  transform: translateX(-50%);
+}
+
+.add-product,
+.edit,
+.delete {
+  width: 120px;
+  height: 35px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+.add-product:hover,
+.edit:hover,
+.delete:hover {
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  transition: 0.4S;
+}
+
+.no-products {
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.pic {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+
+
+/* user products */
+
 .product {
-    
-    width: 50%;
+  border-bottom: 1px solid rgb(213, 213, 213);
+  width: 50%;
+  transform: translateX(50%);
+  margin-bottom: 150px;
+  box-shadow: 0 1px 4px 0 #e6ebf1;
 }
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
+
+.image {
+  width: 100%;
+  object-fit: cover;
+  height: 50%;
+  border-radius: 15px;
+  transition: all ease-in .1s;
+}
+
+.image:hover {
+  transform: scale(1.05);
+}
+
+.desc {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.desc .S,
+.N,
+.P,
+.C {
+  border: 1px solid grey;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* info about product */
+
+.buttons {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 60px;
+}
+
+.switch-info {
+  position: absolute;
+  bottom: 15px;
+  left: 20%;
+}
+
+/* switch */
+
+label {
+  position: absolute;
+  bottom: 10px;
+  right: 20%;
+}
+
+input[type=checkbox] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+input[type=checkbox]:focus {
+  outline: 0;
+}
+
+.toggle {
+  height: 32px;
+  width: 52px;
+  border-radius: 16px;
+  display: inline-block;
+  position: relative;
+  margin: 0;
+  border: 2px solid rgb(42, 42, 42);
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
+  transition: all 0.2s ease;
+}
+
+.toggle:after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgb(42, 42, 42);
+  box-shadow: 0 1px 2px rgba(44, 44, 44, 0.2);
+  transition: all 0.2s cubic-bezier(0.5, 0.1, 0.75, 1.35);
+}
+
+.toggle:checked {
+  border-color: #573dff;
+}
+
+.toggle:checked:after {
+  transform: translatex(20px);
+}
+
+.N {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-all;
+  word-break: break-word;
+}
+
+
+@media (max-width: 992px) {
+  .desc {
+    border: none;
   }
-  
-  .switch input { 
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  .slider {
+
+  .N {
     position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
+    top: 47%;
+    font-size: 35px;
+    outline: none;
+    border-radius: 0;
+    border: none;
   }
-  
-  .slider:before {
+
+  .image {
+    height: 33%;
+  }
+
+  .N {
+    top: 55%;
+  }
+
+  .products {
+    width: 100%;
+  }
+
+  .image {
+    height: 33%;
+    margin-bottom: 45px;
+  }
+
+  .product {
+    width: 80%;
+    transform: translateX(12.5%);
+  }
+
+  .switch-info {
+    left: 5%;
+  }
+
+  label {
+    right: 5%;
+  }
+}
+
+
+@media (max-width: 792px) {
+  .N {
     position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
+    top: 47%;
+    font-size: 30px;
+    outline: none;
+    border-radius: 0;
+    border: none;
   }
-  
-  input:checked + .slider {
-    background-color: #2196F3;
+
+  .image {
+    height: 23%;
   }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-  
-.slider.round {
-    border-radius: 34px;
-  }
-  
-  .slider.round:before {
-    border-radius: 50%;
-  }
+}

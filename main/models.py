@@ -3,6 +3,7 @@ from statistics import quantiles
 from django.contrib.auth.models import User
 from django.db import models
 from django_mysql.models import ListCharField
+from django.urls import reverse
 # Create your models here.
 # me
 
@@ -33,6 +34,8 @@ class Products(models.Model):
         verbose_name_plural = 'Products'
     def __str__(self):
         return self.name
+    def get_absolute_url(self):
+        return reverse("productLook", args=[str(self.id)])
 
 
 class Wanted(models.Model):
@@ -42,7 +45,7 @@ class Wanted(models.Model):
     categories= models.CharField(max_length=100) 
     size=models.CharField(max_length=10)
     active=  models.BooleanField(default=True)
-    image=models.ImageField(upload_to="", default="/blessedimg.jpeg")
+    image=models.ImageField(upload_to="", default="/blesseddefault.jpeg")
     maxprice=models.FloatField(default=0)
     color1=models.CharField(max_length=7,default="#FFFFFF")
     color2=models.CharField(max_length=7,default="#000000")
@@ -54,7 +57,9 @@ class Wanted(models.Model):
         verbose_name_plural = 'Wanted'
     def __str__(self):
         return self.name
-
+    def get_absolute_url(self):
+        return reverse("wantedLook", args=[str(self.id)])
+    
 
 
 

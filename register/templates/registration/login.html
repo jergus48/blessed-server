@@ -2,28 +2,45 @@
 {% load static %}
 <html lang="en">
   <head>
-    <title>{% block title %}Login Here{% endblock %}</title>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta
+    name="description"
+    property="og:description"
+    content="Blessed is website for selling or buying hype shoes, clothes and accesories"
+  />
+  <meta property="og:title" content="Login - Blessed" />
+  <title>Login - Blessed</title>
+  <meta name="author" content="Jerguš Sňahničan, Alexander Poole" />
+  <meta
+    name="keywords"
+    content="Blessed, blessed, resell,market, hypebeast,shoes,clothes,accesories"
+  />
     <link rel="stylesheet" href=" {% static '/css/login.css' %} " />
+    <style> .instagram {
+      width: 30px;}</style>
   </head>
   {% block content %}
   <body>
+    <a href="/">
+    <img src="{% static '/images/icons/logo4.jpg' %}" class="logo">
+    </a>
     <div id="app">
-    {% load crispy_forms_tags %} 
-    <form method="post" class="from-group">
-      {% csrf_token %} {{form|crispy}}
+ 
+    <form method="POST" class="from-group">
+      {% csrf_token %} {{form}}
       <p class="register">Don't have an account? Create one <a href="/register">here</a></p>
       <p class="register">Forgot your password? Click <a href="/reset_password">here</a></p>
       {% comment %}
       <p>Forgot password? Click <a href="#">here</a></p>
       {% endcomment %}
-      <button type="submit" class="btn btn-success">Login</button>
-    </form>
+      <button type="submit" class="login-button">Login</button>
+    </form><a href="https://www.instagram.com/blessedstore.sk/">
+    <img src="/static/images/icons/instagram.png" class="instagram"></a>
     <script src="{% static '/js/login.js' %}">
 
     </script>
+    
     {% endblock %}
     
   </body>

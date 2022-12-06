@@ -1,0 +1,23 @@
+<body style="color: black;">
+    <h2>Welcome to Blessed Store.</h2>
+
+    <p style=" white-space: pre-line;">
+        Your registration was succesful.
+
+        For selling products, click this link:
+    </p>
+    <p>
+        <a href="{{ protocol }}://{{ domain }}{% url 'addProducts'  %}"
+            style="color: rgb(16, 93, 194);text-decoration: none;">
+            Sell Products
+        </a>
+    </p>
+
+    <p>To buy products, click this link:
+    </p>
+    <p><a href=" {{ protocol }}://{{ domain}}{% url 'products' %}"
+            style="color: rgb(16, 93, 194);text-decoration: none;">
+            Blessed Products
+        </a></p>
+    <p>The Blessed Team</p>
+</body>

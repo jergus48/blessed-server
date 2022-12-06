@@ -1,27 +1,45 @@
 {% extends 'main/navbar.html' %} {% load static %} {% block content %}
 <head>
   <link rel="stylesheet" href=" {% static '/css/UsersProducts.css' %} " />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta
+    name="description"
+    property="og:description"
+    content="Blessed is website for selling or buying hype shoes, clothes and accesories"
+  />
+  <meta property="og:title" content="Profile - Blessed" />
+  <title>Profile - Blessed</title>
+  <meta name="author" content="Jerguš Sňahničan, Alexander Poole" />
+  <meta
+    name="keywords"
+    content="Blessed, blessed, resell,market, hypebeast,shoes,clothes,accesories"
+  />
 </head>
+
 <div class="contact">
-  <h2>{{user.first_name}}:</h2>
+  <h2>{{user.first_name}}</h2>
   <br />
-  <h3>Contact:</h3>
-  <div class="mailig">
-    <a href="https://www.instagram.com/{{ig}}/"><p>Instagram: @{{ig}}</p></a>
-    <p>Mail: {{user.username}}</p>
+  <div class="contacts">
+    <h3>Contact</h3>
+    <div class="redirects">
+      <a href="https://www.instagram.com/{{ig}}/" class="ig"  ><p>Instagram: @{{ig}}</p></a>
+      <p>Mail: {{user.username}}</p>
+    </div>
   </div>
 </div>
 <br />
-<div class="containerNapisy">
-  <a href="/user-{{user.id}}/products/"
-    ><div class="pdcontainernapis containernapis">Products</div></a
+<div class="container-napisy">
+  <a href="/user-{{user.id}}/products/" style="border-right: 1px solid grey"
+    ><div class="active containernapis">Products</div></a
   >
   <a href="/user-{{user.id}}/wanted/"
     ><div class="containernapis">Wanted</div></a
   >
 </div>
-<form method="post" action="">
+<form method="post" action="" class="filters">
   {% csrf_token %}
+  <div class="selects">
   <select name="order_by" id="order_by" onchange="this.form.submit()">
     <option
       class="hidden_option"
@@ -53,110 +71,214 @@
     <option value="2000" name="2000">up to 2000€</option>
     <option value="2001" name="2001">from 2000€</option>
   </select>
-  <h5>Categories</h5>
-  {% for category in categories %} {% if category in c %}
-  <label
-    ><input
-      type="checkbox"
-      name="category"
-      value="{{category}}"
-      onchange="this.form.submit()"
-      checked
-    />{{category}}</label
+  <button type="button" id="categorybtn"  class="categories" onclick="Categories()">
+    <h5>Categories</h5>
+    <img
+      src=" {% static '/images/arrow.png' %}"
+      class="arrow"
+      id="categories_arrow"
+      style="transform: rotate({{categories_arrow}}deg);"
+    />
+  </button>
+  <div
+    id="categories"
+    class="categories-filters"
+    style="display:{{categories_display}} ;"
   >
-  {% else %}
-  <label
-    ><input
+    {% for category in categories %} {% if category in c %}
+    <label
+      ><input
+        type="checkbox"
+        name="category"
+        value="{{category}}"
+        onchange="this.form.submit()"
+        checked
+      />{{category}}</label
+    >
+    {% else %}
+    <label
+      ><input
+        type="checkbox"
+        name="category"
+        value="{{category}}"
+        onchange="this.form.submit()"
+      />{{category}}</label
+    >
+    {%endif%} {% endfor %}
+  </div>
+</div>
+<div class="parameters">
+  <div style="display: none">
+    <input type="checkbox" id="sizecheck" name="sizecheck" {{sizecheck}} />
+    <input
+      class="checkbox"
       type="checkbox"
-      name="category"
-      value="{{category}}"
-      onchange="this.form.submit()"
-    />{{category}}</label
-  >
-  {%endif%} {% endfor %}
-  <h5>Size</h5>
-  {% for size in sizes %} {% if size in x %}
-  <label
-    ><input
+      id="conditioncheck"
+      name="conditioncheck"
+      {{conditioncheck}}
+    />
+    <input
       type="checkbox"
-      name="size"
-      value="{{size}}"
-      onchange="this.form.submit()"
-      checked
-    />{{size}}</label
-  >
-  {% else %}
-  <label
-    ><input
+      id="categoriescheck"
+      name="categoriescheck"
+      {{categoriescheck}}
+    />
+    <input
+      class="checkbox"
       type="checkbox"
-      name="size"
-      value="{{size}}"
-      onchange="this.form.submit()"
-    />{{size}}</label
+      id="countrycheck"
+      name="countrycheck"
+      {{countrycheck}}
+    />
+  </div>
+  
+  <button type="button" id="sizebtn" class="size" onclick="Size()">
+    <h5>Size</h5>
+    <img
+      src=" {% static '/images/arrow.png' %}"
+      class="arrow"
+      id="Size_arrow"
+      style="transform: rotate({{size_arrow}}deg);"
+    />
+  </button>
+  <div id="size" class="size-filters" style="display: {{size_display}};">
+    {% for size in sizes %} {% if size in x %}
+    <label class="size-label"
+      ><input
+        class="checkbox"
+        type="checkbox"
+        name="size"
+        value="{{size}}"
+        onchange="this.form.submit()"
+        checked
+      />{{size}}</label
+    >
+    {% else %}
+    <label
+      ><input
+        class="checkbox"
+        type="checkbox"
+        name="size"
+        value="{{size}}"
+        onchange="this.form.submit()"
+      />{{size}}</label
+    >
+    {%endif%} {% endfor %}
+  </div>
+  <button type="button" id="conditionbtn" class="condition" onclick="Condition()">
+    <h5>Condition</h5>
+    <img
+      src=" {% static '/images/arrow.png' %}"
+      class="arrow"
+      id="condition_arrow"
+      style="transform: rotate({{condition_arrow}}deg);"
+    />
+  </button>
+  <div
+    id="condition"
+    class="condition-filters"
+    style="display: {{condition_display}};"
   >
-  {%endif%} {% endfor %}
-  <h5>Condition</h5>
-  {% for condition in conditions %} {% if condition in y %}
-  <label
-    ><input
-      type="checkbox"
-      name="condition"
-      value="{{condition}}"
-      onchange="this.form.submit()"
-      checked
-    />{{condition}}</label
+    {% for condition in conditions %} {% if condition in y %}
+    <label class="condition-label"
+      ><input
+        class="checkbox"
+        type="checkbox"
+        name="condition"
+        value="{{condition}}"
+        onchange="this.form.submit()"
+        checked
+      />{{condition}}</label
+    >
+    {% else %}
+    <label
+      ><input
+        class="checkbox"
+        type="checkbox"
+        name="condition"
+        value="{{condition}}"
+        onchange="this.form.submit()"
+      />{{condition}}</label
+    >
+    {%endif%} {% endfor %}
+  </div>
+  <button type="button" class="country" id="countrybtn" onclick="Country()">
+    <h5>Country</h5>
+    <img
+      src=" {% static '/images/arrow.png' %}"
+      class="arrow"
+      id="country_arrow"
+      style="transform: rotate({{country_arrow}}deg);"
+    />
+  </button>
+  <div
+    id="country"
+    class="country-filters"
+    style="display: {{country_display}};"
   >
-  {% else %}
-  <label
-    ><input
-      type="checkbox"
-      name="condition"
-      value="{{condition}}"
-      onchange="this.form.submit()"
-    />{{condition}}</label
-  >
-  {%endif%} {% endfor %}
-  <h5>Country</h5>
-  {% for country in eu_countries %} {% if country in z %}
-  <label
-    ><input
-      type="checkbox"
-      name="country"
-      value="{{country}}"
-      onchange="this.form.submit()"
-      checked
-    />{{country}}</label
-  >
-  {% else %}
-  <label
-    ><input
-      type="checkbox"
-      name="country"
-      value="{{country}}"
-      onchange="this.form.submit()"
-    />{{country}}</label
-  >
-  {%endif%} {% endfor %}
+    {% for country in eu_countries %} {% if country in z %}
+    <label class="country-label">
+      <input
+        class="checkbox"
+        type="checkbox"
+        name="country"
+        value="{{country}}"
+        onchange="this.form.submit()"
+        checked
+      />{{country}}</label
+    >
+    {% else %}
+    <label
+      ><input
+        class="checkbox"
+        type="checkbox"
+        name="country"
+        value="{{country}}"
+        onchange="this.form.submit()"
+      />{{country}}</label
+    >
+    {%endif%} {% endfor %}
+  </div>
+</div>
 </form>
 {% if pd.count == 0 %}
-<p>Nothing Match</p>
+<div class="nothing-match">
+  <h2 class="sorry">We are Sorry.</h2>
+  <p class="nothing">
+    Nothing is Matching. Try to change filters so we can find product just for
+    you!
+  </p>
+</div>
 {% endif %}
 <div class="container">
+  <hr class="diff" />
   <ul class="products">
     {% for product in pd %}
     <li class="product">
       <a href="/{{product.id}}/">
         <img class="image" src="{{product.image.url}}" alt="image" />
-        <p>Name: {{product.name}}</p>
-        <p>Country: {{product.country}}</p>
-        <p>Size: {{product.size}}</p>
-        <p>condition: {{product.condition}}</p>
-        <p>Category: {{product.categories}}</p>
-        <p>Price: {{product.price}}€</p>
+        <div class="description">
+          <p  class="N">{{product.name}}</p>
+          <!-- <p>Country: {{product.country}}</p> -->
+          <p class="S">Size: {{product.size}}</p>
+          <p class="C">condition: {{product.condition}}</p>
+          <!-- <p>Category: {{product.categories}}</p> -->
+          <p class="P">Price: {{product.price}}€</p>
+        </div>
       </a>
     </li>
     {% endfor %}
   </ul>
 </div>
-<script></script>
+<script src="{% static '/js/filterproducts.js' %}"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) { 
+      var scrollpos = localStorage.getItem('scrollpos');
+      if (scrollpos) window.scrollTo(0, scrollpos);
+  });
+
+  window.onbeforeunload = function(e) {
+      localStorage.setItem('scrollpos', window.scrollY);
+  };
+</script>
 {% endblock %}

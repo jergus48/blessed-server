@@ -12,7 +12,7 @@ class RegisterForm(UserCreationForm):
     
     username = forms.EmailField(max_length=254, required=True,label="Mail")
     first_name.widget.attrs.update( placeholder='First Name & Last Name')
-    last_name.widget.attrs.update( placeholder='@')
+    last_name.widget.attrs.update( placeholder='Instagram @')
     username.widget.attrs.update( placeholder='Unique Mail')
     password1= forms.CharField(widget=forms.PasswordInput, required=True, label="Password")
     password2 = forms.CharField(widget=forms.PasswordInput, required=True, label="Password Confirmation")
@@ -35,9 +35,17 @@ class MyAuthForm(AuthenticationForm):
     class Meta:
         model = User
         fields = ['username','password']
+        error_messages = {
+        'invalid_login': (
+            "Please enter a correct mail and password. Note that both "
+            "fields may be case-sensitive."
+        ),
+        'inactive': ("This account is inactive."),
+    }
     def __init__(self, *args, **kwargs):
         super(MyAuthForm, self).__init__(*args, **kwargs)
         self.fields['username'].widget = forms.TextInput(attrs={ 'placeholder': 'Your Mail'})
         self.fields['username'].label = False
         self.fields['password'].widget = forms.PasswordInput(attrs={ 'placeholder':'Password'}) 
         self.fields['password'].label = False
+        self.error_messages['invalid_login'] = "Please enter a correct mail and password."

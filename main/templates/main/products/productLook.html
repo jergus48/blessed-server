@@ -1,62 +1,86 @@
 {% extends 'main/navbar.html' %} {% load static %} {% block content %}
+
 <head>
   <link rel="stylesheet" href=" {% static '/css/productLook.css' %} " />
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="description" property="og:description"
+    content="Blessed is website for selling or buying hype shoes, clothes and accesories" />
+  <meta property="og:title" content="{{pd.name}} - Blessed" />
+  <title>{{pd.name}} - Blessed</title>
+  <meta name="author" content="Jerguš Sňahničan, Alexander Poole" />
+  <meta name="keywords" content="Blessed, blessed, resell,market, hypebeast,shoes,clothes,accesories,{{pd.name}}" />
 </head>
 <style>
   .add-to-cart,
   .bg-box,
   .add-to-cart,
-  .small-box ,
-  .condition ,
-  .price ,
-  hr{
-    background: linear-gradient({{pd.color1}}, {{pd.color2}});
+  .small-box,
+  .condition,
+  .price {
+    background: linear-gradient({{pd.color1}}
+
+    , {{pd.color2}});
   }
 
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient({{pd.color1}}, {{pd.color2}});
-    border-radius: 10px;
+    background: linear-gradient({
+        {
+        pd.color1
+      }
+    }
+
+    , {
+      {
+      pd.color2
+    }
+  });
+  border-radius: 10px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient({{pd.color1}}, {{pd.color2}});
-    border-radius: 10px;
+    background: linear-gradient({
+        {
+        pd.color1
+      }
+    }
+
+    , {
+      {
+      pd.color2
+    }
+  });
+  border-radius: 10px;
   }
-  
+
   @media (max-width: 991px) {
     .add-to-cart {
       background: white;
     }
   }
-
 </style>
-
-<div class="row">
-  <div class="kolonka-1">
+<body id="body">
+<div class="row" id="row">
+  <div class="kolonka-1" id="kolonka1">
     <div class="small-box" id="gradient3"></div>
     <div>
-      <h2>{{pd.name}}<h1>{{pd.size}}</h1></h2>
+      <h2 class="break">{{pd.name}}<h1>{{pd.size}}</h1>
+      </h2>
       <h4>{{pd.price}} €</h4>
-      
-        <button
-          class="add-to-cart"
-          type="submit"
-       
-          value="Contact"
-          name="Contact"
-        >
-         Condition: {{pd.condition}}
-        </button>
-      
+
+      <button class="add-to-cart" type="submit" value="Contact" name="Contact">
+        Condition: {{pd.condition}}
+      </button>
+
     </div>
   </div>
-  <div class="kolonka-2">
-    <img class="shoe" src="{{pd.image.url}}" alt="image" />
+  <div class="kolonka-2" id="kolonka2">
+    <img class="shoe" value="classic" id="img" onclick="image()" src="{{pd.image.url}}" />
     <div class="bg-box"></div>
   </div>
 </div>
-  
+
 
 
 
@@ -70,7 +94,8 @@
 </div>
 <div class="name">
   <div class="small-box" id="gradient3"></div>
-  <h1>{{pd.name}}<h2 style=>Size:{{pd.size}}</h2></h1>
+  <h1 class="break">{{pd.name}}<h2 style=>Size:{{pd.size}}</h2>
+  </h1>
   <div class="visuals">
     <p class="condition">Condition:{{pd.condition}}</p>
     <p class="price">Price:{{pd.price}} €</p>
@@ -81,7 +106,8 @@
     <hr class="for-sale">
     <h4>For Sale</h4>
     <div class="info">
-      <p class="question">Country:<p>
+      <p class="question">Country:
+      <p>
       <p class="country">{{pd.country}}</p>
     </div>
     <!-- <div class="info">
@@ -92,8 +118,8 @@
     <div class="content">
       <h5 class="desc">Description</h5>
       <div class="center">
-      <p class="desc-content">{{ pd.description}}</p>
-    </div>
+        <p class="desc-content">{{ pd.description}}</p>
+      </div>
     </div>
     <hr class="contact-line">
     <div class="contact">
@@ -102,28 +128,81 @@
         <div class="instagram">
           <p>Mail:</p>
           <p>{{pd.user.username}}</p>
-        </div>  
-        <a class="mail" href="https://www.instagram.com/{{ig}}/">
-            <p>Instagram:</p>
-            <p class="ig"> @{{ig}}</p>
-          </a>
-       
+        </div>
+        <a class="mail" target="_blank" href="https://www.instagram.com/{{ig}}/">
+          <p>Instagram:</p>
+          <p class="ig"><span class="break">@{{ig}}</span></p>
+        </a>
+
       </div>
     </div>
   </div>
 </div>
 <div class="buttons-1">
-  <a href="/user-{{pd.user.id}}/products/"> 
+  <a href="/user-{{pd.user.id}}/products/">
+
+    <button class="add-to-cart" type="submit" id="profile-btn" value="profile" name="profile">
+      View Profile
+    </button></a>
+</div>
+</body>
+{% comment %} <script src="{% static '/js/Look.js' %}"></script> {% endcomment %}
+<script>var img = document.getElementById("img")
+  var navcon = document.getElementById("navcon")
+  var kolonka1 = document.getElementById("kolonka1")
+  var kolonka2 = document.getElementById("kolonka2")
+  var row = document.getElementById("row")
+  var i = "run"
+  var body = document.getElementById("body")
+  function image() {
+    
+    
+    
+    if (i == "run"){
+    i = "unrun"
+   
+    navcon.style.display = "none";
+    kolonka1.style.display = "none";
+    row.classList.toggle('clicked');
+        img.classList.toggle('clicked');
+        kolonka2.classList.toggle('clicked');
+        
+        body.classList.toggle('clicked');
+    
+    
+    
+    window.scrollTo(0, 0);
+    
+   
+    
+    }
+    
+    }
+    document.addEventListener('click', function (e) {
+      if (e.target != img)
+      if (i == "unrun"){
+        i = "run"
+       
+       
+        
+        
+        img.style.display = "none";
+        navcon.style.display = "block";
+        kolonka1.style.display = "block";
+        row.classList.toggle('clicked');
+        kolonka2.classList.toggle('clicked');
+        img.classList.toggle('clicked');
+        
+        setTimeout(() => {body.classList.toggle('clicked');
+        img.style.display = "block"; }, 50);
+        
+        
+       
+        }
+      }
+    )
+    
   
-  <button
-    class="add-to-cart"
-    type="submit"
-    id="profile-btn"
-    value="profile"
-    name="profile"
-  >
-    View Profile
-  </button></a>
-</div> 
-<script src="{% static '/js/Look.js' %}"></script>
+
+</script>
 {% endblock %}

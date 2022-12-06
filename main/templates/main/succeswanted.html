@@ -1,0 +1,30 @@
+{% extends 'main/navbar.html' %} {% load static %} {% block content %}
+<head>
+  <link rel="stylesheet" href=" {% static '/css/succes.css' %} " />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta
+    name="description"
+    property="og:description"
+    content="Blessed is website for selling or buying hype shoes, clothes and accesories"
+  />
+  <meta property="og:title" content="Succesful adding - Blessed" />
+  <title>Succesful adding - Blessed</title>
+  <meta name="author" content="Jerguš Sňahničan, Alexander Poole" />
+  <meta
+    name="keywords"
+    content="Blessed, blessed, resell,market, hypebeast,shoes,clothes,accesories"
+  />
+</head>
+<div class=succes>
+  <div class="succes-body">
+    <img src="{% static '/images/icons/succes.png' %}" class="succes-img">
+    <h1>Congratulations!</h1>
+    <p>Your Wanted Product {{product}} was added. Thank you! We wish you a good luck.</p>
+    <div class="buttons">
+      <a href="/"><button class="home">Home</button></a>
+      <a href="/add/wanted/"><button class="add">Add Another</button></a>
+    </div>
+  </div>
+</div>
+{% endblock %}  

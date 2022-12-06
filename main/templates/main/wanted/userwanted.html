@@ -1,65 +1,84 @@
 {% extends 'main/navbar.html' %}{% load static%} {% block content%}
 <head>
   <link rel="stylesheet" href=" {% static '/css/userproducts.css' %} " />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta
+    name="description"
+    property="og:description"
+    content="Blessed is website for selling or buying hype shoes, clothes and accesories"
+  />
+  <meta property="og:title" content="My Wanted - Blessed" />
+  <title>My Wanted - Blessed</title>
+  <meta name="author" content="Jerguš Sňahničan, Alexander Poole" />
+  <meta
+    name="keywords"
+    content="Blessed, blessed, resell,market, hypebeast,shoes,clothes,accesories"
+  />
 </head>
 <body>
   <h2>My Wanted</h2>
   <a href="/add/wanted/">
-    <button>Add wanted</button>
+    <button class="add-product">Add wanted</button>
   </a>
 
   {% if user.wanted.count == 0 %}
-  <p>nemas vlastne wanted</p>
+  <p class="no-products">No products..</p>
+  
 
-  {% else %}
-  <form method="post" action="">
+  {% else %} 
+  <form method="post" class="products" action="" id="form_id" >
     {% csrf_token %} {% for product in wd %}
 
-    <div class="product">
-      <a href="/w{{product.id}}/">
+    <div class="product"> 
+      <a href="/w{{product.id}}/"> 
         <img class="image" src="{{product.image.url}}" alt="image" />
       </a>
+      <div class="desc">
+        
+        
+        <p class="N">{{product.name}}</p> 
+        <p class="S">Size: {{product.size}}</p>
+        
+       
+        <p class="P">Price: {{product.maxprice}}€</p>
+        
+        
+      </div>
 
-      <p>Name: {{product.name}}</p>
-      <p>Id: {{product.id}}</p>
-
-      <p>Size: {{product.size}}</p>
-      <p>Category: {{product.categories}}</p>
-      <p>Price: {{product.maxprice}}$</p>
-
-      <p>color1: {{product.color1}}</p>
-      <p>color2: {{product.color2}}</p>
-
-      <button type="submit" value="{{product.id}}" name="delete">Remove</button>
-      <button><a href="/edit-w{{product.id}}/">Edit</a></button>
+      <div class="buttons">
+        <button type="submit" value="{{product.id}}" class="delete" name="delete">Remove</button>
+        <a href="/edit-w{{product.id}}/"><button class="edit" type="button">Edit</button></a>
+      </div>
+      
+      <p class="switch-info">Turn your product on or off:</p>
       {% if product.active == True%}
-
+      
       <label class="switch">
-        <input
-          type="checkbox"
-          onchange="form.submit()"
-          name="w{{product.id}}"
-          checked
-        />
-        <span class="slider round"></span>
+        <input type="checkbox" class="toggle" onchange="form.submit()" name="w{{product.id}}" checked />
       </label>
-
+    
       {% else %}
-
+      
       <label class="switch">
-        <input
-          type="checkbox"
-          onchange="form.submit()"
-          name="w{{product.id}}"
-        />
-        <span class="slider round"></span>
+        <input type="checkbox" class="toggle" onchange="form.submit()"   name="w{{product.id}}"/>
       </label>
-
-      {% endif %} {{product.active}}
+  
+  
+    {% endif %}
     </div>
-
     {% endfor %}
   </form>
   {% endif %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function(event) { 
+        var scrollpos = localStorage.getItem('scrollpos');
+        if (scrollpos) window.scrollTo(0, scrollpos);
+    });
+  
+    window.onbeforeunload = function(e) {
+        localStorage.setItem('scrollpos', window.scrollY);
+    };
+  </script>
 </body>
 {% endblock %}

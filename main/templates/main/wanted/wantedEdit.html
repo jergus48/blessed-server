@@ -1,100 +1,141 @@
 {% extends 'main/navbar.html' %} {% load static %} {% block content %}
 <head>
+  <link rel="stylesheet" href=" {% static '/css/productLook.css' %} " />
   <link rel="stylesheet" href=" {% static '/css/productEdit.css' %} " />
-  <style>
-    
-    .bg-box,
-    .add-to-cart,
-    .small-box {
-      background: linear-gradient({{pd.color1}}, {{pd.color2}});
-    }
-  </style>
 </head>
-<form method="post" action="" enctype="multipart/form-data">
-  {% csrf_token %}
-  <h1>Edit Product</h1>
-  <h2>{{pd.name}}</h2>
-  {% if pd.categories == "Shoes"%}
-  <select id="shoes" name="sizeS">
-    <option
-      class="hidden_option"
-      value="{{pd.size}}"
-      name="{{pd.size}}"
-      style="display: none"
-    >
-      {{pd.size}}
-    </option>
-    {% for size in shoessize %}
-    <option name="{{size}}" value="{{size}}">{{size}}</option>
+<style>
     
-    {% endfor %}
-  </select>
-{% elif pd.categories == "Clothes"%}
-  <select id="clothes" name="sizeC">
-    <option
-      class="hidden_option"
-      value="{{pd.size}}"
-      name="{{pd.size}}"
-      style="display: none"
-    >
-      {{pd.size}}
-    </option>
-    {% for size in clothessize %}
-    <option name="{{size}}" value="{{size}}">{{size}}</option>
-    
-    {% endfor %}
-  </select>
-  {% elif pd.categories == "Accesories"%}
-  <input
-    type="text"
-    name="sizeA"
-    id="accesories"
-    maxlength="10"
-    value="{{pd.size}}"
-    placeholder="Accesory Size"
-  />
-  {% endif %}
-  <input
-    type="number"
-    name="price"
-    step="0.01"
-    placeholder="price in €"
-    min="0.01"
-    id="priceinput"
-    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-    value="{{pd.maxprice}}"
-    maxlength="5"
-    required
-  />
+  .add-to-cart,
+  .bg-box,
+  .add-to-cart,
+  .small-box ,
+  .condition ,
+  .price ,
+  #profile-btn {
+    background: linear-gradient({{pd.color1}}, {{pd.color2}});
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient({{pd.color1}}, {{pd.color2}});
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient({{pd.color1}}, {{pd.color2}});
+    border-radius: 10px;
+  }
   
-  <input type="color" name="color1" value="{{pd.color1}}" id="color1input" onchange="ChangeColor()"/>
-  <input type="color" name="color2" value="{{pd.color2}}" id="color2input" onchange="ChangeColor()"/>
-  <button type="submit" name="change" value="change" class="btn btn-success">
-    Change
-  </button>
-</form>
-<div class="row">
-  <div class="kolonka-1" id="kolonka-1">
-    <div class="small-box" id="gradient"></div>
-    <h2><span id="nameoutput">{{pd.name}}</span></br>
-      <span id="sizeoutput">{{pd.size}}</span></h2>
-    <h4 id="priceoutput">{{pd.maxprice}} €</h4>
-    <button class="add-to-cart" type="submit" id="gradient2" value="Contact" name="Contact">
-      Contact
+
+
+</style>
+<h1 style="font-size: 52px; display:flex; justify-content:center;" class="napis">Edit Wanted Product</h1>
+<h2 class="namenapis" style="font-size: 42px; display:flex; justify-content:center; margin-top: 25px; color: rgb(61, 61, 61);">{{pd.name}}</h2>
+<div class="body">
+  <form method="post" class="edit-form" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+   
+    
+{% if pd.categories == "Shoes"%}
+<select id="shoesinput" name="sizeS" onchange="inputShoes()">
+  <option
+    class="hidden_option"
+    value="{{pd.size}}"
+    name="{{pd.size}}"
+    style="display: none"
+  >
+    {{pd.size}}
+  </option>
+  {% for size in shoessize %}
+  <option name="{{size}}" value="{{size}}">{{size}}</option>
+  
+  {% endfor %}
+</select>
+{% elif pd.categories == "Clothes"%}
+<select id="clothesinput" name="sizeC" onchange="inputClothes()">
+  <option
+    class="hidden_option"
+    value="{{pd.size}}"
+    name="{{pd.size}}"
+    style="display: none"
+  >
+    {{pd.size}}
+  </option>
+  {% for size in clothessize %}
+  <option name="{{size}}" value="{{size}}">{{size}}</option>
+  
+  {% endfor %}
+</select>
+{% elif pd.categories == "Accesories"%}
+<input
+  type="text"
+  name="sizeA"
+  id="accesoriesinput"
+  maxlength="10"
+  value="{{pd.size}}"
+  placeholder="Accesory Size"
+/>
+{% endif %}
+    <input type="number" name="price" step="1" placeholder="price in €" min="1" id="priceinput"
+      oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+      maxlength="5" value="{{pd.maxprice}}"required />
+    <div class="color-change">
+      <p>Change colors:</p>
+      <div class="colors">
+        <input type="color" name="color1" value="{{pd.color1}}" id="colorinput1" onchange="changeColor()"/>
+        <input type="color" name="color2" value="{{pd.color2}}" id="colorinput2" onchange="changeColor()"/>
+      </div>
+    </div>
+    <button type="submit" name="change" value="change" class="submit">
+      Change
     </button>
+  </form>
+</div>
+<div class="row">
+  <div class="kolonka-1">
+    <div class="small-box" id="gradient3"></div>
+    <div>
+      <h2  class="breakn">{{pd.name}}<h1 id="sizeoutput">{{pd.size}}</h1></h2>
+      <h4 id="priceoutput">{{pd.maxprice}} €</h4>
+      
+        <button
+          class="add-to-cart"
+          type="submit"
+          id="conditionoutput"
+          value="Contact"
+          name="Contact"
+        >
+         View Profile
+        </button>
+      
+    </div>
   </div>
   <div class="kolonka-2">
-    <img
-      id="imgoutput"
-      src="{{pd.image.url}}"
-      alt="your image"
-      class="shoe"
-    />
-    <div class="bg-box" id="gradient3"></div>
+    <img class="shoe" src="{{pd.image.url}}" alt="image" />
+    <div class="bg-box" id="gradient"></div>
   </div>
 </div>
+  
+
+
+
+
+
+<div class="row-1">
+  <div class="kolonka-2-1">
+    <img class="shoe-1" src="{{pd.image.url}}" id="imgoutputmob" alt="image" />
+    <!-- <div class="bg-box"></div> -->
+  </div>
+</div>
+<div class="name">
+  <div class="small-box" id="gradient3"></div>
+  <h1>{{pd.name}}<h2 id="sizeoutputmob">Size:{{pd.size}}</h2></h1>
+  <div class="visuals">
+    
+    <p class="price" id="priceoutputmob">Price:{{pd.maxprice}} €</p>
+  </div>
+</div>
+
 <script src="{% static '/js/editProduct.js' %}"></script>
 <script src="{% static '/js/reload.js' %}">
-</script>
 
 {% endblock %}

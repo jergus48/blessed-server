@@ -1,10 +1,52 @@
 {% extends 'main/navbar.html' %} {% load static %} {% block content %}
 <head>
-  <link rel="stylesheet" href=" {% static '/css/products.css' %} " />
+  <link rel="stylesheet" href="../static/css/products.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta
+    name="description"
+    property="og:description"
+    content="Blessed is website for selling or buying hype shoes, clothes and accesories"
+  />
+  <meta property="og:title" content="Wanted Products - Blessed" />
+  <title>Wanted Products - Blessed</title>
+  <meta name="author" content="Jerguš Sňahničan, Alexander Poole" />
+  <meta
+    name="keywords"
+    content="Blessed, blessed, resell,market, hypebeast,shoes,clothes,accesories"
+  />
+  <style>
+    @media screen and (min-width:770px) {
+    .product{
+      height:100%;
+    }
+    
+    .size-filters {
+      left:63%;
+      width: 85px;
+  }
+  
+  
+  
+ 
+  .diff {
+    width: 80%;
+    position: absolute;
+    left: 50%;
+    top: 260px;
+    transform: translateX(-50%);
+    z-index: -1;
+}}
+@media screen and (max-width: 770px){
+.product {
+    height: 100%;
+}}
+  </style>
 </head>
 <h2>Wanted:</h2>
-<form method="post" action="">
+<form method="post" action="/wanted/" class="filters">
   {% csrf_token %}
+  <div class="selects">
   <select name="order_by" id="order_by" onchange="this.form.submit()">
     <option
       class="hidden_option"
@@ -28,7 +70,7 @@
     >
       {{choicep}}
     </option>
-    <option value="0" name="0">Price up to €</option>
+    <option value="0" name="0">Max Price up to €</option>
     <option value="100" name="100">up to 100€</option>
     <option value="200" name="200">up to 200€</option>
     <option value="500" name="500">up to 500€</option>
@@ -36,9 +78,17 @@
     <option value="2000" name="2000">up to 2000€</option>
     <option value="2001" name="2001">from 2000€</option>
   </select>
+</div>
+<div class="parameters">
   <div style="display: none">
     <input type="checkbox" id="sizecheck" name="sizecheck" {{sizecheck}} />
-
+    <input
+      class="checkbox"
+      type="checkbox"
+      id="conditioncheck"
+      name="conditioncheck"
+      {{conditioncheck}}
+    />
     <input
       type="checkbox"
       id="categoriescheck"
@@ -46,13 +96,14 @@
       {{categoriescheck}}
     />
     <input
+      class="checkbox"
       type="checkbox"
       id="countrycheck"
       name="countrycheck"
       {{countrycheck}}
     />
   </div>
-  <button type="button" onclick="Categories()">
+  <button type="button" id="categorybtn"  class="categories" onclick="Categories()">
     <h5>Categories</h5>
     <img
       src=" {% static '/images/arrow.png' %}"
@@ -63,7 +114,7 @@
   </button>
   <div
     id="categories"
-    class="categories"
+    class="categories-filters"
     style="display:{{categories_display}} ;"
   >
     {% for category in categories %} {% if category in c %}
@@ -87,7 +138,7 @@
     >
     {%endif%} {% endfor %}
   </div>
-  <button type="button" onclick="Size()">
+  <button type="button" id="sizebtn" class="size" onclick="Size()">
     <h5>Size</h5>
     <img
       src=" {% static '/images/arrow.png' %}"
@@ -96,10 +147,11 @@
       style="transform: rotate({{size_arrow}}deg);"
     />
   </button>
-  <div id="size" class="size" style="display: {{size_display}};">
+  <div id="size" class="size-filters" style="display: {{size_display}};">
     {% for size in sizes %} {% if size in x %}
-    <label
+    <label class="size-label"
       ><input
+        class="checkbox"
         type="checkbox"
         name="size"
         value="{{size}}"
@@ -110,6 +162,7 @@
     {% else %}
     <label
       ><input
+        class="checkbox"
         type="checkbox"
         name="size"
         value="{{size}}"
@@ -118,8 +171,8 @@
     >
     {%endif%} {% endfor %}
   </div>
-
-  <button type="button" onclick="Country()">
+  
+  <button type="button" class="country" id="countrybtn" onclick="Country()">
     <h5>Country</h5>
     <img
       src=" {% static '/images/arrow.png' %}"
@@ -128,10 +181,15 @@
       style="transform: rotate({{country_arrow}}deg);"
     />
   </button>
-  <div id="country" class="country" style="display: {{country_display}};">
+  <div
+    id="country"
+    class="country-filters"
+    style="display: {{country_display}};"
+  >
     {% for country in eu_countries %} {% if country in z %}
-    <label
-      ><input
+    <label class="country-label">
+      <input
+        class="checkbox"
         type="checkbox"
         name="country"
         value="{{country}}"
@@ -142,6 +200,7 @@
     {% else %}
     <label
       ><input
+        class="checkbox"
         type="checkbox"
         name="country"
         value="{{country}}"
@@ -150,29 +209,87 @@
     >
     {%endif%} {% endfor %}
   </div>
+</div>
 </form>
-<br /><br />
-{% if wd.count == 0 %}
-<p>Nothing Match</p>
+{% if count == 0 %}
+<div class="nothing-match">
+  <h2 class="sorry">We are Sorry.</h2>
+  <p class="nothing">Nothing is Matching. Try to change filters so we can find product just for you!</p>
+</div>
 {% endif %}
 <div class="container">
+  <hr class="diff">
   <ul class="products">
     {% for product in wd %}
     <li class="product">
       <a href="/w{{product.id}}/">
         <img class="image" src="{{product.image.url}}" alt="image" />
-        <p>Name: {{product.name}}</p>
-
-        <p>Size: {{product.size}}</p>
-        <p>Country: {{product.country}}</p>
-        <p>Category: {{product.categories}}</p>
-        <p>Price: {{product.maxprice}}$</p>
+        <p class="C">Wanted</p>
+        <div class="desc">
+          <p class="N">{{product.name}}</p>
+          <!-- <p class="C">Condition: {{product.condition}}</p> -->
+          <!-- <p>Description: {{product.description}}</p> -->
+          <p class="S">Size: {{product.size}}</p>
+          <!-- <p>Category: {{product.categories}}</p> -->
+          <p class="P">Price: {{product.maxprice}}€</p>
+          <!-- <p>id: {{product.id}}</p> -->
+        </div> 
       </a>
     </li>
     {% endfor %}
+    {% if wd.paginator.num_pages > 1%}
+<div class="pagination">
+{% if wd.number > 1 %}
+<a href="?page={{ wd.previous_page_number }}"
+  ><button style="background: linear-gradient(#c8c8c8e7, #ffe6df);">&laquo;</button></a
+>
+{% else%}
+<a href=""><button>&laquo;</button></a>
+{% endif %} {% if wd.has_previous %}
+<a href="?page=1"><button>1</button></a>
+{% endif %} {% if previous2 > 1 and wd.number == wd.paginator.num_pages%}
+<a href="?page={{ previous2 }}"><button>{{ previous2 }}</button></a>
+{% endif %} {% if wd.number > 2 %}
+<a href="?page={{ wd.previous_page_number }}"
+  ><button>{{ wd.previous_page_number }}</button></a
+>
+{% endif %}
+
+<span class="current">
+  <button>{{ wd.number }}</button>
+</span>
+
+{% if wd.has_next %} {% if wd.next_page_number != wd.paginator.num_pages%}
+<a href="?page={{ wd.next_page_number }}"
+  ><button>{{wd.next_page_number}}</button></a
+>
+{%endif%} {% if next2 < wd.paginator.num_pages and wd.number == 1%}
+<a href="?page={{ next2 }}"><button>{{next2}}</button></a>
+{%endif%}
+<!-- <button>...</button> -->
+<a href="?page={{ wd.paginator.num_pages }}"
+  ><button>{{ wd.paginator.num_pages }}</button></a
+>
+{% endif %} {% if wd.number != wd.paginator.num_pages%}
+<a href="?page={{ wd.next_page_number }}"
+  ><button style="background: linear-gradient(#c8c8c8e7, #ffe6df);">&raquo;</button></a
+>
+{%else%}
+<a href=""><button>&raquo;</button></a>
+{%endif%}
+</div>
+{%endif%}
   </ul>
 </div>
 <script src="{% static '/js/filterwanted.js' %}"></script>
-<!-- <script src="{% static '/js/reload.js' %}">
-</script> -->
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) { 
+      var scrollpos = localStorage.getItem('scrollpos');
+      if (scrollpos) window.scrollTo(0, scrollpos);
+  });
+
+  window.onbeforeunload = function(e) {
+      localStorage.setItem('scrollpos', window.scrollY);
+  };
+</script>
 {% endblock %}

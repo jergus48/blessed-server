@@ -6,7 +6,7 @@ class Bubble {
     this.bubbleSpan = undefined;
     this.handleNewBubble();
     this.color = this.randomColor();
-    
+
     this.posY = this.randomNumber(innerHeight - 20, 20);
     this.posX = this.randomNumber(innerWidth - 20, 20);
 
@@ -23,11 +23,11 @@ class Bubble {
   // creates and appends a new bubble in the DOM
   handleNewBubble() {
     this.bubbleSpan = document.createElement("span");
-    
+
     this.bubbleSpan.classList.add("bubble");
     root.append(this.bubbleSpan);
     this.handlePosition();
-    this.bubbleSpan.addEventListener("click", this.bubbleEnd);
+
   }
 
   handlePosition() {
@@ -61,34 +61,38 @@ class Bubble {
     // return `rgba(
     //     ${this.randomNumber(0, 255)},
     //     ${this.randomNumber(0, 255)},
-        
+
     //     ${this.randomNumber(0.1, 1)})`;
     const min = 1;
     const max = 5;
     const intNumber = Math.floor(Math.random() * (max - min)) + min;
-    if (intNumber == 1){
-        return darkgray}
-    else if (intNumber == 2){
-        return black}
-     else if (intNumber == 3){
-        return white}
-     else if (intNumber == 4){
-        return gray}
+    if (intNumber == 1) {
+      return darkgray
+    }
+    else if (intNumber == 2) {
+      return black
+    }
+    else if (intNumber == 3) {
+      return white
+    }
+    else if (intNumber == 4) {
+      return gray
+    }
 
   }
 
-  bubbleEnd(removingTime = 0) {
+  bubbleEnd(removingTime = 1000) {
     setTimeout(
       () => {
         requestAnimationFrame(() => this.classList.add("bubble--bust"));
       },
-      removingTime === 0 ? removingTime : removingTime-100
+      removingTime === 1000 ? removingTime : removingTime - 100
     );
 
     setTimeout(() => {
       requestAnimationFrame(() => this.remove());
       requestAnimationFrame(() => new Bubble());
-      
+
     }, removingTime);
   }
 }
@@ -96,5 +100,5 @@ class Bubble {
 // creating many bubble instance
 let num = 0
 setInterval(function () {
-  requestAnimationFrame(() =>{ if (num < 50){new Bubble(),num=num+1,console.log(num)}});
+  requestAnimationFrame(() => { if (num < 10) { new Bubble(), num = num + 1, console.log(num) } });
 }, 1500);

@@ -1,60 +1,70 @@
 {% extends 'main/navbar.html' %}{% load static%} {% block content%}
 <head>
   <link rel="stylesheet" href=" {% static '/css/userproducts.css' %} " />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
   <h2>My Products</h2>
   <a href="/add/">
-    <button>Add products</button>
+    <button class="add-product">Add products</button>
   </a>
 
   {% if user.products.count == 0 %}
-  <p>nemas vlastne produkty</p>
+  <p class="no-products">No products..</p>
+ 
 
-  {% else %}
-  <form method="post" action="" id="form_id" >
+  {% else %} 
+  <form method="post" class="products" action="" id="form_id" >
     {% csrf_token %} {% for product in pd %}
 
-    <div class="product">
-      <a href="/{{product.id}}/">
+    <div class="product"> 
+      <a href="/{{product.id}}/"> 
         <img class="image" src="{{product.image.url}}" alt="image" />
       </a>
-      <p>Name: {{product.name}}</p>
-      <p>Id: {{product.id}}</p>
-      <p>Desciption: {{product.description}}</p>
-      <p>Size: {{product.size}}</p>
-      <p>Category: {{product.categories}}</p>
-      <p>Price: {{product.price}}$</p>
-      <p>condition: {{product.condition}}</p>
-      <p>color1: {{product.color1}}</p>
-      <p>color2: {{product.color2}}</p>
+      <div class="desc">
+       
+        <p class="N">{{product.name}}</p> 
+        <p class="S">Size: {{product.size}}</p>
+        <p class="P">{{product.price}}$</p>
+        <p class="C">condition: {{product.condition}}</p>
+        
+      </div>
 
-      <button type="submit" value="{{product.id}}" name="delete">Remove</button>
-      <button><a href="/edit-{{product.id}}/">Edit</a></button>
+      <div class="buttons">
+        <button type="submit" value="{{product.id}}" class="delete" name="delete">Remove</button>
+        <a href="/edit-{{product.id}}/"><button class="edit">Edit</button></a>
+      </div> 
+      
+      <p class="switch-info">Turn your product on or off:</p>
       {% if product.active == True%}
-   
+      
       <label class="switch">
-        
-        <input type="checkbox" onchange="form.submit()" name="p{{product.id}}" checked />
-        <span class="slider round"></span>
-        
+        <input type="checkbox" class="toggle" onchange="form.submit()" name="p{{product.id}}" checked />
       </label>
     
-    
-    {% else %}
-    
-    <label class="switch">
-      <input type="checkbox" onchange="form.submit()"   name="p{{product.id}}"/>
-      <span class="slider round"></span>
-    </label>
+      {% else %}
+      
+      <label class="switch">
+        <input type="checkbox" class="toggle" onchange="form.submit()"   name="p{{product.id}}"/>
+      </label>
   
   
-  {% endif %}
-  {{product.active}}
-</div>
+    {% endif %}
+    </div>
     {% endfor %}
   </form>
   {% endif %}
 </body>
 
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) { 
+      var scrollpos = localStorage.getItem('scrollpos');
+      if (scrollpos) window.scrollTo(0, scrollpos);
+  });
+
+  window.onbeforeunload = function(e) {
+      localStorage.setItem('scrollpos', window.scrollY);
+  };
+</script>
 {% endblock %}

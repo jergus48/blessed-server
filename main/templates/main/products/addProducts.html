@@ -1,126 +1,138 @@
 {% extends 'main/navbar.html' %} {% load static %}{% block content %}
+
 <head>
+  <link rel="stylesheet" href=" {% static '/css/productLook.css' %} " />
   <link rel="stylesheet" href=" {% static '/css/addProducts.css' %} " />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="description" property="og:description"
+    content="Blessed is website for selling or buying hype shoes, clothes and accesories" />
+  <meta property="og:title" content="Sell Product - Blessed" />
+  <title>Sell Product - Blessed</title>
+  <meta name="author" content="Jerguš Sňahničan, Alexander Poole" />
+  <meta name="keywords" content="Blessed, blessed, resell,market, hypebeast,shoes,clothes,accesories" />
+
 </head>
-<h1>Add products</h1>
-<form method="post" action="" enctype="multipart/form-data">
-  {% csrf_token %}
-  <div class="inputs">
- 
-  <input
-    type="text"
-    name="name"
-    placeholder="Product Name"
-    id="nameinput"
-    maxlength="30"
-    required
-  />
-  <textarea name="description" placeholder="description" maxlength="900" required></textarea>
-
-  <select name="category" onchange="sizes()" id="category">
-    <option name="Shoes" value="Shoes">Shoes</option>
-    <option name="Clothes" value="Clothes">Clothes</option>
-    <option name="Accesories" value="Accesories">Accesories</option>
-  </select>
-
-  <select id="shoes" name="sizeS" onchange="shoes()">
-    {% for size in shoessize %}
-    <option name="{{size}}" value="{{size}}">{{size}}</option>
-    
-    {% endfor %}
-  </select>
-
-  <select id="clothes" name="sizeC" onchange="clothes()">
-    {% for size in clothessize %}
-    <option name="{{size}}" value="{{size}}">{{size}}</option>
-    
-    {% endfor %}
-  </select>
-
-  <input
-    
-    type="text"
-    name="sizeA"
-    id="accesories"
-    maxlength="10"
-    placeholder="Accesory Size"
-  />
-  <select id="condition" name="condition">
-    <option name="New" value="New">New</option>
-    <option name="9/10" value="9/10">9/10</option>
-    <option name="8/10" value="8/10">8/10</option>
-    <option name="7/10" value="7/10">7/10</option>
-    <option name="6/10" value="6/10">6/10</option>
-    <option name="5/10" value="5/10">5/10</option>
-    <option name="4/10" value="4/10">4/10</option>
-    <option name="3/10" value="3/10">3/10</option>
-    <option name="2/10" value="2/10">2/10</option>
-    <option name="1/10" value="1/10">1/10</option>
-  </select>
-
-  <input
-    type="number"
-    name="price"
-    step="0.01"
-    placeholder="price in €"
-    min="0.01"
-    id="priceinput"
-    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-    
-    maxlength = "5"
-    required
-  />
-  <select id="country" name="country">
-    {% for country in eu %}
-    <option name="{{country}}" value="{{country}}">{{country}}</option>
-    {% endfor %}
-  </select>
-  <input
-    type="file"
-    name="image"
-    accept="image/*"
-    onchange="loadFile(event)"
-    required
-  />
-  <div class="sugest">
-        <p>We suggest you pick 2 main colors on your product. </p>
-      </div>
-      <div class="color">
-        <div class="color1">
-          <p>Color 1:</p>
-          <input type="color" name="color1" value="#FFFFFF" id="color1input" onchange="ChangeColor()"/>
-        </div>
-        <div class="color2">
-          <p>Color 2:</p>
-          <input type="color" name="color2" id="color2input" value="#000000" onchange="ChangeColor()"/>
-        </div>
-      </div>
+<div class="center">
+  <h1>Add products</h1>
 </div>
+
+<form method="post" action="{% url 'ProductCharge' %}" enctype="multipart/form-data" id="payment-form">
+  {% csrf_token %}
+  <div class="inputs" id="inputs">
+    <input type="text" name="name" placeholder="Product Name" id="nameinput" maxlength="30" required />
+    <textarea name="description" placeholder="description" maxlength="900" required></textarea>
+
+    <select name="category" onchange="sizes()" id="category">
+      <option name="Shoes" value="Shoes">Shoes</option>
+      <option name="Clothes" value="Clothes">Clothes</option>
+      <option name="Accesories" value="Accesories">Accesories</option>
+    </select>
+
+    <select id="shoes" name="sizeS">
+      {% for size in shoessize %}
+      <option name="{{size}}" value="{{size}}">{{size}}</option>
+
+      {% endfor %}
+    </select>
+
+    <select id="clothes" name="sizeC" onchange="clothes()">
+      {% for size in clothessize %}
+      <option name="{{size}}" value="{{size}}">{{size}}</option>
+
+      {% endfor %}
+    </select>
+
+    <input type="text" name="sizeA" id="accesories" maxlength="10" placeholder="Accesory Size" />
+    <select id="conditioninput" name="condition" onchange="prosim()">
+      <option name="New" value="New">New</option>
+      <option name="9/10" value="9/10">9/10</option>
+      <option name="8/10" value="8/10">8/10</option>
+      <option name="7/10" value="7/10">7/10</option>
+      <option name="6/10" value="6/10">6/10</option>
+      <option name="5/10" value="5/10">5/10</option>
+      <option name="4/10" value="4/10">4/10</option>
+      <option name="3/10" value="3/10">3/10</option>
+      <option name="2/10" value="2/10">2/10</option>
+      <option name="1/10" value="1/10">1/10</option>
+    </select>
+
+    <input type="number" name="price" step="1" placeholder="price in €" min="1" id="priceinput"
+      oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+      maxlength="5" required />
+    <select id="country" name="country">
+      {% for country in eu %}
+      <option name="{{country}}" value="{{country}}">{{country}}</option>
+      {% endfor %}
+    </select>
+    <input type="file" name="image" accept="image/*" onchange="loadFile(event)" required />
+    <div class="sugest">
+      <p>We suggest you pick 2 main colors on your product.</p>
+    </div>
+    <div class="color">
+      <div class="color1">
+        <p>Color 1:</p>
+        <input type="color" name="color1" value="#FFFFFF" id="colorinput1" onchange="changeColor()" />
+      </div>
+      <div class="color2">
+        <p>Color 2:</p>
+        <input type="color" name="color2" id="colorinput2" value="#000000" onchange="changeColor()" />
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <label for="card-element" class="card-payment"> Credit or debit card (1€): </label>
+    <div id="card-element">
+      <!-- A Stripe Element will be inserted here. -->
+    </div>
+
+    <!-- Used to display Element errors. -->
+    <div id="card-errors" role="alert"></div>
+  </div>
   <button type="submit" name="create" value="create" class="submit">
     Create New
   </button>
 </form>
 <div class="row">
-  <div class="kolonka-1" id="kolonka-1">
-    <div class="small-box" id="gradient"></div>
-    <h2><span id="nameoutput">Name</span></br>
-      <span id="sizeoutput">Size</span></h2>
-    <h4 id="priceoutput">1000 €</h4>
-    <button class="add-to-cart" type="submit" id="gradient2" value="Contact" name="Contact">
-      Contact
-    </button>
+  <div class="kolonka-1">
+    <div class="small-box" id="gradient3"></div>
+    <div>
+      <h2 id="nameoutput"  class="breakn">Name<h1 id="sizeoutput">Size</h1></h2>
+      <h4 id="priceoutput">1000 €</h4>
+      
+        <button
+          class="add-to-cart"
+          type="submit"
+          id="conditionoutput"
+          value="Contact"
+          name="Contact"
+        >
+         Condition: New
+        </button>
+      
+    </div>
   </div>
   <div class="kolonka-2">
-    <img
-      id="imgoutput"
-      src="{% static '/images/blessedimg.jpeg' %}"
-      alt="your image"
-      class="shoe"
-    />
-    <div class="bg-box" id="gradient3"></div>
+    <img class="shoe" src="{% static '/images/icons/blesseddefault.jpeg' %}" id="imgoutput" alt="image" />
+    <div class="bg-box" id="gradient"></div>
   </div>
 </div>
+<div class="row-1">
+  <div class="kolonka-2-1">
+    <img class="shoe-1" src="{% static '/images/icons/blesseddefault.jpeg' %}" id="imgoutputmob" alt="image" />
+    <!-- <div class="bg-box"></div> -->
+  </div>
+</div>
+<div class="name">
+  <div class="small-box" ></div>
+  <h1 id="nameoutputmob">Name<h2 id="sizeoutputmob">Size</h2></h1>
+  <div class="visuals">
+    <p class="condition" id="conditionoutputmob">Condition: New</p>
+    <p class="price" id="priceoutputmob">Price: 1000€</p>
+  </div>
+</div>
+<script src="https://js.stripe.com/v3/"></script>
 <script src="{% static '/js/addProducts.js' %}"></script>
-<script src="{% static '/js/reload.js' %}">
-</script>
+
+
 {% endblock %}

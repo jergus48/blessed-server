@@ -1,0 +1,22 @@
+{% load static %}
+{% block content %} 
+<head>
+    <link rel="stylesheet" href=" {% static '/css/somethingwentwrong.css' %} " />
+</head>
+
+<div class=succes>
+    <div class="succes-body">
+      <img src="{% static '/images/icons/error.png' %}" class="succes-img">
+      <h1>We are sorry!</h1>
+      <p>Something went wrong. Try to return to:</p>
+      <ul class="buttons">
+        {% if user.is_authenticated%}
+        <li><a href="/"><button>Home</button></a></li>
+        <li><a href="/add/"><button>Sell</button></a></li>
+        {% else %}
+        <li><a href="/"><button>Login</button></a></li>
+        {% endif%}
+    </ul>
+    </div>
+  </div>
+{% endblock %}

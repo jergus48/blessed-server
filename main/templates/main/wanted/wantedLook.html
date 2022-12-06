@@ -2,6 +2,20 @@
 <head>
   <link rel="stylesheet" href=" {% static '/css/productLook.css' %} " />
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta
+    name="description"
+    property="og:description"
+    content="Blessed is website for selling or buying hype shoes, clothes and accesories"
+  />
+  <meta property="og:title" content="Wanted {{pd.name}} - Blessed" />
+  <title>Wanted {{pd.name}} - Blessed</title>
+  <meta name="author" content="Jerguš Sňahničan, Alexander Poole" />
+  <meta
+    name="keywords"
+    content="Blessed, blessed, resell,market, hypebeast,shoes,clothes,accesories,{{pd.name}}"
+  />
 </head>
 <style>
   .add-to-cart,
@@ -31,12 +45,12 @@
   }
 
 </style>
-
-<div class="row">
-  <div class="kolonka-1">
+<body id="body">
+<div class="row" id="row">
+  <div class="kolonka-1"  id="kolonka1">
     <div class="small-box" id="gradient3"></div>
     <div>
-      <h2>{{pd.name}}<h1>{{pd.size}}</h1></h2>
+      <h2  class="break">{{pd.name}}<h1>{{pd.size}}</h1></h2>
       <h4>{{pd.maxprice}} €</h4>
       <a href="/user-{{pd.user.id}}/wanted/"> 
         <button
@@ -52,39 +66,13 @@
       </a>
     </div>
   </div>
-  <div class="kolonka-2">
-    <img class="shoe" src="{{pd.image.url}}" alt="image" />
+  <div class="kolonka-2" id="kolonka2">
+    <img class="shoe" src="{{pd.image.url}}" onclick="image()" id="img" alt="image" />
     <div class="bg-box"></div>
   </div>
 </div>
   
-<div class="bottom-content">
- 
-  <div class="bottom-info">
-    <h6>Info</h6>
-    <div class="visuals-first">
-      
-      <p class="price-first">Price:{{pd.maxprice}} €</p>
-      <p class="question-country">Country:{{pd.country}}</p>
-    </div>
-    <div class="contact-first">
-      <div class="links-first">
-          <a class="instagram-first" href="https://www.instagram.com/{{ig}}/">
-            <div class="instagram-button">
-              <p class="instagram-asking">Instagram:</p>
-              <p class="ig-first"> @{{ig}}</p>
-            </div>
-          </a>
-        <div class="mail-first">
-          <div class="mail-button">
-            <p class="mail-asking">Mail:</p>
-            <p class="mail">{{pd.user.username}}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 
 
@@ -97,7 +85,7 @@
 </div>
 <div class="name">
   <div class="small-box" id="gradient3"></div>
-  <h1>{{pd.name}}<h2 style=>Size:{{pd.size}}</h2></h1>
+  <h1 class="break">{{pd.name}}<h2 style=>Size:{{pd.size}}</h2></h1>
   <div class="visuals">
     
     <p class="price">Price:{{pd.maxprice}} €</p>
@@ -127,7 +115,7 @@
         </div>  
         <a class="mail" href="https://www.instagram.com/{{ig}}/">
             <p>Instagram:</p>
-            <p class="ig"> @{{ig}}</p>
+            <p class="ig"> <span class="break">@{{ig}}</span></p>
           </a>
        
       </div>
@@ -148,5 +136,63 @@
     View Profile
   </button></a>
 </div> 
-<script src="{% static '/js/Look.js' %}"></script>
+<script>var img = document.getElementById("img")
+  var navcon = document.getElementById("navcon")
+  var kolonka1 = document.getElementById("kolonka1")
+  var kolonka2 = document.getElementById("kolonka2")
+  var row = document.getElementById("row")
+  var i = "run"
+  var body = document.getElementById("body")
+  function image() {
+    
+    
+    
+    if (i == "run"){
+    i = "unrun"
+   
+    navcon.style.display = "none";
+    kolonka1.style.display = "none";
+    row.classList.toggle('clicked');
+        img.classList.toggle('clicked');
+        kolonka2.classList.toggle('clicked');
+        
+        body.classList.toggle('clicked');
+    
+    
+    
+    window.scrollTo(0, 0);
+    
+   
+    
+    }
+    
+    }
+    document.addEventListener('click', function (e) {
+      if (e.target != img)
+      if (i == "unrun"){
+        i = "run"
+       
+       
+        
+        
+        img.style.display = "none";
+        navcon.style.display = "block";
+        kolonka1.style.display = "block";
+        row.classList.toggle('clicked');
+        kolonka2.classList.toggle('clicked');
+        img.classList.toggle('clicked');
+        
+        setTimeout(() => {body.classList.toggle('clicked');
+        img.style.display = "block"; }, 50);
+        
+        
+       
+        }
+      }
+    )
+    
+  
+
+</script>
+</body>
 {% endblock %}

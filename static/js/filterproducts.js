@@ -1,9 +1,48 @@
 
 
 // Rotate element by 90 degrees clockwise
+const sizes = document.getElementById('size')
+const sizebtn = document.getElementById('sizebtn')
+const conditions = document.getElementById('condition')
+const conditionbtn = document.getElementById('conditionbtn')
+const countries = document.getElementById('country')
+const countrybtn = document.getElementById('countrybtn')
+const category = document.getElementById('categories')
+const categorybtn = document.getElementById('categorybtn')
+document.addEventListener('click', function (e) {
 
-function Size()  {
-    
+    if (sizebtn.contains(e.target) == false && sizes.contains(e.target) == false &&
+        conditionbtn.contains(e.target) == false && conditions.contains(e.target) == false &&
+        countrybtn.contains(e.target) == false && countries.contains(e.target) == false &&
+        categorybtn.contains(e.target) == false && category.contains(e.target) == false) {
+        document.getElementById('sizecheck').checked = false;
+        document.getElementById('conditioncheck').checked = false;
+        document.getElementById('categoriescheck').checked = false;
+        document.getElementById('countrycheck').checked = false;
+        const size = document.getElementById('size');
+        const condition = document.getElementById('condition');
+        const country = document.getElementById('country');
+        const categories = document.getElementById('categories');
+        const rotatedsize = document.getElementById('Size_arrow');
+        const rotatedcondition = document.getElementById('condition_arrow');
+        const rotatedcategory = document.getElementById('categories_arrow');
+        const rotatedcountry = document.getElementById('country_arrow');
+
+
+
+
+        size.style.display = "none";
+        condition.style.display = "none";
+        categories.style.display = "none";
+        country.style.display = "none";
+        rotatedsize.style.transform = 'rotate(0deg)';
+        rotatedcondition.style.transform = 'rotate(0deg)';
+        rotatedcategory.style.transform = 'rotate(0deg)';
+        rotatedcountry.style.transform = 'rotate(0deg)';
+    }
+})
+function Size() {
+
     document.getElementById('sizecheck').checked = true;
     document.getElementById('conditioncheck').checked = false;
     document.getElementById('categoriescheck').checked = false;
@@ -17,9 +56,9 @@ function Size()  {
     const rotatedcondition = document.getElementById('condition_arrow');
     const rotatedcategory = document.getElementById('categories_arrow');
     const rotatedcountry = document.getElementById('country_arrow');
-    
-    if (size.style.display == "block"){
-        
+
+    if (size.style.display == "block") {
+
         size.style.display = "none";
         rotatedsize.style.transform = 'rotate(0deg)';
         document.getElementById('sizecheck').checked = false;
@@ -28,8 +67,8 @@ function Size()  {
         document.getElementById('countrycheck').checked = false;
 
     }
-    else{
-      
+    else {
+
         size.style.display = "block";
         condition.style.display = "none";
         categories.style.display = "none";
@@ -40,7 +79,7 @@ function Size()  {
         rotatedcountry.style.transform = 'rotate(0deg)';
     }
 }
-function Condition()  {
+function Condition() {
     document.getElementById('sizecheck').checked = false;
     document.getElementById('conditioncheck').checked = true;
     document.getElementById('categoriescheck').checked = false;
@@ -54,10 +93,10 @@ function Condition()  {
     const rotatedcondition = document.getElementById('condition_arrow');
     const rotatedcategory = document.getElementById('categories_arrow');
     const rotatedcountry = document.getElementById('country_arrow');
-    
-    
-    if (condition.style.display == "block"){
-        
+
+
+    if (condition.style.display == "block") {
+
         condition.style.display = "none";
         rotatedcondition.style.transform = 'rotate(0deg)';
         document.getElementById('sizecheck').checked = false;
@@ -66,8 +105,8 @@ function Condition()  {
         document.getElementById('countrycheck').checked = false;
 
     }
-    else{
-      
+    else {
+
         condition.style.display = "block";
         categories.style.display = "none";
         country.style.display = "none";
@@ -78,8 +117,8 @@ function Condition()  {
         rotatedsize.style.transform = 'rotate(0deg)';
     }
 }
-function Categories()  {
-   
+function Categories() {
+
     document.getElementById('sizecheck').checked = false;
     document.getElementById('conditioncheck').checked = false;
     document.getElementById('categoriescheck').checked = true;
@@ -93,10 +132,10 @@ function Categories()  {
     const rotatedcondition = document.getElementById('condition_arrow');
     const rotatedcategory = document.getElementById('categories_arrow');
     const rotatedcountry = document.getElementById('country_arrow');
-    
-    
-    if (categories.style.display == "block"){
-       
+
+
+    if (categories.style.display == "block") {
+
         categories.style.display = "none";
         rotatedcategory.style.transform = 'rotate(0deg)';
         document.getElementById('sizecheck').checked = false;
@@ -105,8 +144,8 @@ function Categories()  {
         document.getElementById('countrycheck').checked = false;
 
     }
-    else{
-      
+    else {
+
         categories.style.display = "block";
         country.style.display = "none";
         size.style.display = "none";
@@ -117,12 +156,12 @@ function Categories()  {
         rotatedcondition.style.transform = 'rotate(0deg)';
     }
 }
-function Country()  {
+function Country() {
     document.getElementById('sizecheck').checked = false;
     document.getElementById('conditioncheck').checked = false;
     document.getElementById('categoriescheck').checked = false;
     document.getElementById('countrycheck').checked = true;
-    
+
     const size = document.getElementById('size');
     const condition = document.getElementById('condition');
     const categories = document.getElementById('categories');
@@ -131,10 +170,10 @@ function Country()  {
     const rotatedcondition = document.getElementById('condition_arrow');
     const rotatedcategory = document.getElementById('categories_arrow');
     const rotatedcountry = document.getElementById('country_arrow');
-    
-    
-    if (country.style.display == "block"){
-        
+
+
+    if (country.style.display == "block") {
+
         country.style.display = "none";
         rotatedcountry.style.transform = 'rotate(0deg)';
         document.getElementById('sizecheck').checked = false;
@@ -143,8 +182,8 @@ function Country()  {
         document.getElementById('countrycheck').checked = false;
 
     }
-    else{
-      
+    else {
+
         country.style.display = "block";
         size.style.display = "none";
         condition.style.display = "none";

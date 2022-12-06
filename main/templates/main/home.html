@@ -3,19 +3,32 @@
 <head>
   <link rel="stylesheet" href=" {% static '/css/home.css' %} " />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta
+    name="description"
+    property="og:description"
+    content="Blessed is website for selling or buying hype shoes, clothes and accesories"
+  />
+  <meta property="og:title" content="Blessed" />
+  <title>Blessed</title>
+  <meta name="author" content="Jerguš Sňahničan, Alexander Poole" />
+  <meta
+    name="keywords"
+    content="Blessed, blessed, resell,market, hypebeast,shoes,clothes,accesories"
+  />
 </head>
 
 <div class="second-navbar">
   <ul>
     <li><a href="/shoes/">Shoes</a></li>
-    <li><a href="/clothes/">Clothes</a></li>
     <li><a href="/accesories/">Accesories </a></li>
+    <li><a href="/clothes/">Clothes</a></li>
   </ul>
 </div>
 
 <div class="info">
   <h2>Latest products</h2>
-  <a href="/products/">See All</a>
+  <a class="see-all" href="/products/">See All</a>
 </div>
 <div class="container">
   <ul class="products">
@@ -23,14 +36,16 @@
     <li class="product">
       <a href="/{{product.id}}/">
         <img class="image" src="{{product.image.url}}" alt="image" />
+        <p class="C">{{product.condition}}</p>
         <div class="desc">
-          <p>Name: {{product.name}}</p>
+          <p class="N">{{product.name}}</p>
+          <!-- <p class="C">Condition: {{product.condition}}</p> -->
           <!-- <p>Description: {{product.description}}</p> -->
-          <p>Size: {{product.size}}</p>
+          <p class="S">Size: {{product.size}}</p>
           <!-- <p>Category: {{product.categories}}</p> -->
-          <p>Price: {{product.price}}$</p>
+          <p class="P">Price: {{product.price}}€</p>
           <!-- <p>id: {{product.id}}</p> -->
-        </div>
+        </div> 
       </a>
     </li>
     {% endif %} {% endfor %}
@@ -39,19 +54,19 @@
 
 <form action="/search/" class="brands" method="get">
   <button type="submit" name="brand" value="Nike" class="brand">
-    <img src="/static/images/nike-logo.png" class="nike" />
+    <img src="{% static '/images/icons/nike-logo.png' %}" class="nike" />
   </button>
   <button type="submit" name="brand" value="Jordan" class="brand">
-    <img src="/static/images/jumpman-logo.png" class="jordan" />
+    <img src="{% static '/images/icons/jumpman-logo.png' %}" class="jordan" />
   </button>
   <button type="submit" name="brand" value="Supreme" class="brand">
-    <img src="/static/images/supreme.png" class="supreme" />
+    <img src="{% static '/images/icons/supreme.png' %}" class="supreme" />
   </button>
   <button type="submit" name="brand" value="The North Face" class="brand">
-    <img src="/static/images/the-north-face.png" class="off-white" />
+    <img src="{% static '/images/icons/the-north-face.png' %}" class="tnf" />
   </button>
   <button type="submit" name="brand" value="Yeezy" class="brand">
-    <img src="/static/images/Yeezy-Logo.png" class="yeezy" />
+    <img src="{% static '/images/icons/Yeezy-logo.png' %}" class="yeezy" />
   </button>
 </form>
 
@@ -65,13 +80,14 @@
     <li class="product">
       <a href="/w{{product.id}}/">
         <img class="image" src="{{product.image.url}}" alt="image" />
+        <p class="C">Wanted</p>
         <div class="desc">
-          <p>Wanted</p>
-          <p>Name: {{product.name}}</p>
+          <p class="N">{{product.name}}</p>
+          <!-- <p class="C">Condition: {{product.condition}}</p> -->
           <!-- <p>Description: {{product.description}}</p> -->
-          <p>Size: {{product.size}}</p>
-
-          <p>Max Price: {{product.maxprice}}$</p>
+          <p class="S">Size: {{product.size}}</p>
+          <!-- <p>Category: {{product.categories}}</p> -->
+          <p class="P">Price: {{product.maxprice}}€</p>
           <!-- <p>id: {{product.id}}</p> -->
         </div>
       </a>

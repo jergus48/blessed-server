@@ -1,6 +1,4 @@
-static/images
-blessed/settings.py
-blessed/images
+
 main/__pycache__
 blessed/__pycache__
 register/__pycache__
