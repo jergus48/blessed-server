@@ -28,7 +28,6 @@ urlpatterns = [
         
         
         path('admin/', admin.site.urls),
-        path('', v.redirect_login,name="login"),
         path("register/", v.register, name="register"),
         
         path('reset_password/',auth_views.PasswordResetView.as_view(template_name='reset/reset_password.html',html_email_template_name='reset/password_reset_html_email.html'),name='reset_password'),
