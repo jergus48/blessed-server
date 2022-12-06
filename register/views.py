@@ -47,12 +47,12 @@ def register(response):
     else:
         form=RegisterForm()
     return render(response, "register/register.html", {"form":form,"display":display})
-def redirect_login(request):
-    if request.user.is_authenticated == False:
-        response = redirect('/login/')
-    else:
-        response = redirect('/home/')
-    return response
+# def redirect_login(request):
+#     if request.user.is_authenticated == False:
+#         response = redirect('/login/')
+#     else:
+#         response = redirect('/home/')
+#     return response
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import gettext_lazy as _
