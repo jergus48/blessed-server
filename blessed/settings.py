@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'register.apps.RegisterConfig',
     'django_mysql',
-    
+   
     'django_cleanup.apps.CleanupConfig',
      
     
@@ -82,14 +82,19 @@ WSGI_APPLICATION = 'blessed.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'eu-cdbr-west-03.cleardb.net',
+        'PORT':'5000',
+        'USER' : 'bc655ad7b5a56f',
+        'PASSWORD' : 'd619475f',
+        
+        'HOST' : 'localhost',
     }
 }
+
+
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
