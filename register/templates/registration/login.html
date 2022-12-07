@@ -29,7 +29,7 @@
  
     <form method="POST" class="from-group">
       {% csrf_token %}
-       {% comment %} {{form}} {% endcomment %}
+       {{form}}
       <p class="register">Don't have an account? Create one <a href="/register">here</a></p>
       <p class="register">Forgot your password? Click <a href="/reset_password">here</a></p>
       {% comment %}
