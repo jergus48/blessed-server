@@ -83,17 +83,7 @@ WSGI_APPLICATION = 'blessed.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'blesses_db',
-#         'PORT':'5000',
-#         'USER' : 'Jergus Snahnican',
-#         'PASSWORD' : '2ie3-.9L9FwNX5j',
-        
-#         'HOST' : 'localhost',
-#     }
-# }
+
 
 DATABASES = {
     'default': {
