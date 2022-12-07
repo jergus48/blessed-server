@@ -40,8 +40,7 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'register.apps.RegisterConfig',
     'django_mysql',
-    "django.contrib.sites",
-    "django.contrib.sitemaps",
+    
     'django_cleanup.apps.CleanupConfig',
      
     
