@@ -28,15 +28,7 @@
     background: linear-gradient({{pd.color1}}, {{pd.color2}});
   }
 
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient({{pd.color1}}, {{pd.color2}});
-    border-radius: 10px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient({{pd.color1}}, {{pd.color2}});
-    border-radius: 10px;
-  }
+  
   
   @media (max-width: 991px) {
     .add-to-cart {
@@ -177,7 +169,7 @@
         
         img.style.display = "none";
         navcon.style.display = "block";
-        kolonka1.style.display = "block";
+        kolonka1.style.display = "flex";
         row.classList.toggle('clicked');
         kolonka2.classList.toggle('clicked');
         img.classList.toggle('clicked');

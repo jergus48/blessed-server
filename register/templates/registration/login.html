@@ -16,6 +16,8 @@
     name="keywords"
     content="Blessed, blessed, resell,market, hypebeast,shoes,clothes,accesories"
   />
+  <link rel="icon" href="{% static '/images/icons/logo4.png' %}">
+  <link  rel="shortcut icon" href="{% static '/images/icons/logo4.png' %}">
     <link rel="stylesheet" href="../static/css/login.css" />
     <style> .instagram {
       width: 30px;}</style>
@@ -28,8 +30,7 @@
     <div id="app">
  
     <form method="POST" class="from-group">
-      {% csrf_token %}
-       {{form}}
+      {% csrf_token %} {{form}}
       <p class="register">Don't have an account? Create one <a href="/register">here</a></p>
       <p class="register">Forgot your password? Click <a href="/reset_password">here</a></p>
       {% comment %}

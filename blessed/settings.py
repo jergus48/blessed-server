@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-i)9+nd(m1ermdrg2091pjyju@46u4v1#yegv6(_905j9d8$ve)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['blessedsk.herokuapp.com','blessed.sk']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -40,12 +40,13 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'register.apps.RegisterConfig',
     'django_mysql',
-   
+    "django.contrib.sites",
+    "django.contrib.sitemaps",
     'django_cleanup.apps.CleanupConfig',
      
     
 ]
-
+SITE_ID=2
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -54,8 +55,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'blessed.urls'
@@ -85,10 +84,10 @@ WSGI_APPLICATION = 'blessed.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'eu-cdbr-west-03.cleardb.net',
+        'NAME': 'blesses_db',
         'PORT':'5000',
-        'USER' : 'bc655ad7b5a56f',
-        'PASSWORD' : 'd619475f',
+        'USER' : 'Jergus Snahnican',
+        'PASSWORD' : '2ie3-.9L9FwNX5j',
         
         'HOST' : 'localhost',
     }
@@ -142,7 +141,7 @@ LOGOUT_REDIRECT_URL = "/"
 
 
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'static'),
 )
@@ -152,8 +151,8 @@ MEDIA_URL = 'images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')  
 
 CRISPY_TEMPLATE_PACK="bootstrap4"
-STRIPE_SECRET_KEY="sk_test_51M6dQHLUoQwS73Adxh3Dat5mqvFBTo2V33xOyuHTvWR3MIEqBGNB8DSIn5OzOfIRdJoMpW3ytN3ai6Qhnsx89EH000z61ztooP"
-STRIPE_PUBLIC_KEY="pk_test_51M6dQHLUoQwS73AdpvDRcFzQEhEjrZNLv6nEKvMINOuQeQBodB1w8IqyDPNcbVlm4IwkdA0dh7BPtGs2t0tA1Mi300R9aNf7kJ"
+STRIPE_SECRET_KEY="sk_test_51M6qYrIPZACj0qgMgVF9P9HPoscx5LvNpO6BSNQcqKQelKb1WWpN1srKIXYheedYDbHThipeZY4TvWwMPX8KUltQ00wddKGrGf"
+STRIPE_PUBLIC_KEY="pk_test_51M6qYrIPZACj0qgMIgNDZIdhWl3D3Yfm1eGmkDQCCw87W9jJ0d1jiV7ZPtNtR7SYMwXbWrdk2RujGk6KY1e0iEHP00j3s2G6mw"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 

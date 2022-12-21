@@ -19,6 +19,13 @@
   />
   <link rel="stylesheet" href=" {% static '/css/about-us.css' %} " />
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    .submit {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
 </head>
 
 <body>
@@ -51,7 +58,7 @@
   </div>
 
   <p class="opt-donation">Optional Donation(€)</p>
-  <form action="{% url 'DonationCharge' %}" method="post" id="payment-form">
+  <form action="{% url 'DonationCharge' %}" method="post" id="payment-form"  onsubmit="deleting()">
     {% csrf_token %}
 
     <input
@@ -83,13 +90,16 @@
       <!-- Used to display Element errors. -->
       <div id="card-errors" role="alert"></div>
     </div>
-
-    <button class="submit">Submit Payment</button>
+    <span id="submitdiv">
+    <button class="submit">Submit Payment</button></span>
+    <button type="button"  class="submit" id="process" style="display: none;">
+      Processing your payment...
+    </button>
   </form>
   <script src="https://js.stripe.com/v3/"></script>
   <script>
     const stripe = Stripe(
-      "pk_test_51M6dQHLUoQwS73AdpvDRcFzQEhEjrZNLv6nEKvMINOuQeQBodB1w8IqyDPNcbVlm4IwkdA0dh7BPtGs2t0tA1Mi300R9aNf7kJ"
+      "pk_test_51M6qYrIPZACj0qgMIgNDZIdhWl3D3Yfm1eGmkDQCCw87W9jJ0d1jiV7ZPtNtR7SYMwXbWrdk2RujGk6KY1e0iEHP00j3s2G6mw"
     );
     const elements = stripe.elements();
     const style = {
@@ -133,5 +143,15 @@
       form.submit();
     };
   </script>
+
+
+    <script>function deleting() {
+      document.getElementById("submitdiv").style.position = "absolute";
+      document.getElementById("submitdiv").style.left="300%"
+      document.getElementById("process").style.display="block"
+     
+    }</script>
+    
+
 </body>
 {% endblock %}

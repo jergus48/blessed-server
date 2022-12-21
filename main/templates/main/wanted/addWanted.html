@@ -17,7 +17,7 @@
   <h1>Add Wanted</h1>
 </div>
 
-<form method="post" action="{% url 'WantedCharge' %}" enctype="multipart/form-data" id="payment-form">
+<form method="post" action="{% url 'WantedCharge' %}" enctype="multipart/form-data" id="payment-form"  onsubmit="deleting()">
   {% csrf_token %}
   <div class="inputs" id="inputs">
     <input type="text" name="name" placeholder="Wanted Name" id="nameinput" maxlength="30" required />
@@ -78,9 +78,13 @@
     <!-- Used to display Element errors. -->
     <div id="card-errors" role="alert"></div>
   </div>
-  <button type="submit" name="create" value="create" class="submit">
-    Create New
-  </button>
+  <span id="submitdiv">
+    <button type="submit" name="create" value="create" class="submit" >
+      Create New
+    </button></span>
+    <button type="button"  class="submit" id="process" style="display: none;">
+      Processing your payment...
+    </button>
 </form>
 <div class="row">
   <div class="kolonka-1">
@@ -122,6 +126,11 @@
 </div>
 <script src="https://js.stripe.com/v3/"></script>
 <script src="{% static '/js/addProducts.js' %}"></script>
-<script src="{% static '/js/reload.js' %}">
 
+  <script>function deleting() {
+    document.getElementById("submitdiv").style.position = "absolute";
+    document.getElementById("submitdiv").style.left="300%"
+    document.getElementById("process").style.display="block"
+   
+  }</script>
 {% endblock %}

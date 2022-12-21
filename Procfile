@@ -1,1 +1,0 @@
-web: gunicorn blessed.wsgi --log-file -
