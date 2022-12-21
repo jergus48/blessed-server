@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-i)9+nd(m1ermdrg2091pjyju@46u4v1#yegv6(_905j9d8$ve)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['3.127.13.198']
 
 
 # Application definition
@@ -84,10 +84,10 @@ WSGI_APPLICATION = 'blessed.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'blesses_db',
+        'NAME': os.getenv('DB_NAME'),
         'PORT':'5000',
-        'USER' : 'Jergus Snahnican',
-        'PASSWORD' : '2ie3-.9L9FwNX5j',
+        'USER' : os.getenv('DB_USER'),
+        'PASSWORD' : os.getenv('DB_PASS'),
         
         'HOST' : 'localhost',
     }
@@ -130,7 +130,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'blessedstore.sk@gmail.com'
-EMAIL_HOST_PASSWORD = 'drsooetfjhjnhfns'
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASS')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
@@ -151,8 +151,8 @@ MEDIA_URL = 'images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')  
 
 CRISPY_TEMPLATE_PACK="bootstrap4"
-STRIPE_SECRET_KEY="sk_test_51M6qYrIPZACj0qgMgVF9P9HPoscx5LvNpO6BSNQcqKQelKb1WWpN1srKIXYheedYDbHThipeZY4TvWwMPX8KUltQ00wddKGrGf"
-STRIPE_PUBLIC_KEY="pk_test_51M6qYrIPZACj0qgMIgNDZIdhWl3D3Yfm1eGmkDQCCw87W9jJ0d1jiV7ZPtNtR7SYMwXbWrdk2RujGk6KY1e0iEHP00j3s2G6mw"
+STRIPE_SECRET_KEY=os.getenv('STRIPE_SECRET_KEY')
+STRIPE_PUBLIC_KEY=os.getenv('STRIPE_PUBLIC_KEY')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
