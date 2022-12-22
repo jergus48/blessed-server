@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'blessed.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('DB_NAME'),
         'PORT':'5000',
         'USER' : os.getenv('DB_USER'),
