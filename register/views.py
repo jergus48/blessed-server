@@ -16,10 +16,10 @@ def register(response):
     if response.method == "POST":
         doc=response.POST.copy()
         doc['email']=response.POST.get('username')
-        print(doc)
+        
         form=RegisterForm(doc)
         if form.is_valid():
-            print("valid")
+            
             
             
             form.save()
@@ -31,14 +31,12 @@ def register(response):
             
 
             send_mail('Welcome to Blessed Store', plain_message, 'blessedstore.sk@gmail.com', [email], html_message=html_message)
-            response = redirect('/')
+            response = redirect('/login/')
             return response
             
             
         else:
-            print("invalid")
             
-            print(response.POST)
             
             display="block"
             form=RegisterForm()
