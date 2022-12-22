@@ -12,9 +12,12 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 #try 4 of gitignore
 from pathlib import Path
 import os
+import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env()
+environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -84,10 +87,10 @@ WSGI_APPLICATION = 'blessed.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME'),
+        'NAME': env('DB_NAME'),
         'PORT':'5432',
-        'USER' : os.environ.get('DB_USER'),
-        'PASSWORD' : os.environ.get('DB_PASS'),
+        'USER' : env('DB_USER'),
+        'PASSWORD' : env('DB_PASS'),
         
         'HOST' : 'localhost',
     }
@@ -130,7 +133,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'blessedstore.sk@gmail.com'
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASS')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
@@ -151,8 +154,8 @@ MEDIA_URL = 'images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')  
 
 CRISPY_TEMPLATE_PACK="bootstrap4"
-STRIPE_SECRET_KEY=os.environ.get('STRIPE_SECRET_KEY')
-STRIPE_PUBLIC_KEY=os.environ.get('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY=env('STRIPE_SECRET_KEY')
+STRIPE_PUBLIC_KEY=env('STRIPE_PUBLIC_KEY')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
