@@ -4,6 +4,8 @@ body {
     height: 100%;
 }
 
+
+
 /* header */
 .break {
     overflow-wrap: break-word;
@@ -270,7 +272,7 @@ label {
 }
 
 h2 {
-    font-size: 42px;
+    font-size: 32px;
     display: flex;
     justify-content: center;
 }
@@ -472,7 +474,7 @@ a {
     }
 
     .sorry {
-        font-size: 52px;
+        font-size: 45px;
         margin-top: 40%;
         text-align: center;
     }
@@ -550,5 +552,41 @@ a {
 
     #categorybtn {
         width: 140px;
+    }
+}
+
+@media screen and (max-width:561px) {
+
+
+    .parameters {
+        width: 120px;
+    }
+
+    select {
+        width: 120px;
+    }
+
+    h2 {
+        font-size: 27;
+    }
+
+    .nadpis {
+        font-size: 30;
+    }
+
+    #categorybtn {
+        width: 120px;
+    }
+}
+
+@media screen and (max-width:401px) {
+    .products {
+        left: 5%;
+    }
+}
+
+@media screen and (max-width:351px) {
+    .products {
+        left: 0%;
     }
 }

@@ -1,7 +1,14 @@
 * {
     margin: 0;
     padding: 0;
+
     font-family: "SuisseIntl-Medium", sans-serif;
+}
+
+
+
+body {
+    overflow-x: hidden;
 }
 
 .navcontainer {
@@ -290,6 +297,7 @@
 
     .search-mobile.is-active {
         display: none;
+
     }
 
     .cancel.is-active {
@@ -315,4 +323,17 @@
         display: none;
     }
 
+}
+
+@media only screen and (max-width: 701px) {
+    .nav-logo {
+        top: 3.5%;
+    }
+}
+
+@media screen and (max-width:350px) {
+    .nav-logo {
+        height: 27px;
+        top: 4.5%;
+    }
 }

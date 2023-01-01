@@ -390,3 +390,9 @@ hr {
         display: block;
     }
 }
+
+@media screen and (max-width:561px) {
+    h1 {
+        font-size: 30px;
+    }
+}

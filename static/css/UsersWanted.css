@@ -19,7 +19,7 @@
 
 h2 {
     text-align: center;
-    font-size: 52px;
+    font-size: 45px;
     margin-top: 25px;
 }
 
@@ -44,7 +44,7 @@ h3 {
 .redirects a {
     text-decoration: none;
     color: black;
-    cursor: auto;
+    cursor: pointer;
 }
 
 .redirects p {
@@ -282,13 +282,11 @@ li {
     display: none;
 }
 
-.ig {
-    cursor: pointer;
-}
+
 
 @media (max-width: 992px) {
     h2 {
-        font-size: 45px;
+        font-size: 35px;
     }
 
     .N {
@@ -412,15 +410,56 @@ li {
 
     .nothing {
         margin-top: 6%;
-        font-size: 25px;
+        font-size: 20px;
 
         text-align: center;
 
     }
 
     .sorry {
-        font-size: 52px;
-        margin-top: 40%;
+        font-size: 32px;
+        margin-top: 50%;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width:561px) {
+
+
+    .parameters {
+        width: 120px;
+    }
+
+    .nadpis {
+        font-size: 30;
+    }
+
+    select {
+        width: 120px;
+    }
+
+    h2 {
+        font-size: 27;
+    }
+
+    #categorybtn {
+        width: 120px;
+    }
+}
+
+
+@media (max-width: 992px) {
+    .nothing {
+        margin-top: 6%;
+        font-size: 20px;
+
+        text-align: center;
+
+    }
+
+    .sorry {
+        font-size: 32px;
+        margin-top: 50%;
         text-align: center;
     }
 }

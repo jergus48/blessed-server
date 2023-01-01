@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href=" {% static '/css/navbar.css' %} " />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <link rel="icon" href="{% static '/images/icons/logo4.png' %}">
   <link  rel="shortcut icon" href="{% static '/images/icons/logo4.png' %}">
 </head>
@@ -57,6 +57,6 @@
 
   </nav>
 </div>
-<script src="../static/js/navbar.js"></script>
+<script src="{% static '/js/navbar.js' %}"></script>
 
 {% endif %} {% block content %} {% endblock %}

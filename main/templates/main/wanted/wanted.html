@@ -47,7 +47,7 @@
 }}
   </style>
 </head>
-<h2>Wanted:</h2>
+<h2 class='nadpis'>Wanted:</h2>
 <form method="post" action="/wanted/" class="filters">
   {% csrf_token %}
   <div class="selects">
@@ -292,7 +292,7 @@
       if (scrollpos) window.scrollTo(0, scrollpos);
   });
 
-  window.onbeforeunload = function(e) {
+  window.onunload = function(e) {
       localStorage.setItem('scrollpos', window.scrollY);
   };
 </script>

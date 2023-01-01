@@ -700,3 +700,44 @@ hr {
         max-height: 1000px;
     }
 }
+
+@media (max-width:440px) {
+    .mobmail {
+        display: none;
+    }
+
+    .instagram {
+        display: block;
+    }
+
+    .description-1 h4 {
+        background-color: white;
+        width: 135px;
+        margin: auto;
+    }
+
+    .desc {
+        margin-top: 20px;
+        font-size: 30px;
+        margin-bottom: 10px;
+        width: 180px;
+    }
+
+    .contact h6 {
+        background-color: rgb(255, 255, 255);
+        width: 125px;
+    }
+
+    #profile-btn {
+        display: block;
+        width: 35%;
+    }
+
+    .info {
+        margin-top: 20px;
+    }
+
+    .about-product {
+        margin-top: 40px;
+    }
+}

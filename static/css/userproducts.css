@@ -22,7 +22,7 @@ body {
 }
 
 h2 {
-  font-size: 52px;
+  font-size: 42px;
   text-align: center;
   margin-top: 25px;
   margin-bottom: 100px;
@@ -236,8 +236,8 @@ input[type=checkbox]:focus {
 @media (max-width: 792px) {
   .N {
     position: absolute;
-    top: 47%;
-    font-size: 30px;
+    top: 43%;
+    font-size: 25px;
     outline: none;
     border-radius: 0;
     border: none;
@@ -245,5 +245,11 @@ input[type=checkbox]:focus {
 
   .image {
     height: 23%;
+  }
+}
+
+@media (max-width: 450px) {
+  h2 {
+    font-size: 32px;
   }
 }

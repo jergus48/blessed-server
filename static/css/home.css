@@ -26,8 +26,12 @@ p {
 
 body {
   -webkit-font-smoothing: antialiased;
-  overflow: auto;
-  overflow: initial;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+html {
+  overflow-x: hidden;
 }
 
 .second-navbar {
@@ -282,5 +286,13 @@ a {
   .desc {
     bottom: 5px;
     left: 5px;
+  }
+}
+
+@media screen and (max-width:501px) {
+  .second-navbar ul li {
+    list-style-type: none;
+    padding-left: 5px;
+    padding-right: 5px;
   }
 }

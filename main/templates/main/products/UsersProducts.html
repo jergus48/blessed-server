@@ -277,7 +277,7 @@
       if (scrollpos) window.scrollTo(0, scrollpos);
   });
 
-  window.onbeforeunload = function(e) {
+  window.onunload = function(e) {
       localStorage.setItem('scrollpos', window.scrollY);
   };
 </script>

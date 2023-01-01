@@ -145,3 +145,9 @@ label p {
         top: 25px;
     }
 }
+
+@media (max-width:600px) {
+    h1 {
+        font-size: 32px;
+    }
+}
