@@ -156,6 +156,12 @@ textarea {
 
 .kolonka-1 h2 {
     font-size: 44px;
+
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+    word-break: break-word;
+
 }
 
 .kolonka-1 h4 {
