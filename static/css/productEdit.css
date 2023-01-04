@@ -37,6 +37,28 @@ select>option.hidden_option {
     margin-left: 100px;
 }
 
+h2 {
+    font-size: 42px;
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    color: rgb(61, 61, 61);
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+    word-break: break-word;
+}
+
+h1 {
+    font-size: 42px;
+    display: flex;
+    justify-content: center;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+    word-break: break-word;
+}
+
 .kolonka-1 h2 {
     font-size: 44px;
 
@@ -71,11 +93,7 @@ select>option.hidden_option {
 
 }
 
-/* .add-to-cart:hover{
-    width: 160px;
-    display: flex;
-    align-items: center;
-} */
+
 
 .kolonka-2 {
     position: relative;
@@ -201,6 +219,26 @@ textarea {
     }
 
     .namenapis {
+        font-size: 32px;
+    }
+
+    h2,
+    h1 {
+        font-size: 37px;
+    }
+}
+
+@media (max-width:440px) {
+    p {
+        font-size: .9em;
+    }
+
+    .edit-form {
+        width: 95%;
+    }
+
+    h2,
+    h1 {
         font-size: 32px;
     }
 }
