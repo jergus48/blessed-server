@@ -151,3 +151,11 @@ label p {
         font-size: 32px;
     }
 }
+
+@media (max-width: 992px) {
+    form {
+        width: 70%;
+    }
+
+
+}
