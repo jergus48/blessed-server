@@ -159,7 +159,7 @@ def contact(request):
         message="Name: "+ name + '\n' + "From Mail: "+email + '\n'+'Message:'+ '\n' +msg
         
         send_mail(name,message,'blessedstore.sk@gmail.com',['blessedstore.sk@gmail.com'])
-        return HttpResponse('Email was sent')
+      
     return render(request, "main/contact.html", {})
 def FAQ(response):
     
