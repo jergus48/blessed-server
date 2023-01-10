@@ -48,13 +48,11 @@ def ProductCharge(request):
             p.save()
             request.user.products.add(p)
             
-        except Exception as e:
-            # response = redirect('/somethingwentwrong/')
-            # return response
-            print(e)
-            pass
+        except:
+            response = redirect('/somethingwentwrong/')
+            return response
 
-        # return redirect(reverse('succes',args=[product]))
+        return redirect(reverse('succes',args=[product]))
 def WantedCharge(request):
     
     if  request.method == 'POST':

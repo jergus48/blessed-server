@@ -151,7 +151,7 @@ function prosim() {
 
 }
 const stripe = Stripe(
-  "pk_test_51M6qYrIPZACj0qgMIgNDZIdhWl3D3Yfm1eGmkDQCCw87W9jJ0d1jiV7ZPtNtR7SYMwXbWrdk2RujGk6KY1e0iEHP00j3s2G6mw"
+  "pk_live_51M6qYrIPZACj0qgM7LX0fRVD7JtxGvEURAktEIHStG3jjHCe2B3zI82Snrobbn14FIMcb7IpHh6gsVLWnZnHzId200SoZVoWCr"
 );
 const elements = stripe.elements();
 const style = {
