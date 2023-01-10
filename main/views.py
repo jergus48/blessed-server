@@ -49,8 +49,9 @@ def ProductCharge(request):
             request.user.products.add(p)
             
         except:
-            response = redirect('/somethingwentwrong/')
-            return response
+            # response = redirect('/somethingwentwrong/')
+            # return response
+            pass
 
         return redirect(reverse('succes',args=[product]))
 def WantedCharge(request):
@@ -89,9 +90,8 @@ def WantedCharge(request):
             request.user.wanted.add(w)
             
         except:
-            # error = redirect('/somethingwentwrong/')
-            # return error
-            pass
+            error = redirect('/somethingwentwrong/')
+            return error
 
         return redirect(reverse('succeswanted',args=[product]))
 def DonationCharge(request):
