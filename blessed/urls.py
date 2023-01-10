@@ -34,7 +34,7 @@ sitemaps= {
 urlpatterns = [
         
         
-        path('admin/', admin.site.urls),
+        path('BlessYouSpravca/', admin.site.urls),
         path('', v.redirect_login,name="login"),
         path("register/", v.register, name="register"),
         path("sitemap.xml/", sitemap, {'sitemaps':sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
