@@ -89,8 +89,9 @@ def WantedCharge(request):
             request.user.wanted.add(w)
             
         except:
-            error = redirect('/somethingwentwrong/')
-            return error
+            # error = redirect('/somethingwentwrong/')
+            # return error
+            pass
 
         return redirect(reverse('succeswanted',args=[product]))
 def DonationCharge(request):
