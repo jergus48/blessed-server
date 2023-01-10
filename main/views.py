@@ -53,7 +53,7 @@ def ProductCharge(request):
             # return response
             pass
 
-        return redirect(reverse('succes',args=[product]))
+        # return redirect(reverse('succes',args=[product]))
 def WantedCharge(request):
     
     if  request.method == 'POST':
