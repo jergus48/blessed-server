@@ -958,9 +958,9 @@ def shoes(request):
         if request.POST.getlist("size"):
             size="choosen"
             x=request.POST.getlist("size")
-            shoes =Products.objects.all().order_by(order).filter(categories="shoes",active = True,size__in=x).exclude(user=request.user)
+            shoes =Products.objects.all().order_by(order).filter(categories="Shoes",active = True,size__in=x).exclude(user=request.user)
         else:
-            shoes =Products.objects.all().order_by(order).filter(categories="shoes",active = True).exclude(user=request.user)
+            shoes =Products.objects.all().order_by(order).filter(categories="Shoes",active = True).exclude(user=request.user)
         if request.POST.getlist("condition"):
             condition="choosen"
             y=request.POST.getlist("condition")
@@ -968,7 +968,7 @@ def shoes(request):
             if size == "choosen":
                 shoes=shoes.filter(condition__in=y)
             else:
-                shoes =Products.objects.all().order_by(order).filter(categories="shoes",active = True,condition__in=y).exclude(user=request.user)
+                shoes =Products.objects.all().order_by(order).filter(categories="Shoes",active = True,condition__in=y).exclude(user=request.user)
         if request.POST.getlist("country"):
 
             z=request.POST.getlist("country")
@@ -976,11 +976,11 @@ def shoes(request):
             if size == "choosen" or condition=="choosen":
                 shoes=shoes.filter(country__in=z)
             else:
-                shoes =Products.objects.all().order_by(order).filter(categories="shoes",active = True,country__in=z).exclude(user=request.user)
+                shoes =Products.objects.all().order_by(order).filter(categories="Shoes",active = True,country__in=z).exclude(user=request.user)
 
     else:
         # ,price__lte=100
-        shoes =Products.objects.all().order_by('-id').filter(categories="shoes",active = True).exclude(user=request.user)
+        shoes =Products.objects.all().order_by('-id').filter(categories="Shoes",active = True).exclude(user=request.user)
 
         choice="Latest products"
         order="-id"
@@ -1055,9 +1055,9 @@ def clothes(request):
         if request.POST.getlist("size"):
             size="choosen"
             x=request.POST.getlist("size")
-            clothes =Products.objects.all().order_by(order).filter(categories="clothes",active = True,size__in=x).exclude(user=request.user)
+            clothes =Products.objects.all().order_by(order).filter(categories="Clothes",active = True,size__in=x).exclude(user=request.user)
         else:
-            clothes =Products.objects.all().order_by(order).filter(categories="clothes",active = True).exclude(user=request.user)
+            clothes =Products.objects.all().order_by(order).filter(categories="Clothes",active = True).exclude(user=request.user)
         if request.POST.getlist("condition"):
             condition="choosen"
             y=request.POST.getlist("condition")
@@ -1065,7 +1065,7 @@ def clothes(request):
             if size == "choosen":
                 clothes=clothes.filter(condition__in=y)
             else:
-                clothes =Products.objects.all().order_by(order).filter(categories="clothes",active = True,condition__in=y).exclude(user=request.user)
+                clothes =Products.objects.all().order_by(order).filter(categories="Clothes",active = True,condition__in=y).exclude(user=request.user)
         if request.POST.getlist("country"):
 
             z=request.POST.getlist("country")
@@ -1073,11 +1073,11 @@ def clothes(request):
             if size == "choosen" or condition=="choosen":
                 clothes=clothes.filter(country__in=z)
             else:
-                clothes =Products.objects.all().order_by(order).filter(categories="clothes",active = True,country__in=z).exclude(user=request.user)
+                clothes =Products.objects.all().order_by(order).filter(categories="Clothes",active = True,country__in=z).exclude(user=request.user)
 
     else:
         # ,price__lte=100
-        clothes =Products.objects.all().order_by('-id').filter(categories="clothes",active = True).exclude(user=request.user)
+        clothes =Products.objects.all().order_by('-id').filter(categories="Clothes",active = True).exclude(user=request.user)
 
         choice="Latest products"
         order="-id"
@@ -1154,9 +1154,9 @@ def accesories(request):
             y=request.POST.getlist("condition")
 
 
-            accesories =Products.objects.all().order_by(order).filter(categories="accesories",active = True,condition__in=y).exclude(user=request.user)
+            accesories =Products.objects.all().order_by(order).filter(categories="Accesories",active = True,condition__in=y).exclude(user=request.user)
         else:
-            accesories =Products.objects.all().order_by(order).filter(categories="accesories",active = True).exclude(user=request.user)
+            accesories =Products.objects.all().order_by(order).filter(categories="Accesories",active = True).exclude(user=request.user)
         if request.POST.getlist("country"):
 
             z=request.POST.getlist("country")
@@ -1164,11 +1164,11 @@ def accesories(request):
             if condition=="choosen":
                 accesories=accesories.filter(country__in=z)
             else:
-                accesories =Products.objects.all().order_by(order).filter(categories="accesories",active = True,country__in=z).exclude(user=request.user)
+                accesories =Products.objects.all().order_by(order).filter(categories="Accesories",active = True,country__in=z).exclude(user=request.user)
 
     else:
         # ,price__lte=100
-        accesories =Products.objects.all().order_by('-id').filter(categories="accesories",active = True).exclude(user=request.user)
+        accesories =Products.objects.all().order_by('-id').filter(categories="Accesories",active = True).exclude(user=request.user)
 
         choice="Latest products"
         order="-id"
