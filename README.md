@@ -1,4 +1,4 @@
-# BLESSED MARKETPLACE(Launch probably 15.1.23)
+# BLESSED MARKETPLACE(Launch probably 20.1.23)
 
 https://blessed.sk/
 
