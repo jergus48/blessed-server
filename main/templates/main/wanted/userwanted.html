@@ -71,14 +71,17 @@
   </form>
   {% endif %}
   <script>
-    document.addEventListener("DOMContentLoaded", function(event) { 
-        var scrollpos = localStorage.getItem('scrollpos');
-        if (scrollpos) window.scrollTo(0, scrollpos);
+    window.addEventListener('beforeunload', () => {
+      sessionStorage.setItem('scrollPos', window.pageYOffset);
     });
-  
-    window.onunload = function(e) {
-        localStorage.setItem('scrollpos', window.scrollY);
-    };
+    
+    // Restore scroll position after page reload
+    window.addEventListener('load', () => {
+      const scrollPos = sessionStorage.getItem('scrollPos');
+      if (scrollPos) {
+        window.scrollTo(0, scrollPos);
+      }
+    });
   </script>
 </body>
 {% endblock %}
