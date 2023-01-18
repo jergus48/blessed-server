@@ -272,13 +272,21 @@
 </div>
 <script src="{% static '/js/filterproducts.js' %}"></script>
 <script>
-  window.addEventListener('beforeunload', () => {
-    sessionStorage.setItem('scrollPos', window.pageYOffset);
+  window.addEventListener('unload', () => {
+    document.cookie = "scrollPos=" + window.pageYOffset;
   });
   
   // Restore scroll position after page reload
   window.addEventListener('load', () => {
-    const scrollPos = sessionStorage.getItem('scrollPos');
+    let scrollPos = null;
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith("scrollPos=")) {
+        scrollPos = cookie.substring(10);
+        break;
+      }
+    }
     if (scrollPos) {
       window.scrollTo(0, scrollPos);
     }
