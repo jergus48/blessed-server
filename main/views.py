@@ -418,7 +418,7 @@ def products(request ):
                 choicep="up to "+str(pricex)+"€"
 
    
-    paginator = Paginator(pd, 6) 
+    paginator = Paginator(pd, 30) 
     count=pd.count()
     page_number = request.GET.get('page')
     pd = paginator.get_page(page_number)
