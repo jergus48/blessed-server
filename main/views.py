@@ -20,8 +20,8 @@ def ProductCharge(request):
         try:
             print('DATa:',request.POST)
             product=request.POST['name']
-            # customer = stripe.Customer.create(email=request.user.email,name=request.user.first_name,description=request.POST['name'],source=request.POST['stripeToken'])
-            # charge = stripe.Charge.create(customer=customer,amount=100,currency='eur')
+            customer = stripe.Customer.create(email=request.user.email,name=request.user.first_name,description=request.POST['name'],source=request.POST['stripeToken'])
+            charge = stripe.Charge.create(customer=customer,amount=100,currency='eur')
             name=request.POST.get("name")
             p=Products(name=name)
             p.description = request.POST.get("description")
