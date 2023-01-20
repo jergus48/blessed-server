@@ -17,11 +17,11 @@ stripe.api_key=settings.STRIPE_SECRET_KEY
 def ProductCharge(request):
     
     if  request.method == 'POST':
-        # try:
+        try:
             print('DATa:',request.POST)
             product=request.POST['name']
-            customer = stripe.Customer.create(email=request.user.email,name=request.user.first_name,description=request.POST['name'],source=request.POST['stripeToken'])
-            charge = stripe.Charge.create(customer=customer,amount=100,currency='eur')
+            # customer = stripe.Customer.create(email=request.user.email,name=request.user.first_name,description=request.POST['name'],source=request.POST['stripeToken'])
+            # charge = stripe.Charge.create(customer=customer,amount=100,currency='eur')
             name=request.POST.get("name")
             p=Products(name=name)
             p.description = request.POST.get("description")
@@ -48,19 +48,19 @@ def ProductCharge(request):
             p.save()
             request.user.products.add(p)
             
-        # except:
-        #     response = redirect('/somethingwentwrong/')
-        #     return response
+        except:
+            response = redirect('/somethingwentwrong/')
+            return response
 
-        # return redirect(reverse('succes',args=[product]))
+        return redirect(reverse('succes',args=[product]))
 def WantedCharge(request):
     
     if  request.method == 'POST':
         try:
             print('DATa:',request.POST)
             product=request.POST['name']
-            customer = stripe.Customer.create(email=request.user.email,name=request.user.first_name,description=request.POST['name'],source=request.POST['stripeToken'])
-            charge = stripe.Charge.create(customer=customer,amount=100,currency='eur')
+            # customer = stripe.Customer.create(email=request.user.email,name=request.user.first_name,description=request.POST['name'],source=request.POST['stripeToken'])
+            # charge = stripe.Charge.create(customer=customer,amount=100,currency='eur')
             name=request.POST.get("name")
             w=Wanted(name=name)
 
