@@ -482,7 +482,7 @@ a {
 
 @media screen and (max-width:770px) {
     .products {
-        left: 10%;
+        left: 7%;
         width: 80%;
         height: 70%;
         grid-template-columns: repeat(2, 1fr);
@@ -581,7 +581,7 @@ a {
 
 @media screen and (max-width:401px) {
     .products {
-        left: 5%;
+        left: 3%;
     }
 }
 
