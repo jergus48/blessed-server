@@ -515,6 +515,9 @@ a {
 
 @media screen and (max-width:561px) {
 
+    .pagination {
+        left: 30%;
+    }
 
     .parameters {
         width: 120px;

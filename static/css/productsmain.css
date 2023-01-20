@@ -518,6 +518,10 @@ a {
     .image {
         width: 140px;
     }
+
+    .pagination {
+        left: 30%;
+    }
 }
 
 @media screen and (min-width:770px) {
