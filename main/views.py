@@ -293,7 +293,7 @@ def SearchResultsView(request):
             else:
                 pd=pd.filter(price__lte=pricex)
                 choicep="up to "+str(pricex)+"€"
-    paginator = Paginator(pd, 30) 
+    paginator = Paginator(pd, 32) 
     count=pd.count()
     page_number = request.GET.get('page')
     pd = paginator.get_page(page_number)
@@ -418,7 +418,7 @@ def products(request ):
                 choicep="up to "+str(pricex)+"€"
 
    
-    paginator = Paginator(pd, 30) 
+    paginator = Paginator(pd, 32) 
     count=pd.count()
     page_number = request.GET.get('page')
     pd = paginator.get_page(page_number)
@@ -719,7 +719,7 @@ def wanted(request, ):
             else:
                 wd=wd.filter(maxprice__lte=pricex)
                 choicep="up to "+str(pricex)+"€"
-    paginator = Paginator(wd, 30) 
+    paginator = Paginator(wd, 32) 
     count=wd.count()
     page_number = request.GET.get('page')
     wd = paginator.get_page(page_number)
@@ -1000,7 +1000,7 @@ def shoes(request):
             else:
                 shoes=shoes.filter(price__lte=pricex)
                 choicep="up to "+str(pricex)+"€"
-    paginator = Paginator(shoes, 30) 
+    paginator = Paginator(shoes, 32) 
     count=shoes.count()
     page_number = request.GET.get('page')
     shoes = paginator.get_page(page_number)
@@ -1097,7 +1097,7 @@ def clothes(request):
             else:
                 clothes=clothes.filter(price__lte=pricex)
                 choicep="up to "+str(pricex)+"€"
-    paginator = Paginator(clothes, 30) 
+    paginator = Paginator(clothes, 32) 
     count=clothes.count()
     page_number = request.GET.get('page')
     clothes = paginator.get_page(page_number)
@@ -1188,7 +1188,7 @@ def accesories(request):
             else:
                 accesories=accesories.filter(price__lte=pricex)
                 choicep="up to "+str(pricex)+"€"
-    paginator = Paginator(accesories, 30) 
+    paginator = Paginator(accesories, 32) 
     count=accesories.count()
     page_number = request.GET.get('page')
     accesories = paginator.get_page(page_number)
