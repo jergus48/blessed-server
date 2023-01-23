@@ -500,6 +500,7 @@ a {
 @media screen and (max-width:560px) {
     .product {
         width: 150px;
+        height: 150%;
         display: flex;
         justify-content: center;
         position: relative;
