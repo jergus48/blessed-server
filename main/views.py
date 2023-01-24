@@ -17,7 +17,7 @@ from django.conf import settings
 def ProductCharge(request):
     
     if  request.method == 'POST':
-        # try:
+        try:
             print('DATa:',request.POST)
             product=request.POST['name']
             # customer = stripe.Customer.create(email=request.user.email,name=request.user.first_name,description=request.POST['name'],source=request.POST['stripeToken'])
@@ -48,9 +48,9 @@ def ProductCharge(request):
             p.save()
             request.user.products.add(p)
             
-        # except:
-        #     response = redirect('/somethingwentwrong/')
-        #     return response
+        except:
+            response = redirect('/somethingwentwrong/')
+            return response
     
     return redirect(reverse('succes',args=[product]))
 def WantedCharge(request):
@@ -92,7 +92,7 @@ def WantedCharge(request):
             error = redirect('/somethingwentwrong/')
             return error
         
-        return redirect(reverse('succeswanted',args=[product]))
+    return redirect(reverse('succeswanted',args=[product]))
 def DonationCharge(request):
     
     if  request.method == 'POST':
