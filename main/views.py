@@ -51,7 +51,7 @@ def ProductCharge(request):
         # except:
         #     response = redirect('/somethingwentwrong/')
         #     return response
-    return render(request, 'main/addproducts.html',{})
+    return render(request, 'main/addProducts.html',{})
         # return redirect(reverse('succes',args=[product]))
 def WantedCharge(request):
     
