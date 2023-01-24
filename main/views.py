@@ -56,7 +56,7 @@ def ProductCharge(request):
 def WantedCharge(request):
     
     if  request.method == 'POST':
-        # try:
+        try:
             print('DATa:',request.POST)
             product=request.POST['name']
             # customer = stripe.Customer.create(email=request.user.email,name=request.user.first_name,description=request.POST['name'],source=request.POST['stripeToken'])
@@ -88,9 +88,9 @@ def WantedCharge(request):
                 w.save()
             request.user.wanted.add(w)
             
-        # except:
-        #     error = redirect('/somethingwentwrong/')
-        #     return error
+        except:
+            error = redirect('/somethingwentwrong/')
+            return error
         
     return redirect(reverse('succeswanted',args=[product]))
 def DonationCharge(request):
