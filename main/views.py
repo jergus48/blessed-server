@@ -429,8 +429,11 @@ def products(request ):
     next2=pd.number + 2
     previous2=pd.number -2  
 
-
-    return render(request, "main/products/products.html", {"count":count,"next2":next2,"previous2":previous2,"sizecheck":sizecheck,"countrycheck":countrycheck,"categoriescheck":categoriescheck,"conditioncheck":conditioncheck,"size_display":size_display,"country_display":country_display,"categories_display":categories_display,"condition_display":condition_display,"size_arrow":size_arrow,"country_arrow":country_arrow,"categories_arrow":categories_arrow,"condition_arrow":condition_arrow,"pd":pd,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"sizes":sizes,"x":x,"y":y,"z":z,"c":c,"conditions":conditions,"eu_countries":eu_countries})
+    context={"count":count,"next2":next2,"previous2":previous2,"sizecheck":sizecheck,"countrycheck":countrycheck,"categoriescheck":categoriescheck,
+    "conditioncheck":conditioncheck,"size_display":size_display,"country_display":country_display,"categories_display":categories_display,"condition_display":condition_display,
+    "size_arrow":size_arrow,"country_arrow":country_arrow,"categories_arrow":categories_arrow,"condition_arrow":condition_arrow,"pd":pd,"choice":choice,
+    "order":order,"choicep":choicep,"price":pricex,"categories":categories,"sizes":sizes,"x":x,"y":y,"z":z,"c":c,"conditions":conditions,"eu_countries":eu_countries}
+    return render(request, "main/products/products.html", context)
 def userproducts(response):
     pd=Products.objects.all().order_by('-id').filter(user=response.user)
     if response.method =="POST":
@@ -603,8 +606,12 @@ def UsersProducts(request,id):
 
 
 
-
-    return render(request, "main/products/UsersProducts.html", {"sizecheck":sizecheck,"countrycheck":countrycheck,"categoriescheck":categoriescheck,"conditioncheck":conditioncheck,"size_display":size_display,"country_display":country_display,"categories_display":categories_display,"condition_display":condition_display,"size_arrow":size_arrow,"country_arrow":country_arrow,"categories_arrow":categories_arrow,"condition_arrow":condition_arrow,"pd":pd,"choice":choice,"user":user,"ig":ig,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"sizes":sizes,"x":x,"y":y,"z":z,"c":c,"conditions":conditions,"eu_countries":eu_countries})
+    context={"sizecheck":sizecheck,"countrycheck":countrycheck,"categoriescheck":categoriescheck,"conditioncheck":conditioncheck,
+    "size_display":size_display,"country_display":country_display,"categories_display":categories_display,"condition_display":condition_display,
+    "size_arrow":size_arrow,"country_arrow":country_arrow,"categories_arrow":categories_arrow,"condition_arrow":condition_arrow,"pd":pd,
+    "choice":choice,"user":user,"ig":ig,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"sizes":sizes,"x":x,"y":y,"z":z,
+    "c":c,"conditions":conditions,"eu_countries":eu_countries}
+    return render(request, "main/products/UsersProducts.html", context)
 
 def productEdit(response, id):
     if response.user.is_authenticated == False:
@@ -729,7 +736,11 @@ def wanted(request, ):
     wd = paginator.get_page(page_number)
     next2=wd.number + 2
     previous2=wd.number -2  
-    return render(request, "main/wanted/wanted.html", {"count":count,"next2":next2,"previous2":previous2,"sizecheck":sizecheck,"countrycheck":countrycheck,"categoriescheck":categoriescheck,"size_display":size_display,"country_display":country_display,"categories_display":categories_display,"size_arrow":size_arrow,"country_arrow":country_arrow,"categories_arrow":categories_arrow,"wd":wd,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"c":c,"sizes":sizes,"x":x,"z":z,"eu_countries":eu_countries})
+    context={"count":count,"next2":next2,"previous2":previous2,"sizecheck":sizecheck,"countrycheck":countrycheck,"categoriescheck":categoriescheck,
+    "size_display":size_display,"country_display":country_display,"categories_display":categories_display,"size_arrow":size_arrow,"country_arrow":country_arrow,
+    "categories_arrow":categories_arrow,"wd":wd,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"c":c,"sizes":sizes,"x":x,
+    "z":z,"eu_countries":eu_countries}
+    return render(request, "main/wanted/wanted.html", context)
 def userwanted(response):
     wd=Wanted.objects.all().order_by('-id').filter(user=response.user)
     if response.method =="POST":
@@ -857,7 +868,11 @@ def UsersWanted(request,id):
             else:
                 wd=wd.filter(maxprice__lte=pricex)
                 choicep="up to "+str(pricex)+"€"
-    return render(request, "main/wanted/UsersWanted.html", {"sizecheck":sizecheck,"countrycheck":countrycheck,"categoriescheck":categoriescheck,"size_display":size_display,"country_display":country_display,"categories_display":categories_display,"size_arrow":size_arrow,"country_arrow":country_arrow,"categories_arrow":categories_arrow,"user":user,"ig":ig,"wd":wd,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"c":c,"sizes":sizes,"x":x,"z":z,"eu_countries":eu_countries})
+    context={"sizecheck":sizecheck,"countrycheck":countrycheck,"categoriescheck":categoriescheck,"size_display":size_display,
+    "country_display":country_display,"categories_display":categories_display,"size_arrow":size_arrow,"country_arrow":country_arrow,
+    "categories_arrow":categories_arrow,"user":user,"ig":ig,"wd":wd,"choice":choice,"order":order,"choicep":choicep,"price":pricex,
+    "categories":categories,"c":c,"sizes":sizes,"x":x,"z":z,"eu_countries":eu_countries}
+    return render(request, "main/wanted/UsersWanted.html", context)
 def addWanted(response):
     if response.user.is_authenticated == False:
         response = redirect('/login/')
@@ -1010,7 +1025,11 @@ def shoes(request):
     shoes = paginator.get_page(page_number)
     next2=shoes.number + 2
     previous2=shoes.number -2  
-    return render(request, "main/products/shoes.html", {"count":count,"next2":next2,"previous2":previous2,"sizecheck":sizecheck,"countrycheck":countrycheck,"conditioncheck":conditioncheck,"size_display":size_display,"country_display":country_display,"condition_display":condition_display,"size_arrow":size_arrow,"country_arrow":country_arrow,"condition_arrow":condition_arrow,"pd":shoes,"choice":choice,"choicep":choicep,"price":pricex,"order":order,"sizes":sizes,"x":x,"y":y,"z":z,"conditions":conditions,"eu_countries":eu_countries})
+    context={"count":count,"next2":next2,"previous2":previous2,"sizecheck":sizecheck,"countrycheck":countrycheck,"conditioncheck":conditioncheck,
+    "size_display":size_display,"country_display":country_display,"condition_display":condition_display,"size_arrow":size_arrow,
+    "country_arrow":country_arrow,"condition_arrow":condition_arrow,"pd":shoes,"choice":choice,"choicep":choicep,"price":pricex,"order":order,
+    "sizes":sizes,"x":x,"y":y,"z":z,"conditions":conditions,"eu_countries":eu_countries}
+    return render(request, "main/products/shoes.html", context)
 def clothes(request):
     sizecheck=""
     conditioncheck=""
@@ -1107,7 +1126,11 @@ def clothes(request):
     clothes = paginator.get_page(page_number)
     next2=clothes.number + 2
     previous2=clothes.number -2  
-    return render(request, "main/products/clothes.html", {"count":count,"next2":next2,"previous2":previous2,"sizecheck":sizecheck,"countrycheck":countrycheck,"conditioncheck":conditioncheck,"size_display":size_display,"country_display":country_display,"condition_display":condition_display,"size_arrow":size_arrow,"country_arrow":country_arrow,"condition_arrow":condition_arrow,"pd":clothes,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"sizes":sizes,"x":x,"y":y,"z":z,"conditions":conditions,"eu_countries":eu_countries})
+    context={"count":count,"next2":next2,"previous2":previous2,"sizecheck":sizecheck,"countrycheck":countrycheck,"conditioncheck":conditioncheck,
+    "size_display":size_display,"country_display":country_display,"condition_display":condition_display,"size_arrow":size_arrow,"country_arrow":country_arrow,
+    "condition_arrow":condition_arrow,"pd":clothes,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"sizes":sizes,"x":x,"y":y,"z":z,
+    "conditions":conditions,"eu_countries":eu_countries}
+    return render(request, "main/products/clothes.html", context)
 def accesories(request):
     sizecheck=""
     conditioncheck=""
@@ -1198,6 +1221,9 @@ def accesories(request):
     accesories = paginator.get_page(page_number)
     next2=accesories.number + 2
     previous2=accesories.number -2  
-    return render(request, "main/products/accesories.html", {"count":count,"next2":next2,"previous2":previous2,"sizecheck":sizecheck,"countrycheck":countrycheck,"conditioncheck":conditioncheck,"size_display":size_display,"country_display":country_display,"condition_display":condition_display,"size_arrow":size_arrow,"country_arrow":country_arrow,"condition_arrow":condition_arrow,"pd":accesories,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"y":y,"z":z,"conditions":conditions,"eu_countries":eu_countries})
+    context={"count":count,"next2":next2,"previous2":previous2,"sizecheck":sizecheck,"countrycheck":countrycheck,"conditioncheck":conditioncheck,
+    "size_display":size_display,"country_display":country_display,"condition_display":condition_display,"size_arrow":size_arrow,"country_arrow":country_arrow,
+    "condition_arrow":condition_arrow,"pd":accesories,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"y":y,"z":z,"conditions":conditions,"eu_countries":eu_countries}
+    return render(request, "main/products/accesories.html", context)
 
 
