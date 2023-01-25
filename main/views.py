@@ -299,7 +299,11 @@ def SearchResultsView(request):
     pd = paginator.get_page(page_number)
     next2=pd.number + 2
     previous2=pd.number -2  
-    return render(request, "main/SearchResults.html", {"count":count,"next2":next2,"previous2":previous2,"sizecheck":sizecheck,"countrycheck":countrycheck,"categoriescheck":categoriescheck,"conditioncheck":conditioncheck,"size_display":size_display,"country_display":country_display,"categories_display":categories_display,"condition_display":condition_display,"size_arrow":size_arrow,"country_arrow":country_arrow,"categories_arrow":categories_arrow,"condition_arrow":condition_arrow,"pd":pd,"name":name,"choice":choice,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"sizes":sizes,"x":x,"y":y,"z":z,"c":c,"conditions":conditions,"eu_countries":eu_countries})
+    context= {"count":count,"next2":next2,"previous2":previous2,"sizecheck":sizecheck,"countrycheck":countrycheck,"categoriescheck":categoriescheck,"conditioncheck":conditioncheck,
+    "size_display":size_display,"country_display":country_display,"categories_display":categories_display,"condition_display":condition_display,"size_arrow":size_arrow,
+    "country_arrow":country_arrow,"categories_arrow":categories_arrow,"condition_arrow":condition_arrow,"pd":pd,"name":name,"choice":choice,"order":order,"choicep":choicep,"price":pricex,
+    "categories":categories,"sizes":sizes,"x":x,"y":y,"z":z,"c":c,"conditions":conditions,"eu_countries":eu_countries}
+    return render(request, "main/SearchResults.html", context)
 
  #products
 def products(request ):
