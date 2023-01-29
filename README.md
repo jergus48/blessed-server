@@ -1,4 +1,4 @@
-# BLESSED MARKETPLACE(Launch probably 20.1.23)
+# BLESSED MARKETPLACE
 
 https://blessed.sk/
 
@@ -13,7 +13,7 @@ Made by:
 
 Features:
 
-- sell sneakers,clothes,accesories or add your  wanted products for price 1€
+- sell sneakers,clothes,accesories or add your  wanted products for price 1€(now for FREE)
 - buy free
 - filters
 - search
