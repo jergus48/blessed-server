@@ -29,14 +29,9 @@
 </head>
 
 <body>
-  {% if user.is_authenticated == False%}
-  <a href="/">
-    <img src="{% static '/images/icons/logo4.jpg' %}" class="logo">
-    </a>
-    {% endif %}
-    {% if user.is_authenticated%}
+  
   <h1>About Us</h1>
-  {% endif %}
+
   <div class="about-us-top">
     <p class="about-us">Blessed is an online marketplace for selling/buying hype sneakers, streetwear or accesories.
       Blessed is avaible for the whole Europe.

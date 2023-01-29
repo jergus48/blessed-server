@@ -1,4 +1,4 @@
-{% load static%} {% if user.is_authenticated %}
+{% load static%} 
 
 <head>
   <meta charset="UTF-8">
@@ -36,9 +36,15 @@
         <li><a href="/mywanted/">Wanted</a></li>
         <li><a href="/myproducts/">My products</a></li>
         <li><a href="/about-us/">About us</a></li>
+        {% if user.is_authenticated %}
         <a href="/logout/" class="logout">
           <button class="log-out">Logout</button>
         </a>
+        {% else %}
+        <a href="/login/" class="logout">
+          <button class="log-out">Login</button>
+        </a>
+        {% endif %}
       </ul>
     </nav>
     <div class="hamburger">
@@ -51,12 +57,18 @@
     <a id="link2" href="/mywanted/">Wanted</a>
     <a id="link3" href="/myproducts/">My products</a>
     <a id="link4" href="/about-us/">About us</a>
+    {% if user.is_authenticated %}
     <a id="link5" href="/logout/" class="logout">
       <button id="link" class="log-out-mobile">Logout</button>
     </a>
+    {% else %}
+    <a id="link5" href="/login/" class="login">
+      <button id="link" class="log-out-mobile">Login</button>
+    </a>
+    {% endif %}
 
   </nav>
 </div>
 <script src="{% static '/js/navbar.js' %}"></script>
 
-{% endif %} {% block content %} {% endblock %}
+ {% block content %} {% endblock %}

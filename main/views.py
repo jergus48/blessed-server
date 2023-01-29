@@ -132,16 +132,12 @@ def somethingwentwrong(request):
     
     return render(request, 'main/somethingwentwrong.html',{})
 def home(response):
-
-
-
-    try:
-
-            ls =Products.objects.filter(active = True).exclude(user=response.user).order_by('-id')[:10]
-            wd =Wanted.objects.filter(active = True).exclude(user=response.user).order_by('-id')[:10]
-
-    except:
-            print("nejde")
+    if response.user.is_authenticated == True:
+        ls =Products.objects.filter(active = True).exclude(user=response.user).order_by('-id')[:10]
+        wd =Wanted.objects.filter(active = True).exclude(user=response.user).order_by('-id')[:10]
+    else:
+        ls =Products.objects.filter(active = True).order_by('-id')[:10]
+        wd =Wanted.objects.filter(active = True).order_by('-id')[:10]
 
 
     return render(response, "main/home.html", {"ls":ls,"wd":wd})
@@ -236,9 +232,9 @@ def SearchResultsView(request):
         if request.POST.getlist("size"):
             size="choosen"
             x=request.POST.getlist("size")
-            pd =Products.objects.all().order_by(order).filter(Q(name__icontains=name),active = True,size__in=x).exclude(user=request.user)
+            pd =Products.objects.all().order_by(order).filter(Q(name__icontains=name),active = True,size__in=x)
         else:
-            pd =Products.objects.all().order_by(order).filter(Q(name__icontains=name),active = True).exclude(user=request.user)
+            pd =Products.objects.all().order_by(order).filter(Q(name__icontains=name),active = True)
         if request.POST.getlist("condition"):
             condition="choosen"
             y=request.POST.getlist("condition")
@@ -246,7 +242,7 @@ def SearchResultsView(request):
             if size == "choosen":
                 pd=pd.filter(condition__in=y)
             else:
-                pd =Products.objects.all().order_by(order).filter(Q(name__icontains=name),active = True,condition__in=y).exclude(user=request.user)
+                pd =Products.objects.all().order_by(order).filter(Q(name__icontains=name),active = True,condition__in=y)
         if request.POST.getlist("country"):
             country="choosen"
             z=request.POST.getlist("country")
@@ -254,7 +250,7 @@ def SearchResultsView(request):
             if size == "choosen" or condition=="choosen":
                 pd=pd.filter(country__in=z)
             else:
-                pd =Products.objects.all().order_by(order).filter(Q(name__icontains=name),active = True,country__in=z).exclude(user=request.user)
+                pd =Products.objects.all().order_by(order).filter(Q(name__icontains=name),active = True,country__in=z)
         if request.POST.getlist("category"):
             category=="choosen"
             c=request.POST.getlist("category")
@@ -266,14 +262,14 @@ def SearchResultsView(request):
             if size == "choosen" or condition=="choosen" or country=="choosen":
                 pd=pd.filter(categories__in=c)
             else:
-                pd =Products.objects.all().order_by(order).filter(Q(name__icontains=name),active = True,categories__in=c).exclude(user=request.user)
+                pd =Products.objects.all().order_by(order).filter(Q(name__icontains=name),active = True,categories__in=c)
         else:
             sizes=clothessizes+shoessizes
 
     else:
         # ,price__lte=100
         sizes=clothessizes+shoessizes
-        pd =Products.objects.all().order_by('-id').filter(Q(name__icontains=name),active = True).exclude(user=request.user)
+        pd =Products.objects.all().order_by('-id').filter(Q(name__icontains=name),active = True)
 
         choice="Latest products"
         order="-id"
@@ -293,6 +289,8 @@ def SearchResultsView(request):
             else:
                 pd=pd.filter(price__lte=pricex)
                 choicep="up to "+str(pricex)+"€"
+    if request.user.is_authenticated == True:
+        pd=pd.exclude(user=request.user)
     paginator = Paginator(pd, 32) 
     count=pd.count()
     page_number = request.GET.get('page')
@@ -366,9 +364,9 @@ def products(request ):
         if request.POST.getlist("size"):
             size="choosen"
             x=request.POST.getlist("size")
-            pd =Products.objects.all().order_by(order).filter(active = True,size__in=x).exclude(user=request.user)
+            pd =Products.objects.all().order_by(order).filter(active = True,size__in=x)
         else:
-            pd =Products.objects.all().order_by(order).filter(active = True).exclude(user=request.user)
+            pd =Products.objects.all().order_by(order).filter(active = True)
         if request.POST.getlist("condition"):
             condition="choosen"
             y=request.POST.getlist("condition")
@@ -376,7 +374,7 @@ def products(request ):
             if size == "choosen":
                 pd=pd.filter(condition__in=y)
             else:
-                pd =Products.objects.all().order_by(order).filter(active = True,condition__in=y).exclude(user=request.user)
+                pd =Products.objects.all().order_by(order).filter(active = True,condition__in=y)
         if request.POST.getlist("country"):
             country="choosen"
             z=request.POST.getlist("country")
@@ -384,7 +382,7 @@ def products(request ):
             if size == "choosen" or condition=="choosen":
                 pd=pd.filter(country__in=z)
             else:
-                pd =Products.objects.all().order_by(order).filter(active = True,country__in=z).exclude(user=request.user)
+                pd =Products.objects.all().order_by(order).filter(active = True,country__in=z)
         if request.POST.getlist("category"):
             category=="choosen"
             c=request.POST.getlist("category")
@@ -395,12 +393,12 @@ def products(request ):
             if size == "choosen" or condition=="choosen" or country=="choosen":
                 pd=pd.filter(categories__in=c)
             else:
-                pd =Products.objects.all().order_by(order).filter(active = True,categories__in=c).exclude(user=request.user)
+                pd =Products.objects.all().order_by(order).filter(active = True,categories__in=c)
         else:
             sizes=clothessizes+shoessizes
     else:
         
-        pd =Products.objects.all().order_by('-id').filter(active = True).exclude(user=request.user)
+        pd =Products.objects.all().order_by('-id').filter(active = True)
         sizes=clothessizes+shoessizes
         choice="Latest products"
         order="-id"
@@ -421,7 +419,8 @@ def products(request ):
                 pd=pd.filter(price__lte=pricex)
                 choicep="up to "+str(pricex)+"€"
 
-   
+    if request.user.is_authenticated == True:
+        pd=pd.exclude(user=request.user)
     paginator = Paginator(pd, 32) 
     count=pd.count()
     page_number = request.GET.get('page')
@@ -435,6 +434,9 @@ def products(request ):
     "order":order,"choicep":choicep,"price":pricex,"categories":categories,"sizes":sizes,"x":x,"y":y,"z":z,"c":c,"conditions":conditions,"eu_countries":eu_countries}
     return render(request, "main/products/products.html", context)
 def userproducts(response):
+    if response.user.is_authenticated == False:
+        response = redirect('/login/')
+        return response
     pd=Products.objects.all().order_by('-id').filter(user=response.user)
     if response.method =="POST":
 
@@ -476,18 +478,14 @@ def addProducts(response):
 
     return render(response, "main/products/addProducts.html", {"eu":eu_countries,"shoessize":shoessize,"clothessize":clothessize})
 def productLook(response, id):
-    if response.user.is_authenticated == False:
-        response = redirect('/login/')
-        return response
+    
     pd =Products.objects.get(id=id)
     ig=pd.user.last_name.replace("@","")
 
 
     return render(response, "main/products/productLook.html", {"pd":pd,"ig":ig})
 def UsersProducts(request,id):
-    if request.user.is_authenticated == False:
-        response = redirect('/login/')
-        return response
+    
     c=[]
     x=[]
     y=[]
@@ -683,9 +681,9 @@ def wanted(request, ):
         if request.POST.getlist("size"):
             size="choosen"
             x=request.POST.getlist("size")
-            wd =Wanted.objects.all().order_by(order).filter(active = True,size__in=x).exclude(user=request.user)
+            wd =Wanted.objects.all().order_by(order).filter(active = True,size__in=x)
         else:
-            wd =Wanted.objects.all().order_by(order).filter(active = True).exclude(user=request.user)
+            wd =Wanted.objects.all().order_by(order).filter(active = True)
 
         if request.POST.getlist("country"):
             country="choosen"
@@ -694,7 +692,7 @@ def wanted(request, ):
             if size == "choosen" :
                 wd=wd.filter(country__in=z)
             else:
-                wd =Wanted.objects.all().order_by(order).filter(active = True,country__in=z).exclude(user=request.user)
+                wd =Wanted.objects.all().order_by(order).filter(active = True,country__in=z)
         if request.POST.getlist("category"):
             category=="choosen"
             c=request.POST.getlist("category")
@@ -705,12 +703,12 @@ def wanted(request, ):
             if size == "choosen" or country=="choosen":
                 wd=wd.filter(categories__in=c)
             else:
-                wd =Wanted.objects.all().order_by(order).filter(active = True,categories__in=c).exclude(user=request.user)
+                wd =Wanted.objects.all().order_by(order).filter(active = True,categories__in=c)
         else:
             sizes=clothessizes+shoessizes
     else:
         # ,price__lte=100
-        wd =Wanted.objects.all().order_by('-id').filter(active = True).exclude(user=request.user)
+        wd =Wanted.objects.all().order_by('-id').filter(active = True)
         sizes=clothessizes+shoessizes
         choice="Latest products"
         order="-id"
@@ -730,6 +728,8 @@ def wanted(request, ):
             else:
                 wd=wd.filter(maxprice__lte=pricex)
                 choicep="up to "+str(pricex)+"€"
+    if request.user.is_authenticated == True:
+        wd=wd.exclude(user=request.user)
     paginator = Paginator(wd, 32) 
     count=wd.count()
     page_number = request.GET.get('page')
@@ -742,6 +742,9 @@ def wanted(request, ):
     "z":z,"eu_countries":eu_countries}
     return render(request, "main/wanted/wanted.html", context)
 def userwanted(response):
+    if response.user.is_authenticated == False:
+        response = redirect('/login/')
+        return response
     wd=Wanted.objects.all().order_by('-id').filter(user=response.user)
     if response.method =="POST":
 
@@ -767,9 +770,6 @@ def userwanted(response):
 
     return render(response, "main/wanted/userwanted.html", {"wd":wd})
 def UsersWanted(request,id):
-    if request.user.is_authenticated == False:
-        response = redirect('/login/')
-        return response
     user=User.objects.get(id=id)
     ig=user.last_name.replace("@","")
     c=[]
@@ -884,9 +884,7 @@ def addWanted(response):
     
     return render(response, "main/wanted/addWanted.html", {"eu":eu_countries,"shoessize":shoessize,"clothessize":clothessize})
 def wantedLook(response, id):
-    if response.user.is_authenticated == False:
-        response = redirect('/login/')
-        return response
+   
     wid= str(id).replace("w", "")
     pd =Wanted.objects.get(id=wid)
     ig=pd.user.last_name.replace("@","")
@@ -977,9 +975,9 @@ def shoes(request):
         if request.POST.getlist("size"):
             size="choosen"
             x=request.POST.getlist("size")
-            shoes =Products.objects.all().order_by(order).filter(categories="Shoes",active = True,size__in=x).exclude(user=request.user)
+            shoes =Products.objects.all().order_by(order).filter(categories="Shoes",active = True,size__in=x)
         else:
-            shoes =Products.objects.all().order_by(order).filter(categories="Shoes",active = True).exclude(user=request.user)
+            shoes =Products.objects.all().order_by(order).filter(categories="Shoes",active = True)
         if request.POST.getlist("condition"):
             condition="choosen"
             y=request.POST.getlist("condition")
@@ -987,7 +985,7 @@ def shoes(request):
             if size == "choosen":
                 shoes=shoes.filter(condition__in=y)
             else:
-                shoes =Products.objects.all().order_by(order).filter(categories="Shoes",active = True,condition__in=y).exclude(user=request.user)
+                shoes =Products.objects.all().order_by(order).filter(categories="Shoes",active = True,condition__in=y)
         if request.POST.getlist("country"):
 
             z=request.POST.getlist("country")
@@ -995,11 +993,11 @@ def shoes(request):
             if size == "choosen" or condition=="choosen":
                 shoes=shoes.filter(country__in=z)
             else:
-                shoes =Products.objects.all().order_by(order).filter(categories="Shoes",active = True,country__in=z).exclude(user=request.user)
+                shoes =Products.objects.all().order_by(order).filter(categories="Shoes",active = True,country__in=z)
 
     else:
         # ,price__lte=100
-        shoes =Products.objects.all().order_by('-id').filter(categories="Shoes",active = True).exclude(user=request.user)
+        shoes =Products.objects.all().order_by('-id').filter(categories="Shoes",active = True)
 
         choice="Latest products"
         order="-id"
@@ -1019,6 +1017,8 @@ def shoes(request):
             else:
                 shoes=shoes.filter(price__lte=pricex)
                 choicep="up to "+str(pricex)+"€"
+    if request.user.is_authenticated == True:
+        shoes=shoes.exclude(user=request.user)
     paginator = Paginator(shoes, 32) 
     count=shoes.count()
     page_number = request.GET.get('page')
@@ -1078,9 +1078,9 @@ def clothes(request):
         if request.POST.getlist("size"):
             size="choosen"
             x=request.POST.getlist("size")
-            clothes =Products.objects.all().order_by(order).filter(categories="Clothes",active = True,size__in=x).exclude(user=request.user)
+            clothes =Products.objects.all().order_by(order).filter(categories="Clothes",active = True,size__in=x)
         else:
-            clothes =Products.objects.all().order_by(order).filter(categories="Clothes",active = True).exclude(user=request.user)
+            clothes =Products.objects.all().order_by(order).filter(categories="Clothes",active = True)
         if request.POST.getlist("condition"):
             condition="choosen"
             y=request.POST.getlist("condition")
@@ -1088,7 +1088,7 @@ def clothes(request):
             if size == "choosen":
                 clothes=clothes.filter(condition__in=y)
             else:
-                clothes =Products.objects.all().order_by(order).filter(categories="Clothes",active = True,condition__in=y).exclude(user=request.user)
+                clothes =Products.objects.all().order_by(order).filter(categories="Clothes",active = True,condition__in=y)
         if request.POST.getlist("country"):
 
             z=request.POST.getlist("country")
@@ -1096,11 +1096,11 @@ def clothes(request):
             if size == "choosen" or condition=="choosen":
                 clothes=clothes.filter(country__in=z)
             else:
-                clothes =Products.objects.all().order_by(order).filter(categories="Clothes",active = True,country__in=z).exclude(user=request.user)
+                clothes =Products.objects.all().order_by(order).filter(categories="Clothes",active = True,country__in=z)
 
     else:
         # ,price__lte=100
-        clothes =Products.objects.all().order_by('-id').filter(categories="Clothes",active = True).exclude(user=request.user)
+        clothes =Products.objects.all().order_by('-id').filter(categories="Clothes",active = True)
 
         choice="Latest products"
         order="-id"
@@ -1120,6 +1120,8 @@ def clothes(request):
             else:
                 clothes=clothes.filter(price__lte=pricex)
                 choicep="up to "+str(pricex)+"€"
+    if request.user.is_authenticated == True:
+        clothes=clothes.exclude(user=request.user)
     paginator = Paginator(clothes, 32) 
     count=clothes.count()
     page_number = request.GET.get('page')
@@ -1181,9 +1183,9 @@ def accesories(request):
             y=request.POST.getlist("condition")
 
 
-            accesories =Products.objects.all().order_by(order).filter(categories="Accesories",active = True,condition__in=y).exclude(user=request.user)
+            accesories =Products.objects.all().order_by(order).filter(categories="Accesories",active = True,condition__in=y)
         else:
-            accesories =Products.objects.all().order_by(order).filter(categories="Accesories",active = True).exclude(user=request.user)
+            accesories =Products.objects.all().order_by(order).filter(categories="Accesories",active = True)
         if request.POST.getlist("country"):
 
             z=request.POST.getlist("country")
@@ -1191,11 +1193,11 @@ def accesories(request):
             if condition=="choosen":
                 accesories=accesories.filter(country__in=z)
             else:
-                accesories =Products.objects.all().order_by(order).filter(categories="Accesories",active = True,country__in=z).exclude(user=request.user)
+                accesories =Products.objects.all().order_by(order).filter(categories="Accesories",active = True,country__in=z)
 
     else:
         # ,price__lte=100
-        accesories =Products.objects.all().order_by('-id').filter(categories="Accesories",active = True).exclude(user=request.user)
+        accesories =Products.objects.all().order_by('-id').filter(categories="Accesories",active = True)
 
         choice="Latest products"
         order="-id"
@@ -1215,6 +1217,8 @@ def accesories(request):
             else:
                 accesories=accesories.filter(price__lte=pricex)
                 choicep="up to "+str(pricex)+"€"
+    if request.user.is_authenticated == True:
+        accesories=accesories.exclude(user=request.user)
     paginator = Paginator(accesories, 32) 
     count=accesories.count()
     page_number = request.GET.get('page')
