@@ -1,7 +1,8 @@
 {% extends 'main/navbar.html' %} {% load static %} {% block content %}
 
 <head>
-  <link rel="stylesheet" href=" {% static '/css/home.css' %} " />
+  {% comment %} <link rel="stylesheet" href=" {% static '/css/home.css' %} " /> {% endcomment %}
+  <link rel="stylesheet" href="../static/css/home.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta charset="UTF-8" />
   <meta
