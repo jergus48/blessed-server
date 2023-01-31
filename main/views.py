@@ -18,7 +18,7 @@ def ProductCharge(request):
     
     if  request.method == 'POST':
         # try:
-            print('DATa:',request.POST)
+            
             product=request.POST['name']
             # customer = stripe.Customer.create(email=request.user.email,name=request.user.first_name,description=request.POST['name'],source=request.POST['stripeToken'])
             # charge = stripe.Charge.create(customer=customer,amount=100,currency='eur')
@@ -57,7 +57,7 @@ def WantedCharge(request):
     
     if  request.method == 'POST':
         # try:
-            print('DATa:',request.POST)
+           
             product=request.POST['name']
             # customer = stripe.Customer.create(email=request.user.email,name=request.user.first_name,description=request.POST['name'],source=request.POST['stripeToken'])
             # charge = stripe.Charge.create(customer=customer,amount=100,currency='eur')
