@@ -337,7 +337,9 @@ a {
     display: none;
 }
 
-@media screen and (max-width:1060px) {
+@media screen and (max-width:1120px) {}
+
+@media screen and (max-width:1120px) {
     .products {
 
 
@@ -348,6 +350,10 @@ a {
         grid-gap: 5%;
         grid-row-gap: 5%;
 
+    }
+
+    .pagination {
+        bottom: -800px;
     }
 
     .parameters {
@@ -368,6 +374,8 @@ a {
     .diff {
         top: 450px;
     }
+
+
 
     .container {
         margin-top: 175px;
@@ -453,7 +461,7 @@ a {
 
     .pagination {
         position: absolute;
-        bottom: -160;
+        bottom: -260;
         left: 40%;
         transform: translateX(-50%);
         width: 80%;

@@ -348,6 +348,10 @@ a {
 
     }
 
+    .pagination {
+        bottom: -800px;
+    }
+
     .parameters {
         display: flex;
         justify-content: space-evenly;
@@ -456,7 +460,7 @@ a {
 
     .pagination {
         position: absolute;
-        bottom: -160;
+        bottom: -260;
         left: 40%;
         transform: translateX(-50%);
         width: 80%;
