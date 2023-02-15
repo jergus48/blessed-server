@@ -161,6 +161,7 @@
 </script>
 {% comment %} <script src="{% static '/js/Look.js' %}"></script> {% endcomment %}
 <script>var img = document.getElementById("img")
+  var ad=document.querySelector("google-auto-placed")
   var navcon = document.getElementById("navcon")
   var kolonka1 = document.getElementById("kolonka1")
   var kolonka2 = document.getElementById("kolonka2")
@@ -176,6 +177,7 @@
    
     navcon.style.display = "none";
     kolonka1.style.display = "none";
+    ad.style.display = "none";
     row.classList.toggle('clicked');
         img.classList.toggle('clicked');
         kolonka2.classList.toggle('clicked');
@@ -202,6 +204,7 @@
         img.style.display = "none";
         navcon.style.display = "block";
         kolonka1.style.display = "flex";
+        ad.style.display = "block";
         row.classList.toggle('clicked');
         kolonka2.classList.toggle('clicked');
         img.classList.toggle('clicked');
