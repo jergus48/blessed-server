@@ -174,10 +174,9 @@
     
     if (i == "run"){
     i = "unrun"
-   
+    ad.style.display = "none";
     navcon.style.display = "none";
     kolonka1.style.display = "none";
-    ad.style.display = "none";
     row.classList.toggle('clicked');
         img.classList.toggle('clicked');
         kolonka2.classList.toggle('clicked');
@@ -200,11 +199,10 @@
        
        
         
-        
+        ad.style.display = "block";
         img.style.display = "none";
         navcon.style.display = "block";
         kolonka1.style.display = "flex";
-        ad.style.display = "block";
         row.classList.toggle('clicked');
         kolonka2.classList.toggle('clicked');
         img.classList.toggle('clicked');
