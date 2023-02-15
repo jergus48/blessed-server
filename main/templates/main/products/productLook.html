@@ -161,7 +161,6 @@
 </script>
 {% comment %} <script src="{% static '/js/Look.js' %}"></script> {% endcomment %}
 <script>var img = document.getElementById("img")
-  var ad=document.querySelector("google-auto-placed")
   var navcon = document.getElementById("navcon")
   var kolonka1 = document.getElementById("kolonka1")
   var kolonka2 = document.getElementById("kolonka2")
@@ -174,7 +173,7 @@
     
     if (i == "run"){
     i = "unrun"
-    
+   
     navcon.style.display = "none";
     kolonka1.style.display = "none";
     row.classList.toggle('clicked');
@@ -182,7 +181,7 @@
         kolonka2.classList.toggle('clicked');
         
         body.classList.toggle('clicked');
-    ad.style.display = "none";
+    
     
     
     window.scrollTo(0, 0);
@@ -209,7 +208,7 @@
         
         setTimeout(() => {body.classList.toggle('clicked');
         img.style.display = "block"; }, 50);
-        ad.style.display = "block";
+        
         
        
         }
