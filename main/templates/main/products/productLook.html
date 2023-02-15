@@ -174,7 +174,7 @@
     
     if (i == "run"){
     i = "unrun"
-    ad.style.display = "none";
+    
     navcon.style.display = "none";
     kolonka1.style.display = "none";
     row.classList.toggle('clicked');
@@ -182,7 +182,7 @@
         kolonka2.classList.toggle('clicked');
         
         body.classList.toggle('clicked');
-    
+    ad.style.display = "none";
     
     
     window.scrollTo(0, 0);
@@ -199,7 +199,7 @@
        
        
         
-        ad.style.display = "block";
+        
         img.style.display = "none";
         navcon.style.display = "block";
         kolonka1.style.display = "flex";
@@ -209,7 +209,7 @@
         
         setTimeout(() => {body.classList.toggle('clicked');
         img.style.display = "block"; }, 50);
-        
+        ad.style.display = "block";
         
        
         }
