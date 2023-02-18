@@ -13,7 +13,9 @@ from django.urls import reverse
 import stripe
 from django.conf import settings
 
-
+def ads_txt(request):
+    
+    return render(request, 'main/ads.html', {})
 def ProductCharge(request):
     
     if  request.method == 'POST':
