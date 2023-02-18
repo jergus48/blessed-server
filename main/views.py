@@ -15,7 +15,7 @@ from django.conf import settings
 
 def ad_blocker_recovery(request):
     if request.META.get('HTTP_ADVERTISING') == 'Blocked':
-        return render(request, 'adblocker.html')
+        return render(request, 'main/adblocker.html')
     
 def ProductCharge(request):
     
