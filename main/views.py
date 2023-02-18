@@ -548,9 +548,9 @@ def UsersProducts(request,id):
         if request.POST.getlist("size"):
             size="choosen"
             x=request.POST.getlist("size")
-            pd =Products.objects.all().order_by(order).filter(active = True,size__in=x,user=user)
+            pd =Products.objects.all().order_by(order).filter(active = True,size__in=x,user=chuser)
         else:
-            pd =Products.objects.all().order_by(order).filter(active = True,user=user)
+            pd =Products.objects.all().order_by(order).filter(active = True,user=chuser)
         if request.POST.getlist("condition"):
             condition="choosen"
             y=request.POST.getlist("condition")
@@ -558,7 +558,7 @@ def UsersProducts(request,id):
             if size == "choosen":
                 pd=pd.filter(condition__in=y)
             else:
-                pd =Products.objects.all().order_by(order).filter(active = True,condition__in=y,user=user)
+                pd =Products.objects.all().order_by(order).filter(active = True,condition__in=y,user=chuser)
         if request.POST.getlist("country"):
             country="choosen"
             z=request.POST.getlist("country")
@@ -566,7 +566,7 @@ def UsersProducts(request,id):
             if size == "choosen" or condition=="choosen":
                 pd=pd.filter(country__in=z)
             else:
-                pd =Products.objects.all().order_by(order).filter(active = True,country__in=z,user=user)
+                pd =Products.objects.all().order_by(order).filter(active = True,country__in=z,user=chuser)
         if request.POST.getlist("category"):
             category=="choosen"
             c=request.POST.getlist("category")
@@ -577,12 +577,12 @@ def UsersProducts(request,id):
             if size == "choosen" or condition=="choosen" or country=="choosen":
                 pd=pd.filter(categories__in=c)
             else:
-                pd =Products.objects.all().order_by(order).filter(active = True,categories__in=c,user=user)
+                pd =Products.objects.all().order_by(order).filter(active = True,categories__in=c,user=chuser)
         else:
             sizes=clothessizes+shoessizes
     else:
         # ,price__lte=100
-        pd =Products.objects.all().order_by('-id').filter(active = True,user=user)
+        pd =Products.objects.all().order_by('-id').filter(active = True,user=chuser)
         sizes=clothessizes+shoessizes
         choice="Latest products"
         order="-id"
