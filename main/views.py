@@ -503,8 +503,8 @@ def UsersProducts(request,id):
     condition_arrow=0
     categories_arrow=0
     country_arrow=0
-    user=User.objects.get(id=id)
-    ig=user.last_name.replace("@","")
+    chuser=User.objects.get(id=id)
+    ig=chuser.last_name.replace("@","")
     choicep="Price up to €"
     pricex=""
     categories=["Shoes","Clothes","Accesories"]
@@ -608,7 +608,7 @@ def UsersProducts(request,id):
     context={"sizecheck":sizecheck,"countrycheck":countrycheck,"categoriescheck":categoriescheck,"conditioncheck":conditioncheck,
     "size_display":size_display,"country_display":country_display,"categories_display":categories_display,"condition_display":condition_display,
     "size_arrow":size_arrow,"country_arrow":country_arrow,"categories_arrow":categories_arrow,"condition_arrow":condition_arrow,"pd":pd,
-    "choice":choice,"user":user,"ig":ig,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"sizes":sizes,"x":x,"y":y,"z":z,
+    "choice":choice,"chuser":chuser,"ig":ig,"order":order,"choicep":choicep,"price":pricex,"categories":categories,"sizes":sizes,"x":x,"y":y,"z":z,
     "c":c,"conditions":conditions,"eu_countries":eu_countries}
     return render(request, "main/products/UsersProducts.html", context)
 
@@ -774,8 +774,8 @@ def userwanted(response):
 
     return render(response, "main/wanted/userwanted.html", {"wd":wd})
 def UsersWanted(request,id):
-    user=User.objects.get(id=id)
-    ig=user.last_name.replace("@","")
+    chuser=User.objects.get(id=id)
+    ig=chuser.last_name.replace("@","")
     c=[]
     x=[]
     z=[]
@@ -824,9 +824,9 @@ def UsersWanted(request,id):
         if request.POST.getlist("size"):
             size="choosen"
             x=request.POST.getlist("size")
-            wd =Wanted.objects.all().order_by(order).filter(active = True,size__in=x,user=user)
+            wd =Wanted.objects.all().order_by(order).filter(active = True,size__in=x,user=chuser)
         else:
-            wd =Wanted.objects.all().order_by(order).filter(active = True,user=user)
+            wd =Wanted.objects.all().order_by(order).filter(active = True,user=chuser)
 
         if request.POST.getlist("country"):
             country="choosen"
@@ -835,7 +835,7 @@ def UsersWanted(request,id):
             if size == "choosen" :
                 wd=wd.filter(country__in=z)
             else:
-                wd =Wanted.objects.all().order_by(order).filter(active = True,country__in=z,user=user)
+                wd =Wanted.objects.all().order_by(order).filter(active = True,country__in=z,user=chuser)
         if request.POST.getlist("category"):
             category=="choosen"
             c=request.POST.getlist("category")
@@ -846,13 +846,13 @@ def UsersWanted(request,id):
             if size == "choosen" or country=="choosen":
                 wd=wd.filter(categories__in=c)
             else:
-                wd =Wanted.objects.all().order_by(order).filter(active = True,categories__in=c,user=user)
+                wd =Wanted.objects.all().order_by(order).filter(active = True,categories__in=c,user=chuser)
         else:
             sizes=clothessizes+shoessizes
     else:
         # ,price__lte=100
         sizes=clothessizes+shoessizes
-        wd =Wanted.objects.all().order_by('-id').filter(active = True,user=user)
+        wd =Wanted.objects.all().order_by('-id').filter(active = True,user=chuser)
         sizes=shoessizes+clothessizes
         choice="Latest products"
         order="-id"
@@ -874,7 +874,7 @@ def UsersWanted(request,id):
                 choicep="up to "+str(pricex)+"€"
     context={"sizecheck":sizecheck,"countrycheck":countrycheck,"categoriescheck":categoriescheck,"size_display":size_display,
     "country_display":country_display,"categories_display":categories_display,"size_arrow":size_arrow,"country_arrow":country_arrow,
-    "categories_arrow":categories_arrow,"user":user,"ig":ig,"wd":wd,"choice":choice,"order":order,"choicep":choicep,"price":pricex,
+    "categories_arrow":categories_arrow,"chuser":chuser,"ig":ig,"wd":wd,"choice":choice,"order":order,"choicep":choicep,"price":pricex,
     "categories":categories,"c":c,"sizes":sizes,"x":x,"z":z,"eu_countries":eu_countries}
     return render(request, "main/wanted/UsersWanted.html", context)
 def addWanted(response):
