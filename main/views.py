@@ -14,7 +14,7 @@ import stripe
 from django.conf import settings
 
 def ads_txt(request):
-    with open('./ads.txt') as file:
+    with open('ads.txt') as file:
         content = file.read()
     return render(request, 'ads.html', {'content': content})
 def ProductCharge(request):
