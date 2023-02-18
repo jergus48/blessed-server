@@ -20,7 +20,6 @@ urlpatterns = [
     path("succes/<str:args>/", views.succesMsg, name="succes"),
     path("succes/wanted/<str:args>/", views.succesWMsg, name="succeswanted"),
     path("donation/<str:args>/", views.DonationMsg, name="donation"),
-    path('addblocker-user/', views.ad_blocker_recovery, name='ad_blocker_recovery'),
     #products
     path("products/", views.products, name="products"),
     path("myproducts/", views.userproducts, name="myproducts"),
