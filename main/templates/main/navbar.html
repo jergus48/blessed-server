@@ -92,6 +92,7 @@
 
   </nav>
 </div>
+
 <script src="{% static '/js/navbar.js' %}"></script>
 <script>
   var adBlockEnabled = false;
@@ -103,7 +104,7 @@
     if (testAd.offsetHeight === 0) {
       adBlockEnabled = true;
       // Here you can display a message or pop-up notifying the user about the ad-blocker.
-      alert("Please disable your ad-blocker to view this content.");
+      alert("Please disable your ad-blocker, We rely on advertising to help fund our site.");
     }
     testAd.remove();
   }, 100);
