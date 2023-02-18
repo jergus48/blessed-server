@@ -93,7 +93,7 @@
   </nav>
 </div>
 <script src="{% static '/js/navbar.js' %}"></script>
-<script>
+{% comment %} <script>
   var adBlockEnabled = false;
   var testAd = document.createElement('div');
   testAd.innerHTML = '&nbsp;';
@@ -106,6 +106,6 @@
       testAd.remove();
       window.location.href = "{% url 'ad_blocker_recovery' %}"
   }, 100);
-</script>
+</script> {% endcomment %}
 
  {% block content %} {% endblock %}
