@@ -44,7 +44,21 @@
     <script src="{% static '/js/login.js' %}">
 
     </script>
-    
+    <script>
+      var adBlockEnabled = false;
+      var testAd = document.createElement('div');
+      testAd.innerHTML = '&nbsp;';
+      testAd.className = 'adsbox';
+      document.body.appendChild(testAd);
+      window.setTimeout(function() {
+        if (testAd.offsetHeight === 0) {
+          adBlockEnabled = true;
+          // Here you can display a message or pop-up notifying the user about the ad-blocker.
+          alert("Please disable your ad-blocker, We rely on advertising to help fund our site.");
+        }
+        testAd.remove();
+      }, 100);
+    </script>
     {% endblock %}
     
   </body>
