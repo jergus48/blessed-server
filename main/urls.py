@@ -20,6 +20,7 @@ urlpatterns = [
     path("succes/<str:args>/", views.succesMsg, name="succes"),
     path("succes/wanted/<str:args>/", views.succesWMsg, name="succeswanted"),
     path("donation/<str:args>/", views.DonationMsg, name="donation"),
+    path('ads.txt', views.ads_txt, name='ads_txt'),
     #products
     path("products/", views.products, name="products"),
     path("myproducts/", views.userproducts, name="myproducts"),
