@@ -13,7 +13,12 @@ from django.urls import reverse
 import stripe
 from django.conf import settings
 
-
+def ad_blocker_recovery(request):
+    if request.META.get('HTTP_ADVERTISING') == 'Blocked':
+        return render(request, 'adblocker.html')
+    else:
+        response=redirect('/')
+        return response
 def ProductCharge(request):
     
     if  request.method == 'POST':
